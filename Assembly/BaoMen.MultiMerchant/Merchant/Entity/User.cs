@@ -1,0 +1,259 @@
+﻿/*
+Author: WangXinBin
+CreateTime: 2019/10/23 11:51:56
+*/
+
+using BaoMen.Common.Data.Attribute;
+using BaoMen.Common.Model;
+using BaoMen.MultiMerchant.Util;
+using System;
+using System.Collections.Generic;
+
+namespace BaoMen.MultiMerchant.Merchant.Entity
+{
+    #region class User (generated)
+    /// <summary>
+    /// 商户用户实体
+    /// </summary>
+	[Serializable]
+    [DatabaseEntity(TableName = "mch_user")]
+    public partial class User
+    {
+        /// <summary>
+        /// ID
+        /// </summary>
+        /// <remarks>
+        /// ColumnName: Id (Primary Key)
+        /// ColumnType: CHAR(32)
+        /// AllowDBNull: False
+        /// Unique: True
+        /// Size: 32
+        /// </remarks>
+        public string Id { get; set; }
+
+        /// <summary>
+        /// 商户ID
+        /// </summary>
+        /// <remarks>
+        /// ColumnName: MerchantId 
+        /// ColumnType: CHAR(32)
+        /// AllowDBNull: False
+        /// Unique: False
+        /// Size: 32
+        /// </remarks>
+        public string MerchantId { get; set; }
+
+        /// <summary>
+        /// 用户名
+        /// </summary>
+        /// <remarks>
+        /// ColumnName: UserName 
+        /// ColumnType: VARCHAR(100)
+        /// AllowDBNull: False
+        /// Unique: False
+        /// Size: 100
+        /// </remarks>
+        public string UserName { get; set; }
+
+        /// <summary>
+        /// 密码
+        /// </summary>
+        /// <remarks>
+        /// ColumnName: Password 
+        /// ColumnType: CHAR(32)
+        /// AllowDBNull: False
+        /// Unique: False
+        /// Size: 32
+        /// </remarks>
+        public string Password { get; set; }
+
+        /// <summary>
+        /// 姓名
+        /// </summary>
+        /// <remarks>
+        /// ColumnName: Name 
+        /// ColumnType: VARCHAR(100)
+        /// AllowDBNull: False
+        /// Unique: False
+        /// Size: 100
+        /// </remarks>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// 手机号码
+        /// </summary>
+        /// <remarks>
+        /// ColumnName: Mobile 
+        /// ColumnType: VARCHAR(50)
+        /// AllowDBNull: False
+        /// Unique: False
+        /// Size: 50
+        /// </remarks>
+        public string Mobile { get; set; }
+
+        /// <summary>
+        /// 电子邮件
+        /// </summary>
+        /// <remarks>
+        /// ColumnName: Email 
+        /// ColumnType: VARCHAR(100)
+        /// AllowDBNull: False
+        /// Unique: False
+        /// Size: 100
+        /// </remarks>
+        public string Email { get; set; }
+
+        /// <summary>
+        /// 头像
+        /// </summary>
+        /// <remarks>
+        /// ColumnName: Avatar 
+        /// ColumnType: VARCHAR(200)
+        /// AllowDBNull: True
+        /// Unique: False
+        /// Size: 200
+        /// </remarks>
+        public string Avatar { get; set; }
+
+        /// <summary>
+        /// 创建时间
+        /// </summary>
+        /// <remarks>
+        /// ColumnName: CreateTime 
+        /// ColumnType: DATETIME
+        /// AllowDBNull: False
+        /// Unique: False
+        /// Size: 0
+        /// </remarks>
+        public DateTime CreateTime { get; set; }
+
+        /// <summary>
+        /// 状态
+        /// </summary>
+        /// <remarks>
+        /// ColumnName: Status 
+        /// ColumnType: INT(11)
+        /// AllowDBNull: False
+        /// Unique: False
+        /// Size: 0
+        /// </remarks>
+        public int Status { get; set; }
+
+        /// <summary>
+        /// 描述
+        /// </summary>
+        /// <remarks>
+        /// ColumnName: Description 
+        /// ColumnType: VARCHAR(500)
+        /// AllowDBNull: True
+        /// Unique: False
+        /// Size: 500
+        /// </remarks>
+        public string Description { get; set; }
+
+    }
+    #endregion
+
+    #region class UserFilter (generated)
+    /// <summary>
+    /// 商户用户实体过滤器
+    /// </summary>
+    [Serializable]
+    [DatabaseEntityFilter(EntityType = typeof(User))]
+    public partial class UserFilter : Util.IMerchantFilter
+    {
+        /// <summary>
+        /// ID
+        /// </summary>
+        [DatabaseEntityFilterProperty(EntityPropertyName = "Id")]
+        public FilterProperty<string> Id { get; set; }
+
+        /// <summary>
+        /// 商户ID
+        /// </summary>
+        [DatabaseEntityFilterProperty(EntityPropertyName = "MerchantId")]
+        public FilterProperty<string> MerchantId { get; set; }
+
+        /// <summary>
+        /// 用户名
+        /// </summary>
+        [DatabaseEntityFilterProperty(EntityPropertyName = "UserName")]
+        public FilterProperty<string> UserName { get; set; }
+
+        /// <summary>
+        /// 密码
+        /// </summary>
+        [DatabaseEntityFilterProperty(EntityPropertyName = "Password")]
+        public FilterProperty<string> Password { get; set; }
+
+        /// <summary>
+        /// 姓名
+        /// </summary>
+        [DatabaseEntityFilterProperty(EntityPropertyName = "Name")]
+        public FilterProperty<string> Name { get; set; }
+
+        /// <summary>
+        /// 手机号码
+        /// </summary>
+        [DatabaseEntityFilterProperty(EntityPropertyName = "Mobile")]
+        public FilterProperty<string> Mobile { get; set; }
+
+        /// <summary>
+        /// 电子邮件
+        /// </summary>
+        [DatabaseEntityFilterProperty(EntityPropertyName = "Email")]
+        public FilterProperty<string> Email { get; set; }
+
+        /// <summary>
+        /// 头像
+        /// </summary>
+        [DatabaseEntityFilterProperty(EntityPropertyName = "Avatar")]
+        public FilterProperty<string> Avatar { get; set; }
+
+        /// <summary>
+        /// 创建时间
+        /// </summary>
+        [DatabaseEntityFilterProperty(EntityPropertyName = "CreateTime")]
+        public FilterProperty<DateTime> CreateTime { get; set; }
+
+        /// <summary>
+        /// 创建时间最小值
+        /// </summary>
+        [DatabaseEntityFilterProperty(EntityPropertyName = "CreateTime")]
+        public FilterProperty<DateTime> CreateTimeMin { get; set; }
+
+        /// <summary>
+        /// 创建时间最大值
+        /// </summary>
+        [DatabaseEntityFilterProperty(EntityPropertyName = "CreateTime")]
+        public FilterProperty<DateTime> CreateTimeMax { get; set; }
+
+        /// <summary>
+        /// 状态
+        /// </summary>
+        [DatabaseEntityFilterProperty(EntityPropertyName = "Status")]
+        public FilterProperty<int> Status { get; set; }
+
+        /// <summary>
+        /// 描述
+        /// </summary>
+        [DatabaseEntityFilterProperty(EntityPropertyName = "Description")]
+        public FilterProperty<string> Description { get; set; }
+
+    }
+    #endregion
+
+    public partial class User : Util.IMerchantData, IMerchantUser
+    {
+        /// <summary>
+        /// 角色列表
+        /// </summary>
+        public ICollection<Role> Roles { get; set; }
+
+        /// <summary>
+        /// 部门列表
+        /// </summary>
+        public ICollection<Department> Departments { get; set; }
+
+    }
+}
