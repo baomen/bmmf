@@ -2,6 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>BaoMen</Authors>
+    <Company>BaoMen</Company>
+    <PackageProjectUrl>https://github.com/baomen/bmmf</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/baomen/bmmf</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>

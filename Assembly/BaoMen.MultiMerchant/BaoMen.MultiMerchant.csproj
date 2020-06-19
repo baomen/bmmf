@@ -2,6 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>BaoMen</Authors>
+    <Company>BaoMen</Company>
+    <Product>BaoMen.MultiMerchant</Product>
+    <PackageProjectUrl>https://github.com/baomen/bmmf</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/baomen/bmmf</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
