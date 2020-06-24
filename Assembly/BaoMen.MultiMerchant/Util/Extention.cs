@@ -15,7 +15,7 @@ namespace BaoMen.MultiMerchant.Util
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
-        public static IServiceCollection AddBmcc(this IServiceCollection services)
+        public static IServiceCollection AddBmmf(this IServiceCollection services)
         {
             services.AddSingleton<System.BusinessLogic.IUserManager, System.BusinessLogic.UserManager>();
             services.AddSingleton<System.BusinessLogic.UserRoleManager>();
