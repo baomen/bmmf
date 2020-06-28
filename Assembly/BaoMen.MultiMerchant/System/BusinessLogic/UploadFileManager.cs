@@ -34,9 +34,14 @@ namespace BaoMen.MultiMerchant.System.BusinessLogic
             parameterManager = serviceProvider.GetRequiredService<IParameterManager>();
 
         }
-        
-      
-        
+
+
+        protected override int DoInsert(UploadFile item)
+        {
+            item.CreateTime = DateTime.Now;
+            item.ExtentionName ??= string.Empty;
+            return base.DoInsert(item);
+        }
 
         /// <summary>
         /// 获取上传文件的目录路径

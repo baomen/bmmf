@@ -3,6 +3,7 @@ Author: WangXinBin
 CreateTime: 2020/1/10 14:14:24
 */
 
+using Microsoft.AspNetCore.Http;
 using System;
 using System.ComponentModel.DataAnnotations;
 
@@ -73,55 +74,26 @@ namespace BaoMen.MultiMerchant.Web.System.Models
     /// 系统上传文件模型
     /// </summary>
     public partial class CreateUploadFile
-    {	
-		/// <summary>
+    {
+        /// <summary>
         /// 文件类型
         /// </summary>
-        
-		public int Type { get; set; }
-        
-		/// <summary>
-        /// 原始文件名
-        /// </summary>
         [Required]
-        [StringLength(200)]
-		public string OriginalFileName { get; set; }
-        
-		/// <summary>
-        /// 文件名
-        /// </summary>
-        [Required]
-        [StringLength(32, MinimumLength = 32)]
-		public string FileName { get; set; }
-        
-		/// <summary>
-        /// 扩展名
-        /// </summary>
-        [Required]
-        [StringLength(20)]
-		public string ExtentionName { get; set; }
-        
-		/// <summary>
-        /// 相对路径
-        /// </summary>
-        [Required]
-        [StringLength(200)]
-		public string RelativePath { get; set; }
-        
+        public int Type { get; set; }
+               
 		/// <summary>
         /// 创建人
         /// </summary>
         [Required]
         [StringLength(32, MinimumLength = 32)]
 		public string CreateUserId { get; set; }
-        
-		/// <summary>
+
+        /// <summary>
         /// 关联ID
         /// </summary>
-        
+
         [StringLength(100)]
-		public string RelatedId { get; set; }
-        
+        public string RelatedId { get; set; }
     }
 	#endregion
     
@@ -201,6 +173,13 @@ namespace BaoMen.MultiMerchant.Web.System.Models
 		public int Id { get; set; }
         
     }
-	#endregion
-    
+    #endregion
+
+    public partial class CreateUploadFile
+    {
+        /// <summary>
+        /// 文件
+        /// </summary>
+        public IFormFile File { get; set; }
+    }
 }
