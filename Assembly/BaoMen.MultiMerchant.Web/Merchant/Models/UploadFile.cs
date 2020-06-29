@@ -102,6 +102,7 @@ namespace BaoMen.MultiMerchant.Web.Merchant.Models
         /// <summary>
         /// 文件
         /// </summary>
+        [Required]
         public IFormFile File { get; set; }
     }
     #endregion

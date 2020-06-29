@@ -62,9 +62,12 @@ namespace BaoMen.MultiMerchant.Web.Merchant.Mapper
             CreateMap<Models.DeleteDepartment, Entity.Department>();
 
 
-            CreateMap<Entity.DownloadFile, Models.DownloadFile>().ForMember(dest => dest.TypeName, opt => opt.ConvertUsing<ParameterValueToNameConverter, ParameterSourceMember>(src => new ParameterSourceMember("02020501", src.Type)));
+            CreateMap<Entity.DownloadFile, Models.DownloadFile>()
+                .ForMember(dest => dest.TypeName, opt => opt.ConvertUsing<ParameterValueToNameConverter, ParameterSourceMember>(src => new ParameterSourceMember("02010301", src.Type)));
 
-            CreateMap<Entity.UploadFile, Models.UploadFile>().ForMember(dest => dest.TypeName, opt => opt.ConvertUsing<ParameterValueToNameConverter, ParameterSourceMember>(src => new ParameterSourceMember("02020401", src.Type))).ForMember(dest => dest.CreateUserName, opt => opt.ConvertUsing<KeyToNameConverter<string, IUserManager>, string>(src => src.CreateUserId));
+            CreateMap<Entity.UploadFile, Models.UploadFile>()
+                .ForMember(dest => dest.TypeName, opt => opt.ConvertUsing<ParameterValueToNameConverter, ParameterSourceMember>(src => new ParameterSourceMember("02010201", src.Type)))
+                .ForMember(dest => dest.CreateUserName, opt => opt.ConvertUsing<KeyToNameConverter<string, IUserManager>, string>(src => src.CreateUserId));
 
             CreateMap<Entity.OperateHistory, Models.OperateHistory>().ForMember(dest => dest.UserName, opt => opt.ConvertUsing<KeyToNameConverter<string, IUserManager>, string>(src => src.UserId)); ;
 
