@@ -3,6 +3,7 @@ Author: WangXinBin
 CreateTime: 2020/1/13 10:57:47
 */
 
+using Microsoft.AspNetCore.Http;
 using System;
 using System.ComponentModel.DataAnnotations;
 
@@ -71,5 +72,37 @@ namespace BaoMen.MultiMerchant.Web.Merchant.Models
         public string RelatedId { get; set; }
         
     }
-	#endregion
+    #endregion
+
+    #region class CreateUploadFile (generated)
+    /// <summary>
+    /// 系统上传文件模型
+    /// </summary>
+    public partial class CreateUploadFile
+    {
+        /// <summary>
+        /// 文件类型
+        /// </summary>
+        [Required]
+        public int Type { get; set; }
+
+        /// <summary>
+        /// 创建人
+        /// </summary>
+        [Required]
+        [StringLength(32, MinimumLength = 32)]
+        public string CreateUserId { get; set; }
+
+        /// <summary>
+        /// 关联ID
+        /// </summary>
+        [StringLength(100)]
+        public string RelatedId { get; set; }
+
+        /// <summary>
+        /// 文件
+        /// </summary>
+        public IFormFile File { get; set; }
+    }
+    #endregion
 }

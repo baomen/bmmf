@@ -187,6 +187,15 @@ namespace BaoMen.MultiMerchant.Web.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 文件上传失败.
+        /// </summary>
+        public static string Error_1006 {
+            get {
+                return ResourceManager.GetString("Error_1006", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 请求无效（数据验证未通过）.
         /// </summary>
         public static string Error_400 {
