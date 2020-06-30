@@ -409,6 +409,7 @@ namespace BaoMen.Common.Data
         protected virtual int DoInsert(TEntity item, IDbTransaction transaction, Action<IDbConnection, IDbTransaction> getIdentity = null)
         {
             DapperCommand dapperCommand = CreateInsertCommand(item);
+            logger.Debug("dapper command:{command}", dapperCommand);
             dapperCommand.Transaction = transaction;
             IDbConnection connection = transaction?.Connection;
             if (connection == null) connection = CreateConnection();
@@ -482,6 +483,7 @@ namespace BaoMen.Common.Data
         protected virtual int DoUpdate(TEntity item, IDbTransaction transaction = null)
         {
             DapperCommand dapperCommand = CreateUpdateCommand(item);
+            logger.Debug("dapper command:{command}", dapperCommand);
             dapperCommand.Transaction = transaction;
             IDbConnection connection = transaction?.Connection ?? CreateConnection();
             return connection.Execute(dapperCommand);
@@ -524,6 +526,7 @@ namespace BaoMen.Common.Data
         protected virtual int DoDelete(TEntity item, IDbTransaction transaction = null)
         {
             DapperCommand dapperCommand = CreateDeleteCommand(item);
+            logger.Debug("dapper command:{command}", dapperCommand);
             dapperCommand.Transaction = transaction;
             IDbConnection connection = transaction?.Connection;
             if (connection == null) connection = CreateConnection();
@@ -568,6 +571,7 @@ namespace BaoMen.Common.Data
         protected virtual TEntity DoGet(TKey id, IDbTransaction transaction = null)
         {
             DapperCommand dapperCommand = CreateGetCommand(id);
+            logger.Debug("dapper command:{command}", dapperCommand);
             dapperCommand.Transaction = transaction;
             IDbConnection connection = transaction?.Connection;
             if (connection == null) connection = CreateConnection();
@@ -620,6 +624,7 @@ namespace BaoMen.Common.Data
         protected virtual ICollection<TEntity> DoGetList(TFilter filter, string sortExpression, int startRowIndex, int maximumRows, IDbTransaction transaction = null)
         {
             DapperCommand dapperCommand = CreateGetListCommand(filter, sortExpression);
+            logger.Debug("dapper command:{command}", dapperCommand);
             dapperCommand.Transaction = transaction;
             IDbConnection connection = transaction?.Connection;
             if (connection == null) connection = CreateConnection();
@@ -695,6 +700,7 @@ namespace BaoMen.Common.Data
                 CommandText = sql,
                 Parameters = parameters
             };
+            logger.Debug("dapper command:{command}", dapperCommand);
             IDbConnection connection = CreateConnection();
             return connection.ExecuteScalar<int>(dapperCommand);
         }

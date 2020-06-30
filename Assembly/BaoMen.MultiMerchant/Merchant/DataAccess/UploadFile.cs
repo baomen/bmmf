@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using BaoMen.Common.Data;
 using BaoMen.Common.Model;
+using BaoMen.Common.Extension;
 
 namespace BaoMen.MultiMerchant.Merchant.DataAccess
 {
@@ -124,5 +125,23 @@ namespace BaoMen.MultiMerchant.Merchant.DataAccess
             return (stringBuilder.ToString(), parameter);
         }
     }
-	#endregion
+    #endregion
+
+    public partial class UploadFile
+    {
+        /// <summary>
+        /// 重写方法，将数据库生成的ID赋值给实例
+        /// </summary>
+        /// <param name="item">实体</param>
+        /// <param name="transaction"></param>
+        /// <param name="getIdentity"></param>
+        /// <returns></returns>
+        protected override int DoInsert(Entity.UploadFile item, IDbTransaction transaction, Action<IDbConnection, IDbTransaction> getIdentity = null)
+        {
+            return base.DoInsert(item, transaction, (conn, trans) =>
+            {
+                item.Id = conn.GetIntIdentity(trans);
+            });
+        }
+    }
 }
