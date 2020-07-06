@@ -37,7 +37,7 @@ namespace BaoMen.MultiMerchant.Merchant.BusinessLogic
         /// <summary>
         /// 插入数据
         /// </summary>
-        /// <param name="item">商户部门</param>
+        /// <param name="item">商户部门实体</param>
         /// <returns></returns>
         protected override int DoInsert(Department item)
         {
@@ -53,7 +53,7 @@ namespace BaoMen.MultiMerchant.Merchant.BusinessLogic
         /// <summary>
         /// 更新数据
         /// </summary>
-        /// <param name="item">系统角色实体</param>
+        /// <param name="item">商户部门实体</param>
         /// <returns></returns>
         protected override int DoUpdate(Department item)
         {
@@ -69,7 +69,7 @@ namespace BaoMen.MultiMerchant.Merchant.BusinessLogic
         /// <summary>
         /// 删除数据
         /// </summary>
-        /// <param name="item">系统角色实体</param>
+        /// <param name="item">商户部门实体</param>
         /// <returns></returns>
         protected override int DoDelete(Department item)
         {
