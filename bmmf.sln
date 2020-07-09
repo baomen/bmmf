@@ -7,9 +7,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assembly", "Assembly", "{39
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaoMen.Common", "Assembly\BaoMen.Common\BaoMen.Common.csproj", "{8B638084-137E-4C8C-8A0E-BBAC70BBE189}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaoMen.MultiMerchant", "Assembly\BaoMen.MultiMerchant\BaoMen.MultiMerchant.csproj", "{9F7E2BCD-7949-476D-AA0D-413EB6867F62}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaoMen.MultiMerchant", "Assembly\BaoMen.MultiMerchant\BaoMen.MultiMerchant.csproj", "{9F7E2BCD-7949-476D-AA0D-413EB6867F62}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaoMen.MultiMerchant.Web", "Assembly\BaoMen.MultiMerchant.Web\BaoMen.MultiMerchant.Web.csproj", "{70B84885-EA39-4B59-B852-309F2D14A553}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaoMen.MultiMerchant.Web", "Assembly\BaoMen.MultiMerchant.Web\BaoMen.MultiMerchant.Web.csproj", "{70B84885-EA39-4B59-B852-309F2D14A553}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaoMen.WeChat", "Assembly\BaoMen.WeChat\BaoMen.WeChat.csproj", "{A5D4CF69-D531-4859-8EDC-48F4D45CFCE5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,10 @@ Global
 		{70B84885-EA39-4B59-B852-309F2D14A553}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70B84885-EA39-4B59-B852-309F2D14A553}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70B84885-EA39-4B59-B852-309F2D14A553}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5D4CF69-D531-4859-8EDC-48F4D45CFCE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5D4CF69-D531-4859-8EDC-48F4D45CFCE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5D4CF69-D531-4859-8EDC-48F4D45CFCE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5D4CF69-D531-4859-8EDC-48F4D45CFCE5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -37,6 +43,7 @@ Global
 		{8B638084-137E-4C8C-8A0E-BBAC70BBE189} = {3904C3FC-96AA-41DF-BE9B-A8A4A673E6C9}
 		{9F7E2BCD-7949-476D-AA0D-413EB6867F62} = {3904C3FC-96AA-41DF-BE9B-A8A4A673E6C9}
 		{70B84885-EA39-4B59-B852-309F2D14A553} = {3904C3FC-96AA-41DF-BE9B-A8A4A673E6C9}
+		{A5D4CF69-D531-4859-8EDC-48F4D45CFCE5} = {3904C3FC-96AA-41DF-BE9B-A8A4A673E6C9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FFEDABD8-5D02-4D3C-A397-8870D922EE3D}

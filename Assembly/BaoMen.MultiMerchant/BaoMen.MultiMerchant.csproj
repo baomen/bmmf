@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BaoMen.Common\BaoMen.Common.csproj" />
+    <ProjectReference Include="..\BaoMen.WeChat\BaoMen.WeChat.csproj" />
   </ItemGroup>
 
   <ItemGroup>
