@@ -15,9 +15,9 @@ namespace BaoMen.MultiMerchant.Merchant.Entity
     /// <summary>
     /// 商户用户实体
     /// </summary>
-	[Serializable]
+    [Serializable]
     [DatabaseEntity(TableName = "mch_user")]
-    public partial class User
+    public partial class User : MultiMerchant.Util.IMerchantData
     {
         /// <summary>
         /// ID
@@ -86,7 +86,7 @@ namespace BaoMen.MultiMerchant.Merchant.Entity
         /// ColumnName: Mobile 
         /// ColumnType: VARCHAR(50)
         /// AllowDBNull: False
-        /// Unique: False
+        /// Unique: True
         /// Size: 50
         /// </remarks>
         public string Mobile { get; set; }
@@ -140,6 +140,66 @@ namespace BaoMen.MultiMerchant.Merchant.Entity
         public int Status { get; set; }
 
         /// <summary>
+        /// 微信OpenId
+        /// </summary>
+        /// <remarks>
+        /// ColumnName: WechatOpenId 
+        /// ColumnType: VARCHAR(50)
+        /// AllowDBNull: False
+        /// Unique: False
+        /// Size: 50
+        /// </remarks>
+        public string WechatOpenId { get; set; }
+
+        /// <summary>
+        /// 微信小程序OpenId
+        /// </summary>
+        /// <remarks>
+        /// ColumnName: WechatMpOpenId 
+        /// ColumnType: VARCHAR(50)
+        /// AllowDBNull: False
+        /// Unique: False
+        /// Size: 50
+        /// </remarks>
+        public string WechatMpOpenId { get; set; }
+
+        /// <summary>
+        /// 微信UnionId
+        /// </summary>
+        /// <remarks>
+        /// ColumnName: WechatUnionId 
+        /// ColumnType: VARCHAR(50)
+        /// AllowDBNull: False
+        /// Unique: False
+        /// Size: 50
+        /// </remarks>
+        public string WechatUnionId { get; set; }
+
+        /// <summary>
+        /// 钉钉ID
+        /// </summary>
+        /// <remarks>
+        /// ColumnName: DingTalkId 
+        /// ColumnType: VARCHAR(50)
+        /// AllowDBNull: False
+        /// Unique: False
+        /// Size: 50
+        /// </remarks>
+        public string DingTalkId { get; set; }
+
+        /// <summary>
+        /// 支付宝ID
+        /// </summary>
+        /// <remarks>
+        /// ColumnName: AlipayId 
+        /// ColumnType: VARCHAR(50)
+        /// AllowDBNull: False
+        /// Unique: False
+        /// Size: 50
+        /// </remarks>
+        public string AlipayId { get; set; }
+
+        /// <summary>
         /// 描述
         /// </summary>
         /// <remarks>
@@ -160,7 +220,7 @@ namespace BaoMen.MultiMerchant.Merchant.Entity
     /// </summary>
     [Serializable]
     [DatabaseEntityFilter(EntityType = typeof(User))]
-    public partial class UserFilter : Util.IMerchantFilter
+    public partial class UserFilter : MultiMerchant.Util.IMerchantFilter
     {
         /// <summary>
         /// ID
@@ -235,6 +295,36 @@ namespace BaoMen.MultiMerchant.Merchant.Entity
         public FilterProperty<int> Status { get; set; }
 
         /// <summary>
+        /// 微信OpenId
+        /// </summary>
+        [DatabaseEntityFilterProperty(EntityPropertyName = "WechatOpenId")]
+        public FilterProperty<string> WechatOpenId { get; set; }
+
+        /// <summary>
+        /// 微信小程序OpenId
+        /// </summary>
+        [DatabaseEntityFilterProperty(EntityPropertyName = "WechatMpOpenId")]
+        public FilterProperty<string> WechatMpOpenId { get; set; }
+
+        /// <summary>
+        /// 微信UnionId
+        /// </summary>
+        [DatabaseEntityFilterProperty(EntityPropertyName = "WechatUnionId")]
+        public FilterProperty<string> WechatUnionId { get; set; }
+
+        /// <summary>
+        /// 钉钉ID
+        /// </summary>
+        [DatabaseEntityFilterProperty(EntityPropertyName = "DingTalkId")]
+        public FilterProperty<string> DingTalkId { get; set; }
+
+        /// <summary>
+        /// 支付宝ID
+        /// </summary>
+        [DatabaseEntityFilterProperty(EntityPropertyName = "AlipayId")]
+        public FilterProperty<string> AlipayId { get; set; }
+
+        /// <summary>
         /// 描述
         /// </summary>
         [DatabaseEntityFilterProperty(EntityPropertyName = "Description")]
@@ -242,6 +332,7 @@ namespace BaoMen.MultiMerchant.Merchant.Entity
 
     }
     #endregion
+
 
     public partial class User : Util.IMerchantData, IMerchantUser
     {

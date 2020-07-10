@@ -65,6 +65,11 @@ namespace BaoMen.MultiMerchant.Merchant.BusinessLogic
             item.Password = item.Password.To32MD5();
             item.Email ??= string.Empty;
             item.UserName ??= string.Empty;
+            item.WechatMpOpenId ??= string.Empty;
+            item.WechatOpenId ??= string.Empty;
+            item.WechatUnionId ??= string.Empty;
+            item.DingTalkId ??= string.Empty;
+            item.AlipayId ??= string.Empty;
             return ProcessWithTransaction((transaction) =>
             {
                 int rows = dal.Insert(item, transaction);

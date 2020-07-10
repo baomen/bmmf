@@ -56,6 +56,31 @@ namespace BaoMen.MultiMerchant.Web.Merchant.Models
         public string Avatar { get; set; }
 
         /// <summary>
+        /// 微信OpenId
+        /// </summary>
+        public string WechatOpenId { get; set; }
+
+        /// <summary>
+        /// 微信小程序OpenId
+        /// </summary>
+        public string WechatMpOpenId { get; set; }
+
+        /// <summary>
+        /// 微信UnionId
+        /// </summary>
+        public string WechatUnionId { get; set; }
+
+        /// <summary>
+        /// 钉钉ID
+        /// </summary>
+        public string DingTalkId { get; set; }
+
+        /// <summary>
+        /// 支付宝ID
+        /// </summary>
+        public string AlipayId { get; set; }
+
+        /// <summary>
         /// 创建时间
         /// </summary>
         public DateTime CreateTime { get; set; }

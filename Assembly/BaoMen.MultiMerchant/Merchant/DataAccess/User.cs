@@ -45,7 +45,22 @@ namespace BaoMen.MultiMerchant.Merchant.DataAccess
         protected override DapperCommand CreateInsertCommand(Entity.User item)
         {
             item.Id = CreateId();
-            string sql = $"INSERT INTO {TableName} (Id,MerchantId,UserName,Password,Name,Mobile,Email,Avatar,CreateTime,Status,Description) VALUES (@Id,@MerchantId,@UserName,@Password,@Name,@Mobile,@Email,@Avatar,@CreateTime,@Status,@Description)";
+            string sql = $"INSERT INTO {TableName} (Id,MerchantId,UserName,Password,Name,Mobile,Email,Avatar,CreateTime,Status,WechatOpenId,WechatMpOpenId,WechatUnionId,DingTalkId,AlipayId,Description) VALUES (@Id,@MerchantId,@UserName,@Password,@Name,@Mobile,@Email,@Avatar,@CreateTime,@Status,@WechatOpenId,@WechatMpOpenId,@WechatUnionId,@DingTalkId,@AlipayId,@Description)";
+            return new DapperCommand()
+            {
+                CommandText = sql,
+                Parameters = item
+            };
+        }
+
+        /// <summary>
+        /// 取得更新数据的数据库命令
+        /// </summary>
+        /// <param name="item">实体数据</param>
+        /// <returns></returns>
+        protected override DapperCommand CreateUpdateCommand(Entity.User item)
+        {
+            string sql = $"UPDATE {TableName} SET UserName=@UserName,Password=@Password,Name=@Name,Mobile=@Mobile,Email=@Email,Avatar=@Avatar,Status=@Status,WechatOpenId=@WechatOpenId,WechatMpOpenId=@WechatMpOpenId,WechatUnionId=@WechatUnionId,DingTalkId=@DingTalkId,AlipayId=@AlipayId,Description=@Description WHERE Id=@Id And MerchantId=@MerchantId";
             return new DapperCommand()
             {
                 CommandText = sql,
@@ -60,9 +75,10 @@ namespace BaoMen.MultiMerchant.Merchant.DataAccess
         /// <returns></returns>
         protected override DapperCommand CreateDeleteCommand(Entity.User item)
         {
-            string sql = $"DELETE FROM {TableName} WHERE Id=@Id";
+            string sql = $"DELETE FROM {TableName} WHERE Id=@Id And MerchantId=@MerchantId";
             DynamicParameters dynamicParameters = new DynamicParameters();
             dynamicParameters.Add("Id", item.Id);
+            dynamicParameters.Add("MerchantId", item.MerchantId);
             return new DapperCommand()
             {
                 CommandText = sql,
@@ -77,7 +93,7 @@ namespace BaoMen.MultiMerchant.Merchant.DataAccess
         /// <returns>数据库命令</returns>
         protected override DapperCommand CreateGetCommand(string id)
         {
-            string sql = $"SELECT {TableName}.Id,{TableName}.MerchantId,{TableName}.UserName,{TableName}.Password,{TableName}.Name,{TableName}.Mobile,{TableName}.Email,{TableName}.Avatar,{TableName}.CreateTime,{TableName}.Status,{TableName}.Description FROM {TableName}";
+            string sql = $"SELECT {TableName}.Id,{TableName}.MerchantId,{TableName}.UserName,{TableName}.Password,{TableName}.Name,{TableName}.Mobile,{TableName}.Email,{TableName}.Avatar,{TableName}.CreateTime,{TableName}.Status,{TableName}.WechatOpenId,{TableName}.WechatMpOpenId,{TableName}.WechatUnionId,{TableName}.DingTalkId,{TableName}.AlipayId,{TableName}.Description FROM {TableName}";
             sql += " WHERE Id=@Id";
             return new DapperCommand()
             {
@@ -95,18 +111,24 @@ namespace BaoMen.MultiMerchant.Merchant.DataAccess
         {
             DynamicParameters parameter = new DynamicParameters();
             StringBuilder stringBuilder = new StringBuilder();
-            AddParameter(stringBuilder, "Id", "Id", filter.Id, parameter);
-            AddParameter(stringBuilder, "MerchantId", "MerchantId", filter.MerchantId, parameter);
-            AddParameter(stringBuilder, "UserName", "UserName", filter.UserName, parameter);
-            AddParameter(stringBuilder, "Password", "Password", filter.Password, parameter);
-            AddParameter(stringBuilder, "Name", "Name", filter.Name, parameter);
-            AddParameter(stringBuilder, "Mobile", "Mobile", filter.Mobile, parameter);
-            AddParameter(stringBuilder, "Email", "Email", filter.Email, parameter);
-            AddParameter(stringBuilder, "Avatar", "Avatar", filter.Avatar, parameter);
-            AddParameter(stringBuilder, "CreateTime", "CreateTimeMin", filter.CreateTimeMin, parameter);
-            AddParameter(stringBuilder, "CreateTime", "CreateTimeMax", filter.CreateTimeMax, parameter);
-            AddParameter(stringBuilder, "Status", "Status", filter.Status, parameter);
-            AddParameter(stringBuilder, "Description", "Description", filter.Description, parameter);
+            AddParameter(stringBuilder, $"{TableName}.Id", "Id", filter.Id, parameter);
+            AddParameter(stringBuilder, $"{TableName}.MerchantId", "MerchantId", filter.MerchantId, parameter);
+            AddParameter(stringBuilder, $"{TableName}.UserName", "UserName", filter.UserName, parameter);
+            AddParameter(stringBuilder, $"{TableName}.Password", "Password", filter.Password, parameter);
+            AddParameter(stringBuilder, $"{TableName}.Name", "Name", filter.Name, parameter);
+            AddParameter(stringBuilder, $"{TableName}.Mobile", "Mobile", filter.Mobile, parameter);
+            AddParameter(stringBuilder, $"{TableName}.Email", "Email", filter.Email, parameter);
+            AddParameter(stringBuilder, $"{TableName}.Avatar", "Avatar", filter.Avatar, parameter);
+            AddParameter(stringBuilder, $"{TableName}.CreateTime", "CreateTime", filter.CreateTime, parameter);
+            AddParameter(stringBuilder, $"{TableName}.CreateTime", "CreateTimeMin", filter.CreateTimeMin, parameter);
+            AddParameter(stringBuilder, $"{TableName}.CreateTime", "CreateTimeMax", filter.CreateTimeMax, parameter);
+            AddParameter(stringBuilder, $"{TableName}.Status", "Status", filter.Status, parameter);
+            AddParameter(stringBuilder, $"{TableName}.WechatOpenId", "WechatOpenId", filter.WechatOpenId, parameter);
+            AddParameter(stringBuilder, $"{TableName}.WechatMpOpenId", "WechatMpOpenId", filter.WechatMpOpenId, parameter);
+            AddParameter(stringBuilder, $"{TableName}.WechatUnionId", "WechatUnionId", filter.WechatUnionId, parameter);
+            AddParameter(stringBuilder, $"{TableName}.DingTalkId", "DingTalkId", filter.DingTalkId, parameter);
+            AddParameter(stringBuilder, $"{TableName}.AlipayId", "AlipayId", filter.AlipayId, parameter);
+            AddParameter(stringBuilder, $"{TableName}.Description", "Description", filter.Description, parameter);
 
             RemoveSqlConditionPrefix(stringBuilder);
             return (stringBuilder.ToString(), parameter);
@@ -114,24 +136,9 @@ namespace BaoMen.MultiMerchant.Merchant.DataAccess
     }
     #endregion
 
+
     public partial class User
     {
-        /// <summary>
-        /// 取得更新数据的数据库命令（不更新密码）
-        /// </summary>
-        /// <param name="item">实体数据</param>
-        /// <returns></returns>
-        protected override DapperCommand CreateUpdateCommand(Entity.User item)
-        {
-            //string sql = $"UPDATE {TableName} SET MerchantId=@MerchantId,UserName=@UserName,Password=@Password,Name=@Name,Mobile=@Mobile,Email=@Email,Avatar=@Avatar,Status=@Status,Description=@Description WHERE Id=@Id";
-            string sql = $"UPDATE {TableName} SET UserName=@UserName,Name=@Name,Mobile=@Mobile,Email=@Email,Avatar=@Avatar,Status=@Status,Description=@Description WHERE Id=@Id";
-            return new DapperCommand()
-            {
-                CommandText = sql,
-                Parameters = item
-            };
-        }
-
         /// <summary>
         /// 修改密码
         /// </summary>
