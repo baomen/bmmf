@@ -9,5 +9,9 @@ namespace BaoMen.WeChat.Util
     /// </summary>
     public class Config
     {
+        /// <summary>
+        /// 接口域名
+        /// </summary>
+        public string ApiDomain { get; set; }
     }
 }

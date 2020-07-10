@@ -4,6 +4,180 @@
         <name>BaoMen.WeChat</name>
     </assembly>
     <members>
+        <member name="T:BaoMen.WeChat.MiniProgram.Client.Request.BaseRequest">
+            <summary>
+            客户端请求基类
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.Request.BaseRequest.AccessToken">
+            <summary>
+             公众号的全局唯一票据
+            </summary>
+        </member>
+        <member name="T:BaoMen.WeChat.MiniProgram.Client.Request.CodeToSession">
+            <summary>
+            登录凭证校验
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.Request.CodeToSession.JsCode">
+            <summary>
+            js_code	string		是	登录时获取的 code
+            </summary>
+        </member>
+        <member name="T:BaoMen.WeChat.MiniProgram.Client.Response.BaseResponse">
+            <summary>
+            公众号的全局唯一票据
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.Response.BaseResponse.ErrorCode">
+            <summary>
+             errcode	 错误代码
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.Response.BaseResponse.ErrorMessage">
+            <summary>
+            errmsg	 错误信息
+            </summary>
+        </member>
+        <member name="T:BaoMen.WeChat.MiniProgram.Client.Response.CodeToSession">
+            <summary>
+            登录凭证校验
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.Response.CodeToSession.OpenId">
+            <summary>
+            openid	 用户唯一标识，请注意，在未关注公众号时，用户访问公众号的网页，也会产生一个用户和公众号唯一的OpenID
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.Response.CodeToSession.SessionKey">
+            <summary>
+            session_key	string	会话密钥
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.Response.CodeToSession.UnionId">
+            <summary>
+            unionid	string	用户在开放平台的唯一标识符，在满足 UnionID 下发条件的情况下会返回，详见 UnionID 机制说明。。
+            </summary>
+        </member>
+        <member name="T:BaoMen.WeChat.MiniProgram.Client.Response.QueryAccessToken">
+            <summary>
+            公众号的全局唯一票据
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.Response.QueryAccessToken.AccessTokenValue">
+            <summary>
+             access_token	 获取到的凭证
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.Response.QueryAccessToken.ExpiresIn">
+            <summary>
+            expires_in	 凭证有效时间，单位：秒
+            </summary>
+        </member>
+        <member name="T:BaoMen.WeChat.MiniProgram.Config">
+            <summary>
+            微信公众号配置
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.MiniProgram.Config.AppId">
+            <summary>
+            开发者ID
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.MiniProgram.Config.AppSecret">
+            <summary>
+            开发者密码
+            </summary>
+        </member>
+        <member name="T:BaoMen.WeChat.MiniProgram.Provider.BaseProvider">
+            <summary>
+            处理程序基类
+            </summary>
+        </member>
+        <member name="F:BaoMen.WeChat.MiniProgram.Provider.BaseProvider.logger">
+            <summary>
+            日志实例
+            </summary>
+        </member>
+        <member name="F:BaoMen.WeChat.MiniProgram.Provider.BaseProvider.config">
+            <summary>
+            公众号配置信息
+            </summary>
+        </member>
+        <member name="M:BaoMen.WeChat.MiniProgram.Provider.BaseProvider.#ctor(BaoMen.WeChat.MiniProgram.Config)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="config">微信公众号配置信息</param>
+        </member>
+        <member name="M:BaoMen.WeChat.MiniProgram.Provider.BaseProvider.HttpGet(System.String)">
+            <summary>
+            发送http GET请求
+            </summary>
+            <param name="url">请求地址</param>
+            <returns></returns>
+        </member>
+        <member name="M:BaoMen.WeChat.MiniProgram.Provider.BaseProvider.HttpPost(System.String,System.String)">
+            <summary>
+            发送http POST请求
+            </summary>
+            <param name="url">请求地址</param>
+            <param name="data">发送的数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:BaoMen.WeChat.MiniProgram.Provider.BaseProvider.HttpGet``1(System.String)">
+            <summary>
+            向微信接口发送http get请求。（Json序列化的请求与响应）
+            </summary>
+            <typeparam name="TResponse">响应类型</typeparam>
+            <param name="url">接口URL</param>
+            <returns></returns>
+        </member>
+        <member name="M:BaoMen.WeChat.MiniProgram.Provider.BaseProvider.HttpPost``2(``0,System.String)">
+            <summary>
+            向微信接口发送http post请求。（Json序列化的请求与响应）
+            </summary>
+            <typeparam name="TRequest">请求类型</typeparam>
+            <typeparam name="TResponse">响应类型</typeparam>
+            <param name="request">请求实例</param>
+            <param name="url">接口URL</param>
+            <returns></returns>
+        </member>
+        <member name="T:BaoMen.WeChat.MiniProgram.Provider.BasicProvider">
+            <summary>
+            基础处理程序
+            </summary>
+        </member>
+        <member name="M:BaoMen.WeChat.MiniProgram.Provider.BasicProvider.#ctor(BaoMen.WeChat.MiniProgram.Config)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="config">微信公众号配置信息</param>
+        </member>
+        <member name="M:BaoMen.WeChat.MiniProgram.Provider.BasicProvider.QueryAccessToken">
+            <summary>
+            取得公众号的全局唯一票据
+            </summary>
+            <returns></returns>
+            <remarks>
+            access_token是公众号的全局唯一票据，公众号调用各接口时都需使用access_token。正常情况下access_token有效期为7200秒，重复获取将导致上次获取的access_token失效。
+            公众号可以使用AppID和AppSecret调用本接口来获取access_token。AppID和AppSecret可在开发模式中获得（需要已经成为开发者，且帐号没有异常状态）。注意调用所有微信接口时均需使用https协议。
+            </remarks>
+        </member>
+        <member name="M:BaoMen.WeChat.MiniProgram.Provider.BasicProvider.CodeToSession(BaoMen.WeChat.MiniProgram.Client.Request.CodeToSession)">
+            <summary>
+            取得网页授权的access_token
+            </summary>
+            <param name="codeToSession">请求包</param>
+            <returns></returns>
+            <remarks>
+            首先请注意，这里通过code换取的网页授权access_token,与基础支持中的access_token不同。
+            公众号可通过下述接口来获取网页授权access_token。如果网页授权的作用域为snsapi_base，则本步骤中获取到网页授权access_token的同时，
+            也获取到了openid，snsapi_base式的网页授权流程即到此为止。
+            由于access_token拥有较短的有效期，当access_token超时后，可以使用refresh_token进行刷新，
+            refresh_token拥有较长的有效期（7天、30天、60天、90天），当refresh_token失效的后，需要用户重新授权。
+            </remarks>
+        </member>
         <member name="T:BaoMen.WeChat.Pub.Client.Request.BaseRequest">
             <summary>
             客户端请求基类
@@ -22,6 +196,16 @@
         <member name="P:BaoMen.WeChat.Pub.Client.Request.QueryAuthAccessToken.Code">
             <summary>
             code	 是	 填写第一步获取的code参数
+            </summary>
+        </member>
+        <member name="T:BaoMen.WeChat.Pub.Client.Request.RefreshAuthAccessToken">
+            <summary>
+            刷新用户的access_token
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pub.Client.Request.RefreshAuthAccessToken.RefreshToken">
+            <summary>
+            refresh_token	 是	 填写通过access_token获取到的refresh_token参数
             </summary>
         </member>
         <member name="T:BaoMen.WeChat.Pub.Client.Response.BaseResponse">
@@ -84,6 +268,41 @@
             scope	 用户授权的作用域，使用逗号（,）分隔
             </summary>
         </member>
+        <member name="P:BaoMen.WeChat.Pub.Client.Response.QueryAuthAccessToken.UnionId">
+            <summary>
+            unionid	 当且仅当该网站应用已获得该用户的userinfo授权时，才会出现该字段。
+            </summary>
+        </member>
+        <member name="T:BaoMen.WeChat.Pub.Client.Response.RefreshAuthAccessToken">
+            <summary>
+            用户票据
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pub.Client.Response.RefreshAuthAccessToken.AccessToken">
+            <summary>
+            access_token	 网页授权接口调用凭证,注意：此access_token与基础支持的access_token不同
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pub.Client.Response.RefreshAuthAccessToken.ExpiresIn">
+            <summary>
+            expires_in	 access_token接口调用凭证超时时间，单位（秒）
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pub.Client.Response.RefreshAuthAccessToken.RefreshToken">
+            <summary>
+            refresh_token	 用户刷新access_token
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pub.Client.Response.RefreshAuthAccessToken.OpenId">
+            <summary>
+            openid	 用户唯一标识，请注意，在未关注公众号时，用户访问公众号的网页，也会产生一个用户和公众号唯一的OpenID
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pub.Client.Response.RefreshAuthAccessToken.Scope">
+            <summary>
+            scope	 用户授权的作用域，使用逗号（,）分隔
+            </summary>
+        </member>
         <member name="T:BaoMen.WeChat.Pub.Config">
             <summary>
             微信公众号配置
@@ -97,11 +316,6 @@
         <member name="P:BaoMen.WeChat.Pub.Config.AppSecret">
             <summary>
             开发者密码
-            </summary>
-        </member>
-        <member name="P:BaoMen.WeChat.Pub.Config.ApiDomain">
-            <summary>
-            接口域名
             </summary>
         </member>
         <member name="T:BaoMen.WeChat.Pub.Provider.BaseProvider">
@@ -193,9 +407,25 @@
             refresh_token拥有较长的有效期（7天、30天、60天、90天），当refresh_token失效的后，需要用户重新授权。
             </remarks>
         </member>
+        <member name="M:BaoMen.WeChat.Pub.Provider.BasicProvider.RefreshAuthAccessToken(BaoMen.WeChat.Pub.Client.Request.RefreshAuthAccessToken)">
+            <summary>
+            刷新网页授权的access_token
+            </summary>
+            <param name="refreshAuthAccessToken">请求包</param>
+            <returns></returns>
+            <remarks>
+            由于access_token拥有较短的有效期，当access_token超时后，可以使用refresh_token进行刷新，
+            refresh_token拥有较长的有效期（7天、30天、60天、90天），当refresh_token失效的后，需要用户重新授权。
+            </remarks>
+        </member>
         <member name="T:BaoMen.WeChat.Util.Config">
             <summary>
             微信配置
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Util.Config.ApiDomain">
+            <summary>
+            接口域名
             </summary>
         </member>
         <member name="T:BaoMen.WeChat.Util.ConfigBuilder">
@@ -210,13 +440,24 @@
         </member>
         <member name="M:BaoMen.WeChat.Util.ConfigBuilder.BuildPubConifg">
             <summary>
-            构建微信支付的配置
+            构建微信公众号的配置
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:BaoMen.WeChat.Util.ConfigBuilder.BuildMiniPorgramConifg">
+            <summary>
+            构建微信小程序的配置
             </summary>
             <returns></returns>
         </member>
         <member name="M:BaoMen.WeChat.Util.ConfigBuilder.CreatePubConfig">
             <summary>
-            创建微信支付配置
+            创建微信公众号配置
+            </summary>
+        </member>
+        <member name="M:BaoMen.WeChat.Util.ConfigBuilder.CreateMiniProgramConfig">
+            <summary>
+            创建微信小程序配置
             </summary>
         </member>
         <member name="M:BaoMen.WeChat.Util.ConfigBuilder.GetIntranetIP">

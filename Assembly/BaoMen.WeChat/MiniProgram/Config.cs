@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BaoMen.WeChat.Pub
+namespace BaoMen.WeChat.MiniProgram
 {
     /// <summary>
     /// 微信公众号配置
