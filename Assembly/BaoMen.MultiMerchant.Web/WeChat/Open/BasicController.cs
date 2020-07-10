@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using BaoMen.WeChat.Open.Client.Response;
+using Response = BaoMen.WeChat.Open.Client.Response;
 using BaoMen.WeChat.Open;
 using System.Security.Permissions;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,17 +27,21 @@ namespace BaoMen.MultiMerchant.Web.WeChat.Open
         /// </summary>
         /// <param name="codeToAccessToken">请求包</param>
         /// <returns></returns>
-        public CodeToAccessToken CodeToAccessToken(string code)
+        public Response.CodeToAccessToken CodeToAccessToken(string code)
         {
             try
             {
-                Config config = configBuilder.BuildOpenPorgramConifg();
+                Config config = configBuilder.BuildOpenConifg();
                 BasicProvider provider = new BasicProvider(config);
-                return provider.QueryAccessToken();
+                BaoMen.WeChat.Open.Client.Request.CodeToAccessToken codeToAccessToken = new BaoMen.WeChat.Open.Client.Request.CodeToAccessToken
+                {
+                    Code = code
+                };
+                return provider.CodeToAccessToken(codeToAccessToken);
             }
             catch (Exception exception)
             {
-                return new QueryAccessToken
+                return new Response.CodeToAccessToken
                 {
                     ErrorCode = 1,
                     ErrorMessage = exception.Message

@@ -92,7 +92,14 @@ namespace BaoMen.MultiMerchant.WeChat
         /// <returns></returns>
         protected override Config CreateOpenConfig()
         {
-            throw new NotImplementedException();
+            Config config = new BaoMen.WeChat.Open.Config
+            {
+                AppId = merchantParameterManager.Get("03010401").Value,
+                ApiDomain = parameterManager.Get("03010402").Value
+            };
+            CheckOpenConfig(config);
+            logger.Trace("build wechat open config {config}", config);
+            return config;
         }
     }
 }

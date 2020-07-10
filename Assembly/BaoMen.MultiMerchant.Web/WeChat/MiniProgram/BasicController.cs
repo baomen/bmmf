@@ -30,7 +30,7 @@ namespace BaoMen.MultiMerchant.Web.WeChat.MiniProgram
         {
             try
             {
-                Config config = configBuilder.BuildMiniPorgramConifg();
+                Config config = configBuilder.BuildMiniProgramConifg();
                 BasicProvider provider = new BasicProvider(config);
                 return provider.QueryAccessToken();
             }

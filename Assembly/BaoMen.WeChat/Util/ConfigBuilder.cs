@@ -58,7 +58,7 @@ namespace BaoMen.WeChat.Util
         /// 构建微信小程序的配置
         /// </summary>
         /// <returns></returns>
-        public MiniProgram.Config BuildMiniPorgramConifg()
+        public MiniProgram.Config BuildMiniProgramConifg()
         {
             MiniProgram.Config config = CreateMiniProgramConfig();
             logger.Trace("build wechat mini program config {config}", config);
@@ -91,7 +91,7 @@ namespace BaoMen.WeChat.Util
         protected abstract MiniProgram.Config CreateMiniProgramConfig();
 
         /// <summary>
-        /// 构建微信公众号的配置
+        /// 构建微信开放平台的配置
         /// </summary>
         /// <returns></returns>
         public Open.Config BuildOpenConifg()
@@ -103,7 +103,7 @@ namespace BaoMen.WeChat.Util
         }
 
         /// <summary>
-        /// 检查微信公众号配置
+        /// 检查微信开放平台配置
         /// </summary>
         /// <param name="config">微信公众号配置</param>
         protected void CheckOpenConfig(Open.Config config)
@@ -112,10 +112,6 @@ namespace BaoMen.WeChat.Util
             {
                 throw new ArgumentNullException("AppId", "参数为空");
             }
-            if (string.IsNullOrEmpty(config.AppSecret))
-            {
-                throw new ArgumentNullException("AppSecret", "参数为空");
-            }
             if (string.IsNullOrEmpty(config.ApiDomain))
             {
                 throw new ArgumentNullException("ApiDomain", "参数为空");
@@ -123,7 +119,7 @@ namespace BaoMen.WeChat.Util
         }
 
         /// <summary>
-        /// 创建微信公众号配置
+        /// 创建微信开放平台配置
         /// </summary>
         protected abstract Open.Config CreateOpenConfig();
 

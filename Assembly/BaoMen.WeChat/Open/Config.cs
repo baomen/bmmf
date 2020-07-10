@@ -14,10 +14,5 @@ namespace BaoMen.WeChat.Open
         /// </summary>
         public string AppId { get; set; }
 
-        /// <summary>
-        /// 开发者密码
-        /// </summary>
-        public string AppSecret { get; set; }
-
     }
 }

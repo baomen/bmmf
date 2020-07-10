@@ -27,7 +27,7 @@ namespace BaoMen.WeChat.Open.Provider
         public Client.Response.CodeToAccessToken CodeToAccessToken(Client.Request.CodeToAccessToken codeToAccessToken)
         {
             return HttpGet< Client.Response.CodeToAccessToken>(
-                $"https://{config.ApiDomain}/sns/oauth2/access_token?appid={config.AppId}&secret={config.AppSecret}&code={codeToAccessToken.Code}&grant_type=authorization_code"
+                $"https://{config.ApiDomain}/sns/oauth2/access_token?appid={config.AppId}&code={codeToAccessToken.Code}&grant_type=authorization_code"
             );
         }
 

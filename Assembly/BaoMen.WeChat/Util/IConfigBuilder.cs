@@ -19,6 +19,12 @@ namespace BaoMen.WeChat.Util
         /// 构建微信小程序的配置
         /// </summary>
         /// <returns></returns>
-        MiniProgram.Config BuildMiniPorgramConifg();
+        MiniProgram.Config BuildMiniProgramConifg();
+
+        /// <summary>
+        /// 构建微信开放平台的配置
+        /// </summary>
+        /// <returns></returns>
+        Open.Config BuildOpenConifg();
     }
 }
