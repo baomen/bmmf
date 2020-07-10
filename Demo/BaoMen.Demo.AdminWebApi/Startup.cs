@@ -45,7 +45,6 @@ namespace BaoMen.Demo.AdminWebApi
         {
             ConfigureBmDemo(services);
             ConfigureAutoMapper(services);
-            ConfigureAuthentication(services);
             ConfigureSwagger(services);
 
             services.AddApiVersioning(option =>
@@ -104,9 +103,6 @@ namespace BaoMen.Demo.AdminWebApi
 
             app.UseRouting();
 
-            app.UseAuthentication();
-            app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
@@ -124,33 +120,7 @@ namespace BaoMen.Demo.AdminWebApi
             services.AddSingleton<ICurrentUserService, Utils.CurrentUserService>();
             services.AddScoped<IMerchantService, Utils.MerchantService>();
 
-            services.AddSingleton<MultiMerchant.WeChat.ConfigBuilder>();
-        }
-
-        /// <summary>
-        /// 配置身份验证
-        /// </summary>
-        /// <param name="services"></param>
-        private void ConfigureAuthentication(IServiceCollection services)
-        {
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-              .AddJwtBearer(options =>
-              {
-                  options.TokenValidationParameters = new TokenValidationParameters
-                  {
-                      ValidateIssuer = true,//validate the server
-                      ValidateAudience = true,//ensure that the recipient of the token is authorized to receive it 
-                      ValidateLifetime = true,//check that the token is not expired and that the signing key of the issuer is valid 
-                      ValidateIssuerSigningKey = true,//verify that the key used to sign the incoming token is part of a list of trusted keys
-                      ValidIssuer = Configuration["Jwt:Issuer"],//appsettings.json文件中定义的Issuer
-                      ValidAudience = Configuration["Jwt:Audience"],//appsettings.json文件中定义的Audience
-                      IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:SecurityKey"])),
-                      ClockSkew = TimeSpan.Zero //
-                  };//appsettings.json文件中定义的JWT Key
-              });
+            services.AddSingleton<WeChat.Util.IConfigBuilder, MultiMerchant.WeChat.ConfigBuilder>();
         }
 
         /// <summary>
@@ -175,8 +145,8 @@ namespace BaoMen.Demo.AdminWebApi
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath, true);
 
-                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "BaoMen.Shop.xml"));
-                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "BaoMen.Shop.Web.xml"));
+                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "BaoMen.MultiMerchant.xml"));
+                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "BaoMen.MultiMerchant.Web.xml"));
 
                 c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
                 c.CustomSchemaIds(schemalIdSelector => schemalIdSelector.FullName);

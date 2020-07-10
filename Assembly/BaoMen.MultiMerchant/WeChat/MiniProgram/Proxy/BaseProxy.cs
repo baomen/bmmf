@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 
-namespace BaoMen.MultiMerchant.WeChat.Open.Proxy
+namespace BaoMen.MultiMerchant.WeChat.MiniProgram.Proxy
 {
     public class BaseProxy
     {
