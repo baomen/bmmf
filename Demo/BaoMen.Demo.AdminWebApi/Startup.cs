@@ -45,7 +45,7 @@ namespace BaoMen.Demo.AdminWebApi
         {
             ConfigureBmDemo(services);
             ConfigureAutoMapper(services);
-            ConfigureSwagger(services);
+            //ConfigureSwagger(services);
 
             services.AddApiVersioning(option =>
             {
@@ -89,16 +89,6 @@ namespace BaoMen.Demo.AdminWebApi
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-
-                // Enable middleware to serve generated Swagger as a JSON endpoint.
-                app.UseSwagger();
-
-                // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
-                // specifying the Swagger JSON endpoint.
-                app.UseSwaggerUI(c =>
-                {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Bmcc ADMIN API V1");
-                });
             }
 
             app.UseRouting();
@@ -121,54 +111,6 @@ namespace BaoMen.Demo.AdminWebApi
             services.AddScoped<IMerchantService, Utils.MerchantService>();
 
             services.AddSingleton<WeChat.Util.IConfigBuilder, MultiMerchant.WeChat.ConfigBuilder>();
-        }
-
-        /// <summary>
-        /// ≈‰÷√Swagger
-        /// </summary>
-        /// <param name="services"></param>
-        private void ConfigureSwagger(IServiceCollection services)
-        {
-            // Register the Swagger generator, defining 1 or more Swagger documents
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
-                {
-                    Version = "v1",
-                    Title = "BaoMen Shop API",
-                    Description = "BaoMen Shop ASP.NET Core Web API"
-                });
-                //c.OrderActionsBy(o => o.RelativePath);
-
-                // Set the comments path for the Swagger JSON and UI.
-                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                c.IncludeXmlComments(xmlPath, true);
-
-                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "BaoMen.MultiMerchant.xml"));
-                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "BaoMen.MultiMerchant.Web.xml"));
-
-                c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
-                c.CustomSchemaIds(schemalIdSelector => schemalIdSelector.FullName);
-
-                var security = new Dictionary<string, IEnumerable<string>>
-                {
-                    {"Bearer", new string[] { }},
-                };
-
-                c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme()
-                {
-                    In = Microsoft.OpenApi.Models.ParameterLocation.Header,
-                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
-                    Name = "Authorization",
-                    Type = Microsoft.OpenApi.Models.SecuritySchemeType.ApiKey
-                });
-
-                Microsoft.OpenApi.Models.OpenApiSecurityRequirement openApiSecurityRequirement = new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
-                {
-                    { new Microsoft.OpenApi.Models.OpenApiSecurityScheme { Name = "Bearer" }, new List<string>() }
-                };
-            });
         }
 
         /// <summary>

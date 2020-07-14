@@ -314,7 +314,7 @@ namespace BaoMen.MultiMerchant.System.BusinessLogic
         /// <param name="item">用户实例</param>
         /// <param name="file">文件流</param>
         /// <returns></returns>
-        public int UpdateAvatar(User item,IFormFile file)
+        public int UpdateAvatar(User item, IFormFile file)
         {
             return ProcessUpdate(() =>
             {

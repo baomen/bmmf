@@ -99,8 +99,8 @@ namespace BaoMen.MultiMerchant.System.BusinessLogic
                 int rows = dal.Update(item, transaction);
                 if (rows == 0)
                     throw new NoneRowModifiedException("原始数据已修改");
-                    rows += DeleteExtention(item, transaction);
-                    rows += InsertExtention(item, transaction);
+                rows += DeleteExtention(item, transaction);
+                rows += InsertExtention(item, transaction);
                 return rows;
             });
 
@@ -118,7 +118,7 @@ namespace BaoMen.MultiMerchant.System.BusinessLogic
         protected override void AppendExtention(Role item)
         {
             base.AppendExtention(item);
-            item.Modules = roleModuleManager.GetList(new RoleModuleFilter { RoleId = item.Id }).Select(p => moduleManager.Get(p.ModuleId)).ToList();
+            item.Modules = roleModuleManager.GetList(new RoleModuleFilter { RoleId = item.Id }).Select(p => moduleManager.Get(p.ModuleId)).Where(p => p != null).ToList();
         }
 
         private int InsertExtention(Role item, IDbTransaction transaction)

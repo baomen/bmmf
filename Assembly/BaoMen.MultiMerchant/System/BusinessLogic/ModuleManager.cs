@@ -126,6 +126,7 @@ namespace BaoMen.MultiMerchant.System.BusinessLogic
                 int rows = dal.Delete(item, transaction);
                 rows += roleModuleManager.Dal.DeleteByModuleId(item.Id, transaction);
                 rows += merchantRoleModuleManager.Dal.DeleteByModuleId(item.Id, transaction);
+                rows += versionModuleManager.Dal.DeleteByModuleId(item.Id, transaction);
                 if (rows > 0)
                 {
                     operateHistoryManager.Insert(item.Id, item, DataOperationType.Delete, transaction: transaction);
