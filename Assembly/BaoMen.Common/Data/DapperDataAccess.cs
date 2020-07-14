@@ -59,7 +59,8 @@ namespace BaoMen.Common.Data
             switch (providerLowerName)
             {
                 case "mysql.data.mysqlclient":
-                    return MySql.Data.MySqlClient.MySqlClientFactory.Instance;
+                    return MySqlConnector.MySqlConnectorFactory.Instance;
+                //return MySql.Data.MySqlClient.MySqlClientFactory.Instance;
                 case "system.data.sqlclient":
                     return System.Data.SqlClient.SqlClientFactory.Instance;
                 default:
@@ -113,9 +114,12 @@ namespace BaoMen.Common.Data
         {
             switch (command)
             {
-                case MySql.Data.MySqlClient.MySqlCommand mySqlCommand:
-                    MySql.Data.MySqlClient.MySqlCommandBuilder.DeriveParameters(mySqlCommand);
+                case MySqlConnector.MySqlCommand mySqlCommand:
+                    MySqlConnector.MySqlCommandBuilder.DeriveParameters(mySqlCommand);
                     break;
+                //case MySql.Data.MySqlClient.MySqlCommand mySqlCommand:
+                //    MySql.Data.MySqlClient.MySqlCommandBuilder.DeriveParameters(mySqlCommand);
+                //    break;
                 case System.Data.SqlClient.SqlCommand sqlCommand:
                     System.Data.SqlClient.SqlCommandBuilder.DeriveParameters(sqlCommand);
                     break;

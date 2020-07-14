@@ -1,12 +1,9 @@
-﻿using Dapper;
-using BaoMen.Common.Model;
+﻿using BaoMen.Common.Model;
+using Dapper;
+using MySqlConnector;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using MySql.Data.MySqlClient;
-using System.IO;
-using System.Text;
-using System.Linq;
 
 namespace BaoMen.Common.Extension
 {
@@ -171,7 +168,7 @@ namespace BaoMen.Common.Extension
             if (startRowIndex == 0 && maximumRows == int.MaxValue) return;
             switch (connection)
             {
-                case MySql.Data.MySqlClient.MySqlConnection conn:
+                case MySqlConnection conn:
                     PrepareMySqlPageCommand(command, startRowIndex, maximumRows);
                     break;
                 default:
@@ -188,7 +185,8 @@ namespace BaoMen.Common.Extension
         {
             switch (connection)
             {
-                case MySql.Data.MySqlClient.MySqlConnection conn:
+                //case MySql.Data.MySqlClient.MySqlConnection conn:
+                case MySqlConnector.MySqlConnection conn:
                     return connection.ExecuteScalar<int>(sql: "SELECT @@IDENTITY", transaction: transaction);
                 case System.Data.SqlClient.SqlConnection conn:
                     return conn.ExecuteScalar<int>(sql: "select @@identity", transaction: transaction);
@@ -201,7 +199,8 @@ namespace BaoMen.Common.Extension
         {
             switch (connection)
             {
-                case MySql.Data.MySqlClient.MySqlConnection conn:
+                //case MySql.Data.MySqlClient.MySqlConnection conn:
+                case MySqlConnector.MySqlConnection conn:
                     return conn.ExecuteScalar<long>(sql: "SELECT @@IDENTITY", transaction: transaction);
                 case System.Data.SqlClient.SqlConnection conn:
                     return conn.ExecuteScalar<long>(sql: "select @@identity", transaction: transaction);
