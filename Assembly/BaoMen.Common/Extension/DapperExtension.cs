@@ -85,6 +85,27 @@ namespace BaoMen.Common.Extension
 
         #region Query
 
+        public static T QuerySingle<T>(this IDbConnection dbConnection, DapperCommand command)
+        {
+            CheckDapperCommand(command);
+            CommandDefinition commandDefinition = CreateCommandDefine(command);
+            return dbConnection.QuerySingle<T>(commandDefinition);
+        }
+
+        public static T QuerySingleOrDefault<T>(this IDbConnection dbConnection, DapperCommand command)
+        {
+            CheckDapperCommand(command);
+            CommandDefinition commandDefinition = CreateCommandDefine(command);
+            return dbConnection.QuerySingleOrDefault<T>(commandDefinition);
+        }
+
+        public static T QueryFirst<T>(this IDbConnection dbConnection, DapperCommand command)
+        {
+            CheckDapperCommand(command);
+            CommandDefinition commandDefinition = CreateCommandDefine(command);
+            return dbConnection.QueryFirst<T>(commandDefinition);
+        }
+
         public static T QueryFirstOrDefault<T>(this IDbConnection dbConnection, DapperCommand command)
         {
             CheckDapperCommand(command);
