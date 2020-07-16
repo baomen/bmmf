@@ -388,7 +388,7 @@ namespace BaoMen.Common.Data
             }
             catch
             {
-                if (transaction != null)
+                if (transaction != null && conn.State == ConnectionState.Open)
                     transaction.Rollback();
                 throw;
             }
