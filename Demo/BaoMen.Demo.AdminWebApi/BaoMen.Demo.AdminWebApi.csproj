@@ -22,5 +22,9 @@
     <ProjectReference Include="..\..\Assembly\BaoMen.MultiMerchant.Web\BaoMen.MultiMerchant.Web.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\WeChat\Pub\" />
+  </ItemGroup>
+
 
 </Project>
