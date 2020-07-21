@@ -1,0 +1,365 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BaoMen.Amap</name>
+    </assembly>
+    <members>
+        <member name="T:BaoMen.Amap.Open.WebService.Client.Request.BaseRequest">
+            <summary>
+            客户端请求基类
+            </summary>
+        </member>
+        <member name="M:BaoMen.Amap.Open.WebService.Client.Request.BaseRequest.ToUrl">
+            <summary>
+            生成URL格式的参数
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:BaoMen.Amap.Open.WebService.Client.Request.ReGeoRequest">
+            <summary>
+            逆地理编码
+            </summary>
+        </member>
+        <member name="P:BaoMen.Amap.Open.WebService.Client.Request.ReGeoRequest.Location">
+            <summary>
+            经纬度坐标 必填
+            </summary>
+            <remarks>
+            传入内容规则：经度在前，纬度在后，经纬度间以“,”分割，经纬度小数点后不要超过 6 位。如果需要解析多个经纬度的话，请用"|"进行间隔，并且将 batch 参数设置为 true，最多支持传入 20 对坐标点。每对点坐标之间用"|"分割。
+            </remarks>
+        </member>
+        <member name="P:BaoMen.Amap.Open.WebService.Client.Request.ReGeoRequest.PoiType">
+            <summary>
+            返回附近POI类型
+            </summary>
+        </member>
+        <member name="T:BaoMen.Amap.Open.WebService.Client.Response.BaseResponse">
+            <summary>
+            相应信息
+            </summary>
+        </member>
+        <member name="P:BaoMen.Amap.Open.WebService.Client.Response.BaseResponse.Status">
+            <summary>
+            返回结果状态值
+            </summary>
+            <remarks>
+            返回值为 0 或 1，0 表示请求失败；1 表示请求成功。
+            </remarks>
+        </member>
+        <member name="P:BaoMen.Amap.Open.WebService.Client.Response.BaseResponse.Info">
+            <summary>
+            返回状态说明
+            </summary>
+            <remarks>
+            当 status 为 0 时，info 会返回具体错误原因，否则返回“OK”。详情可以参考info状态表
+            </remarks>
+        </member>
+        <member name="T:BaoMen.Amap.Open.WebService.Client.Response.ReGeoResponse">
+            <summary>
+            逆地理编码
+            </summary>
+        </member>
+        <member name="P:BaoMen.Amap.Open.WebService.Client.Response.ReGeoResponse.ReGeoCode">
+            <summary>
+            逆地理编码列表
+            </summary>
+            <remarks>
+            batch 字段设置为 true 时为批量请求，此时 regeocodes 标签返回，标签下为 regeocode 对象列表；batch 为false 时为单个请求，会返回 regeocode 对象；
+            </remarks>
+        </member>
+        <member name="P:BaoMen.Amap.Open.WebService.Client.Response.ReGeoResponse.ReGeoCodes">
+            <summary>
+            逆地理编码列表
+            </summary>
+            <remarks>
+            batch 字段设置为 true 时为批量请求，此时 regeocodes 标签返回，标签下为 regeocode 对象列表；batch 为false 时为单个请求，会返回 regeocode 对象；
+            </remarks>
+        </member>
+        <member name="T:BaoMen.Amap.Open.WebService.Client.Response.ReGeoCode">
+            <summary>
+            逆地理编码
+            </summary>
+        </member>
+        <member name="P:BaoMen.Amap.Open.WebService.Client.Response.ReGeoCode.FormattedAddress">
+            <summary>
+            结构化地址信息
+            </summary>
+            <remarks>
+            结构化地址信息包括：省份＋城市＋区县＋城镇＋乡村＋街道＋门牌号码
+            如果坐标点处于海域范围内，则结构化地址信息为：省份＋城市＋区县＋海域信息
+            </remarks>
+        </member>
+        <member name="P:BaoMen.Amap.Open.WebService.Client.Response.ReGeoCode.AddressComponent">
+            <summary>
+            地址元素列表
+            </summary>
+        </member>
+        <member name="P:BaoMen.Amap.Open.WebService.Client.Response.ReGeoCode.Roads">
+            <summary>
+            道路信息列表
+            </summary>
+        </member>
+        <member name="T:BaoMen.Amap.Open.WebService.Client.Response.Location">
+            <summary>
+            坐标点
+            </summary>
+        </member>
+        <member name="P:BaoMen.Amap.Open.WebService.Client.Response.Location.Longitude">
+            <summary>
+            经度
+            </summary>
+        </member>
+        <member name="P:BaoMen.Amap.Open.WebService.Client.Response.Location.Latitude">
+            <summary>
+            纬度
+            </summary>
+        </member>
+        <member name="M:BaoMen.Amap.Open.WebService.Client.Response.Location.ToString">
+            <summary>
+            重写基类方法
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:BaoMen.Amap.Open.WebService.Client.Response.AddressComponent">
+            <summary>
+            地址元素
+            </summary>
+        </member>
+        <member name="P:BaoMen.Amap.Open.WebService.Client.Response.AddressComponent.Province">
+            <summary>
+            坐标点所在省名称
+            </summary>
+        </member>
+        <member name="P:BaoMen.Amap.Open.WebService.Client.Response.AddressComponent.City">
+            <summary>
+            坐标点所在城市名称
+            </summary>
+        </member>
+        <member name="P:BaoMen.Amap.Open.WebService.Client.Response.AddressComponent.CityCode">
+            <summary>
+            城市编码
+            </summary>
+        </member>
+        <member name="P:BaoMen.Amap.Open.WebService.Client.Response.AddressComponent.District">
+            <summary>
+            坐标点所在区
+            </summary>
+        </member>
+        <member name="P:BaoMen.Amap.Open.WebService.Client.Response.AddressComponent.AdCode">
+            <summary>
+            行政区编码
+            </summary>
+        </member>
+        <member name="P:BaoMen.Amap.Open.WebService.Client.Response.AddressComponent.Township">
+            <summary>
+            坐标点所在乡镇/街道（此街道为社区街道，不是道路信息）
+            </summary>
+        </member>
+        <member name="P:BaoMen.Amap.Open.WebService.Client.Response.AddressComponent.Neighborhood">
+            <summary>
+            社区信息列表
+            </summary>
+        </member>
+        <member name="P:BaoMen.Amap.Open.WebService.Client.Response.AddressComponent.Building">
+            <summary>
+            楼信息列表
+            </summary>
+        </member>
+        <member name="P:BaoMen.Amap.Open.WebService.Client.Response.AddressComponent.StreetNumber">
+            <summary>
+            门牌信息列表
+            </summary>
+        </member>
+        <member name="P:BaoMen.Amap.Open.WebService.Client.Response.AddressComponent.SeaArea">
+            <summary>
+            所属海域信息
+            </summary>
+        </member>
+        <member name="P:BaoMen.Amap.Open.WebService.Client.Response.AddressComponent.BusinessAreas">
+            <summary>
+            经纬度所属商圈列表
+            </summary>
+        </member>
+        <member name="T:BaoMen.Amap.Open.WebService.Client.Response.Neighborhood">
+            <summary>
+            社区信息列表
+            </summary>
+        </member>
+        <member name="P:BaoMen.Amap.Open.WebService.Client.Response.Neighborhood.Name">
+            <summary>
+            社区名称
+            </summary>
+        </member>
+        <member name="P:BaoMen.Amap.Open.WebService.Client.Response.Neighborhood.Type">
+            <summary>
+            POI类型
+            </summary>
+        </member>
+        <member name="T:BaoMen.Amap.Open.WebService.Client.Response.Building">
+            <summary>
+            楼信息列表
+            </summary>
+        </member>
+        <member name="P:BaoMen.Amap.Open.WebService.Client.Response.Building.Name">
+            <summary>
+            建筑名称
+            </summary>
+        </member>
+        <member name="P:BaoMen.Amap.Open.WebService.Client.Response.Building.Type">
+            <summary>
+            类型
+            </summary>
+        </member>
+        <member name="T:BaoMen.Amap.Open.WebService.Client.Response.StreetNumber">
+            <summary>
+            门牌信息列表
+            </summary>
+        </member>
+        <member name="P:BaoMen.Amap.Open.WebService.Client.Response.StreetNumber.Street">
+            <summary>
+            街道名称
+            </summary>
+        </member>
+        <member name="P:BaoMen.Amap.Open.WebService.Client.Response.StreetNumber.Number">
+            <summary>
+            门牌号
+            </summary>
+        </member>
+        <member name="P:BaoMen.Amap.Open.WebService.Client.Response.StreetNumber.Location">
+            <summary>
+            坐标点
+            </summary>
+        </member>
+        <member name="P:BaoMen.Amap.Open.WebService.Client.Response.StreetNumber.Direction">
+            <summary>
+            方向
+            </summary>
+        </member>
+        <member name="P:BaoMen.Amap.Open.WebService.Client.Response.StreetNumber.Distance">
+            <summary>
+            门牌地址到请求坐标的距离 单位：米
+            </summary>
+        </member>
+        <member name="T:BaoMen.Amap.Open.WebService.Client.Response.BusinessArea">
+            <summary>
+            经纬度所属商圈
+            </summary>
+        </member>
+        <member name="P:BaoMen.Amap.Open.WebService.Client.Response.BusinessArea.Location">
+            <summary>
+            商圈中心点经纬度
+            </summary>
+        </member>
+        <member name="P:BaoMen.Amap.Open.WebService.Client.Response.BusinessArea.Name">
+            <summary>
+            商圈名称
+            </summary>
+        </member>
+        <member name="P:BaoMen.Amap.Open.WebService.Client.Response.BusinessArea.Id">
+            <summary>
+            商圈所在区域的adcode 
+            </summary>
+        </member>
+        <member name="T:BaoMen.Amap.Open.WebService.Client.Response.Road">
+            <summary>
+            道路信息
+            </summary>
+        </member>
+        <member name="P:BaoMen.Amap.Open.WebService.Client.Response.Road.Id">
+            <summary>
+            道路id 
+            </summary>
+        </member>
+        <member name="P:BaoMen.Amap.Open.WebService.Client.Response.Road.Name">
+            <summary>
+            道路到请求坐标的距离
+            </summary>
+        </member>
+        <member name="P:BaoMen.Amap.Open.WebService.Client.Response.Road.Distance">
+            <summary>
+            道路名称
+            </summary>
+        </member>
+        <member name="P:BaoMen.Amap.Open.WebService.Client.Response.Road.Direction">
+            <summary>
+            方位
+            </summary>
+        </member>
+        <member name="P:BaoMen.Amap.Open.WebService.Client.Response.Road.Location">
+            <summary>
+            商圈中心点经纬度
+            </summary>
+        </member>
+        <member name="T:BaoMen.Amap.Open.WebService.Config">
+            <summary>
+            配置信息
+            </summary>
+        </member>
+        <member name="P:BaoMen.Amap.Open.WebService.Config.Key">
+            <summary>
+            应用密钥
+            </summary>
+        </member>
+        <member name="T:BaoMen.Amap.Open.WebService.Provider">
+            <summary>
+            处理程序基类
+            </summary>
+        </member>
+        <member name="F:BaoMen.Amap.Open.WebService.Provider.logger">
+            <summary>
+            日志实例
+            </summary>
+        </member>
+        <member name="F:BaoMen.Amap.Open.WebService.Provider.config">
+            <summary>
+            配置信息
+            </summary>
+        </member>
+        <member name="M:BaoMen.Amap.Open.WebService.Provider.#ctor(BaoMen.Amap.Open.WebService.Config)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="config">配置信息</param>
+        </member>
+        <member name="M:BaoMen.Amap.Open.WebService.Provider.HttpGet(System.String)">
+            <summary>
+            发送http GET请求
+            </summary>
+            <param name="url">请求地址</param>
+            <returns></returns>
+        </member>
+        <member name="M:BaoMen.Amap.Open.WebService.Provider.HttpPost(System.String,System.String)">
+            <summary>
+            发送http POST请求
+            </summary>
+            <param name="url">请求地址</param>
+            <param name="data">发送的数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:BaoMen.Amap.Open.WebService.Provider.HttpGet``1(System.String)">
+            <summary>
+            向微信接口发送http get请求。（Json序列化的请求与响应）
+            </summary>
+            <typeparam name="TResponse">响应类型</typeparam>
+            <param name="url">接口URL</param>
+            <returns></returns>
+        </member>
+        <member name="M:BaoMen.Amap.Open.WebService.Provider.HttpPost``2(``0,System.String)">
+            <summary>
+            向微信接口发送http post请求。（Json序列化的请求与响应）
+            </summary>
+            <typeparam name="TRequest">请求类型</typeparam>
+            <typeparam name="TResponse">响应类型</typeparam>
+            <param name="request">请求实例</param>
+            <param name="url">接口URL</param>
+            <returns></returns>
+        </member>
+        <member name="M:BaoMen.Amap.Open.WebService.Provider.ReGeo(BaoMen.Amap.Open.WebService.Client.Request.ReGeoRequest)">
+            <summary>
+            逆地理编码
+            </summary>
+            <param name="request">请求数据</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

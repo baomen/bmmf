@@ -12,6 +12,7 @@
     <PackageLicenseFile></PackageLicenseFile>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <Version>1.0.4</Version>
+    <Copyright>BaoMen</Copyright>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -26,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BaoMen.Amap\BaoMen.Amap.csproj" />
     <ProjectReference Include="..\BaoMen.Common\BaoMen.Common.csproj" />
     <ProjectReference Include="..\BaoMen.WeChat\BaoMen.WeChat.csproj" />
   </ItemGroup>
