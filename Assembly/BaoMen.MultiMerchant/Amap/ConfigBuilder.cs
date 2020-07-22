@@ -8,7 +8,7 @@ namespace BaoMen.MultiMerchant.Amap
     /// <summary>
     /// 配置构建器
     /// </summary>
-    public class ConfigBuilder
+    public class ConfigBuilder : BaoMen.Amap.Utils.IConfigBuilder
     {
         private readonly System.BusinessLogic.IParameterManager parameterManager;
 
@@ -29,7 +29,8 @@ namespace BaoMen.MultiMerchant.Amap
         {
             BaoMen.Amap.Open.WebService.Config config = new BaoMen.Amap.Open.WebService.Config
             {
-                Key = parameterManager.Get("0303010101").Value
+                Key = parameterManager.Get("0303010101").Value,
+                SignKey = parameterManager.Get("0303010102").Value
             };
             return config;
         }

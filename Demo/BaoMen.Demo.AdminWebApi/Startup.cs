@@ -111,7 +111,7 @@ namespace BaoMen.Demo.AdminWebApi
             services.AddScoped<IMerchantService, Utils.MerchantService>();
 
             services.AddSingleton<WeChat.Util.IConfigBuilder, MultiMerchant.WeChat.ConfigBuilder>();
-            services.AddSingleton<MultiMerchant.Amap.ConfigBuilder>();
+            services.AddSingleton<Amap.Utils.IConfigBuilder, MultiMerchant.Amap.ConfigBuilder>();
         }
 
         /// <summary>

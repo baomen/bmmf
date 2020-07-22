@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BaoMen.Amap.Open.WebService;
+using BaoMen.Amap.Open.WebService.Client;
 using BaoMen.Common.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -31,9 +32,15 @@ namespace BaoMen.Demo.AdminWebApi.Controllers
                 Provider provider = new Provider(config);
                 Amap.Open.WebService.Client.Request.ReGeoRequest request = new Amap.Open.WebService.Client.Request.ReGeoRequest
                 {
-                    Location = $"{longitude:0.000000},{latitude:0.000000}"
+                    Location = new Location(longitude, latitude)
                 };
                 response.Data = provider.ReGeo(request);
+                if (response.Data.Status != 1)
+                {
+                    response.ErrorNumber = 2;
+                    response.ErrorMessage = response.Data.Info;
+                    response.Data = null;
+                }
             }
             catch (Exception e)
             {

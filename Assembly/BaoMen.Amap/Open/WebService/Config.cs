@@ -13,5 +13,10 @@ namespace BaoMen.Amap.Open.WebService
         /// 应用密钥
         /// </summary>
         public string Key { get; set; }
+
+        /// <summary>
+        /// 签名密钥
+        /// </summary>
+        public string SignKey { get; set; }
     }
 }

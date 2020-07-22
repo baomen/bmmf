@@ -27,5 +27,14 @@ namespace BaoMen.Amap.Open.WebService.Client.Response
         /// </remarks>
         [JsonProperty("info")]
         public string Info { get; set; }
+
+        /// <summary>
+        /// 返回状态编码
+        /// </summary>
+        /// <remarks>
+        /// 10000 OK 请求正常表
+        /// </remarks>
+        [JsonProperty("infocode")]
+        public string InfoCode { get; set; }
     }
 }

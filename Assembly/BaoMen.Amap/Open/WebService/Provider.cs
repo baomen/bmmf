@@ -180,8 +180,9 @@ namespace BaoMen.Amap.Open.WebService
         /// <returns></returns>
         public Client.Response.ReGeoResponse ReGeo(Client.Request.ReGeoRequest request)
         {
+            request.Key = config.Key;
             return HttpGet<Client.Response.ReGeoResponse>(
-                $"https://restapi.amap.com/v3/geocode/regeo?key={config.Key}&{request.ToUrl()}"
+                $"https://restapi.amap.com/v3/geocode/regeo?{request.ToUrl(config.SignKey)}"
             );
         }
     }
