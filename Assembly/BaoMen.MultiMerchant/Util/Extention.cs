@@ -49,6 +49,14 @@ namespace BaoMen.MultiMerchant.Util
             services.AddSingleton<Merchant.BusinessLogic.IUploadFileManager, Merchant.BusinessLogic.UploadFileManager>();
             services.AddSingleton<Merchant.BusinessLogic.IDownloadFileManager, Merchant.BusinessLogic.DownloadFileManager>();
 
+            #region wechat
+            services.AddSingleton<WeChat.ConfigBuilder>();
+            services.AddSingleton<BaoMen.WeChat.Pub.Provider.BasicProvider>();
+            services.AddSingleton<BaoMen.WeChat.Pub.Provider.UserProvider>();
+
+            services.AddSingleton<WeChat.Pub.Proxy.BasicProxy>();
+            #endregion
+
             return services;
         }
     }

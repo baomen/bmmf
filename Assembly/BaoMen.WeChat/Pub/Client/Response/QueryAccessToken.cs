@@ -14,12 +14,12 @@ namespace BaoMen.WeChat.Pub.Client.Response
         ///  access_token	 获取到的凭证
         /// </summary>
         [JsonProperty("access_token")]
-        public string AccessTokenValue { get; set; }
+        public string AccessToken { get; set; }
 
         /// <summary>
         /// expires_in	 凭证有效时间，单位：秒
         /// </summary>
         [JsonProperty("expires_in")]
-        public string ExpiresIn { get; set; }
+        public int ExpiresIn { get; set; }
     }
 }

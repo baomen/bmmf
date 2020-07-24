@@ -2,22 +2,21 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BaoMen.WeChat.Pub
+namespace BaoMen.WeChat.Pub.Client.Request
 {
     /// <summary>
-    /// 微信公众号配置
+    /// 查询访问凭据
     /// </summary>
-    public class Config : Util.Config
+    public class QueryAccessToken : BaseRequest
     {
         /// <summary>
-        /// 开发者ID
+        /// 第三方用户唯一凭证
         /// </summary>
         public string AppId { get; set; }
 
         /// <summary>
-        /// 开发者密码
+        /// 第三方用户唯一凭证密钥
         /// </summary>
         public string AppSecret { get; set; }
-
     }
 }

@@ -1,4 +1,5 @@
-﻿using NLog;
+﻿using Microsoft.Extensions.DependencyInjection;
+using NLog;
 using System;
 
 namespace BaoMen.MultiMerchant.WeChat.Pub.Proxy
@@ -14,6 +15,11 @@ namespace BaoMen.MultiMerchant.WeChat.Pub.Proxy
         protected readonly IServiceProvider serviceProvider;
 
         /// <summary>
+        /// 配置构建器
+        /// </summary>
+        protected readonly ConfigBuilder configBuilder;
+
+        /// <summary>
         /// 日志记录
         /// </summary>
         protected readonly ILogger logger;
@@ -25,6 +31,7 @@ namespace BaoMen.MultiMerchant.WeChat.Pub.Proxy
         public BaseProxy(IServiceProvider serviceProvider)
         {
             this.serviceProvider = serviceProvider;
+            configBuilder = serviceProvider.GetRequiredService<ConfigBuilder>();
             logger = LogManager.GetCurrentClassLogger();
         }
     }

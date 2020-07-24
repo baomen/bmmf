@@ -12,14 +12,14 @@ namespace BaoMen.Demo.AdminWebApi.Controllers.WeChat.Pub
     /// 微信基础接口控制器
     /// </summary>
     [Route("api/wechat/[controller]/[action]")]
-    public class BasicController : MultiMerchant.Web.WeChat.Pub.BasicController
+    public class BasicController : MultiMerchant.Web.WeChat.Pub.Controller.BasicController
     {
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="serviceProvider">服务提供程序</param>
         public BasicController(IServiceProvider serviceProvider)
-            :base(serviceProvider)
+            : base(serviceProvider)
         {
 
         }

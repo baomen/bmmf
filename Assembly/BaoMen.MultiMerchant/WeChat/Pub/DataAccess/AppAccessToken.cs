@@ -16,11 +16,11 @@ using BaoMen.Common.Extension;
 
 namespace BaoMen.MultiMerchant.WeChat.Pub.DataAccess
 {
-	/// <summary>
+    /// <summary>
     /// 微信公众号凭据数据访问
     /// </summary>
-	#region class AppAccessToken (generated)
-    public partial class AppAccessToken : DapperDataAccess<string,Entity.AppAccessToken, Entity.AppAccessTokenFilter>
+    #region class AppAccessToken (generated)
+    public partial class AppAccessToken : DapperDataAccess<string, Entity.AppAccessToken, Entity.AppAccessTokenFilter>
     {
         /// <summary>
         /// 构造函数
@@ -31,12 +31,12 @@ namespace BaoMen.MultiMerchant.WeChat.Pub.DataAccess
         {
 
         }
-               
+
         /// <summary>
         /// 数据库表名
         /// </summary>
         protected override string TableName { get { return "wx_pub_app_access_token"; } }
-               
+
         /// <summary>
         /// 取得插入数据的数据库命令
         /// </summary>
@@ -51,7 +51,7 @@ namespace BaoMen.MultiMerchant.WeChat.Pub.DataAccess
                 Parameters = item
             };
         }
-        
+
         /// <summary>
         /// 取得更新数据的数据库命令
         /// </summary>
@@ -66,7 +66,7 @@ namespace BaoMen.MultiMerchant.WeChat.Pub.DataAccess
                 Parameters = item
             };
         }
-        
+
         /// <summary>
         /// 取得删除数据的数据库命令
         /// </summary>
@@ -74,17 +74,17 @@ namespace BaoMen.MultiMerchant.WeChat.Pub.DataAccess
         /// <returns></returns>
         protected override DapperCommand CreateDeleteCommand(Entity.AppAccessToken item)
         {
-            string sql = $"DELETE FROM {TableName} WHERE AppId=@AppId And MerchantId=@MerchantId";    
+            string sql = $"DELETE FROM {TableName} WHERE AppId=@AppId And MerchantId=@MerchantId";
             DynamicParameters dynamicParameters = new DynamicParameters();
-                dynamicParameters.Add("AppId", item.AppId);
-                dynamicParameters.Add("MerchantId", item.MerchantId);
+            dynamicParameters.Add("AppId", item.AppId);
+            dynamicParameters.Add("MerchantId", item.MerchantId);
             return new DapperCommand()
             {
                 CommandText = sql,
                 Parameters = dynamicParameters
             };
         }
-        
+
         /// <summary>
         /// 创建读取单条数据的数据库命令
         /// </summary>
@@ -97,10 +97,10 @@ namespace BaoMen.MultiMerchant.WeChat.Pub.DataAccess
             return new DapperCommand()
             {
                 CommandText = sql,
-                Parameters = new {AppId=id}
+                Parameters = new { AppId = id }
             };
         }
-        
+
         /// <summary>
         /// 创建过滤器的sql语句及参数
         /// </summary>
@@ -110,20 +110,47 @@ namespace BaoMen.MultiMerchant.WeChat.Pub.DataAccess
         {
             DynamicParameters parameter = new DynamicParameters();
             StringBuilder stringBuilder = new StringBuilder();
-            		AddParameter(stringBuilder, $"{TableName}.AppId", "AppId", filter.AppId, parameter);
-		AddParameter(stringBuilder, $"{TableName}.MerchantId", "MerchantId", filter.MerchantId, parameter);
-		AddParameter(stringBuilder, $"{TableName}.AccessToken", "AccessToken", filter.AccessToken, parameter);
-		AddParameter(stringBuilder, $"{TableName}.ExpiresIn", "ExpiresIn", filter.ExpiresIn, parameter);
-		AddParameter(stringBuilder, $"{TableName}.CreateTime", "CreateTime", filter.CreateTime, parameter);
-		AddParameter(stringBuilder, $"{TableName}.CreateTime", "CreateTimeMin", filter.CreateTimeMin, parameter);
-		AddParameter(stringBuilder, $"{TableName}.CreateTime", "CreateTimeMax", filter.CreateTimeMax, parameter);
-		AddParameter(stringBuilder, $"{TableName}.ExpiresTime", "ExpiresTime", filter.ExpiresTime, parameter);
-		AddParameter(stringBuilder, $"{TableName}.ExpiresTime", "ExpiresTimeMin", filter.ExpiresTimeMin, parameter);
-		AddParameter(stringBuilder, $"{TableName}.ExpiresTime", "ExpiresTimeMax", filter.ExpiresTimeMax, parameter);
+            AddParameter(stringBuilder, $"{TableName}.AppId", "AppId", filter.AppId, parameter);
+            AddParameter(stringBuilder, $"{TableName}.MerchantId", "MerchantId", filter.MerchantId, parameter);
+            AddParameter(stringBuilder, $"{TableName}.AccessToken", "AccessToken", filter.AccessToken, parameter);
+            AddParameter(stringBuilder, $"{TableName}.ExpiresIn", "ExpiresIn", filter.ExpiresIn, parameter);
+            AddParameter(stringBuilder, $"{TableName}.CreateTime", "CreateTime", filter.CreateTime, parameter);
+            AddParameter(stringBuilder, $"{TableName}.CreateTime", "CreateTimeMin", filter.CreateTimeMin, parameter);
+            AddParameter(stringBuilder, $"{TableName}.CreateTime", "CreateTimeMax", filter.CreateTimeMax, parameter);
+            AddParameter(stringBuilder, $"{TableName}.ExpiresTime", "ExpiresTime", filter.ExpiresTime, parameter);
+            AddParameter(stringBuilder, $"{TableName}.ExpiresTime", "ExpiresTimeMin", filter.ExpiresTimeMin, parameter);
+            AddParameter(stringBuilder, $"{TableName}.ExpiresTime", "ExpiresTimeMax", filter.ExpiresTimeMax, parameter);
 
             RemoveSqlConditionPrefix(stringBuilder);
             return (stringBuilder.ToString(), parameter);
         }
     }
-	#endregion
+    #endregion
+
+    public partial class AppAccessToken
+    {
+        /// <summary>
+        /// 插入或更新数据
+        /// </summary>
+        /// <param name="item">应用访问凭据</param>
+        /// <returns></returns>
+        internal int InserOrUpdate(Entity.AppAccessToken item)
+        {
+            return ProcessUpdate(() =>
+            {
+                string sql = $"INSERT INTO {TableName} (AppId,MerchantId,AccessToken,ExpiresIn,CreateTime,ExpiresTime) VALUES (@AppId,@MerchantId,@AccessToken,@ExpiresIn,@CreateTime,@ExpiresTime)";
+                sql += $" ON DUPLICATE KEY UPDATE {TableName} SET AccessToken=@AccessToken,ExpiresIn=@ExpiresIn,ExpiresTime=@ExpiresTime WHERE AppId=@AppId";
+                DapperCommand command = new DapperCommand
+                {
+                    CommandText = sql,
+                    Parameters = item
+                };
+                IDbConnection connection = CreateConnection();
+                return connection.Execute(command);
+            }, (log) =>
+            {
+                log.Properties[nameof(item)] = item;
+            });
+        }
+    }
 }

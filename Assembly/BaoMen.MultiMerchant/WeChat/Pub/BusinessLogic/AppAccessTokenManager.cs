@@ -17,7 +17,7 @@ namespace BaoMen.MultiMerchant.WeChat.Pub.BusinessLogic
     /// <summary>
     /// 微信公众号凭据业务逻辑
     /// </summary>
-    public partial class AppAccessTokenManager : MultiMerchant.Util.MerchantCacheableBusinessLogicBase<string,AppAccessToken,AppAccessTokenFilter,DataAccess.AppAccessToken>,IAppAccessTokenManager
+    public partial class AppAccessTokenManager : MultiMerchant.Util.MerchantCacheableBusinessLogicBase<string, AppAccessToken, AppAccessTokenFilter, DataAccess.AppAccessToken>, IAppAccessTokenManager
     {
         /// <summary>
         /// 构造函数
@@ -28,7 +28,7 @@ namespace BaoMen.MultiMerchant.WeChat.Pub.BusinessLogic
         {
 
         }
-        
+
         /// <summary>
         /// 获取实体标识字段名称
         /// </summary>
@@ -38,6 +38,23 @@ namespace BaoMen.MultiMerchant.WeChat.Pub.BusinessLogic
         protected override string IdentityPropertyName
         {
             get { return "AppId"; }
+        }
+
+        /// <summary>
+        /// 插入或更新数据
+        /// </summary>
+        /// <param name="item">应用访问凭据</param>
+        /// <returns></returns>
+        public int InserOrUpdate(Entity.AppAccessToken item)
+        {
+            return ProcessUpdate(() =>
+            {
+                item.MerchantId ??= string.Empty;
+                return dal.InserOrUpdate(item);
+            }, (log) =>
+            {
+                log.Properties[nameof(item)] = item;
+            });
         }
     }
     #endregion

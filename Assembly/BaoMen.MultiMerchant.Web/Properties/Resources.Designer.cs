@@ -196,6 +196,24 @@ namespace BaoMen.MultiMerchant.Web.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to API返回失败.
+        /// </summary>
+        public static string Error_1007 {
+            get {
+                return ResourceManager.GetString("Error_1007", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 调用API失败.
+        /// </summary>
+        public static string Error_1008 {
+            get {
+                return ResourceManager.GetString("Error_1008", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 请求无效（数据验证未通过）.
         /// </summary>
         public static string Error_400 {

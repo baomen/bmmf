@@ -19,18 +19,12 @@ namespace BaoMen.WeChat.Pub.Provider
         protected ILogger logger;
 
         /// <summary>
-        /// 公众号配置信息
-        /// </summary>
-        protected readonly Config config;
-
-        /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="config">微信公众号配置信息</param>
-        public BaseProvider(Config config)
+        public BaseProvider()
         {
             logger = LogManager.GetCurrentClassLogger();
-            this.config = config;
         }
 
         /// <summary>

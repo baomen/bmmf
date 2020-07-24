@@ -16,7 +16,12 @@ namespace BaoMen.MultiMerchant.WeChat.Pub.BusinessLogic
     /// </summary>
     public interface IAppAccessTokenManager : ICacheableBusinessLogic<string,AppAccessToken,AppAccessTokenFilter>
     {
-        
+        /// <summary>
+        /// 插入或更新数据
+        /// </summary>
+        /// <param name="item">应用访问凭据</param>
+        /// <returns></returns>
+        int InserOrUpdate(Entity.AppAccessToken item);
     }
     #endregion
 }

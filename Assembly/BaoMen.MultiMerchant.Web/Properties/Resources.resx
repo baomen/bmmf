@@ -162,6 +162,12 @@
   <data name="Error_1006" xml:space="preserve">
     <value>文件上传失败</value>
   </data>
+  <data name="Error_1007" xml:space="preserve">
+    <value>API返回失败</value>
+  </data>
+  <data name="Error_1008" xml:space="preserve">
+    <value>调用API失败</value>
+  </data>
   <data name="Error_400" xml:space="preserve">
     <value>请求无效（数据验证未通过）</value>
   </data>

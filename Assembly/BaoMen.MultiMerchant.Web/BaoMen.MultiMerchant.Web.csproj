@@ -47,8 +47,8 @@
     </None>
   </ItemGroup>
 
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="xcopy $(ProjectDir)\bin\Release\*.nupkg C:\Users\drawe\Documents\Project\BaoMen\BMCC\bmcc\src\Packages /Y" />
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy $(TargetPath) C:\Users\drawe\Documents\Project\BaoMen\BMCC\bmcc\src\Reference\ /Y" />
   </Target>
 
 </Project>

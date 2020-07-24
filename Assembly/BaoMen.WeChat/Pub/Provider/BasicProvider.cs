@@ -10,16 +10,6 @@ namespace BaoMen.WeChat.Pub.Provider
     public class BasicProvider : BaseProvider
     {
         /// <summary>
-        /// 构造函数
-        /// </summary>
-        /// <param name="config">微信公众号配置信息</param>
-        public BasicProvider(Config config)
-            : base(config)
-        {
-
-        }
-
-        /// <summary>
         /// 取得公众号的全局唯一票据
         /// </summary>
         /// <returns></returns>
@@ -27,10 +17,10 @@ namespace BaoMen.WeChat.Pub.Provider
         /// access_token是公众号的全局唯一票据，公众号调用各接口时都需使用access_token。正常情况下access_token有效期为7200秒，重复获取将导致上次获取的access_token失效。
         /// 公众号可以使用AppID和AppSecret调用本接口来获取access_token。AppID和AppSecret可在开发模式中获得（需要已经成为开发者，且帐号没有异常状态）。注意调用所有微信接口时均需使用https协议。
         /// </remarks>
-        public Client.Response.QueryAccessToken QueryAccessToken()
+        public Client.Response.QueryAccessToken QueryAccessToken(Client.Request.QueryAccessToken queryAccessToken)
         {
             return HttpGet<Client.Response.QueryAccessToken>(
-                $"https://{config.ApiDomain}/cgi-bin/token?grant_type=client_credential&appid={config.AppId}&secret={config.AppSecret}"
+                $"https://{queryAccessToken.ApiDomain}/cgi-bin/token?grant_type=client_credential&appid={queryAccessToken.AppId}&secret={queryAccessToken.AppSecret}"
             );
         }
 
@@ -48,8 +38,8 @@ namespace BaoMen.WeChat.Pub.Provider
         /// </remarks>
         public Client.Response.QueryAuthAccessToken QueryAuthAccessToken(Client.Request.QueryAuthAccessToken queryAuthAccessToken)
         {
-            return HttpGet< Client.Response.QueryAuthAccessToken>(
-                $"https://{config.ApiDomain}/sns/oauth2/access_token?appid={config.AppId}&secret={config.AppSecret}&code={queryAuthAccessToken.Code}&grant_type=authorization_code"
+            return HttpGet<Client.Response.QueryAuthAccessToken>(
+                $"https://{queryAuthAccessToken.ApiDomain}/sns/oauth2/access_token?appid={queryAuthAccessToken.AppId}&secret={queryAuthAccessToken.AppSecret}&code={queryAuthAccessToken.Code}&grant_type=authorization_code"
             );
         }
 
@@ -65,7 +55,7 @@ namespace BaoMen.WeChat.Pub.Provider
         public Client.Response.RefreshAuthAccessToken RefreshAuthAccessToken(Client.Request.RefreshAuthAccessToken refreshAuthAccessToken)
         {
             return HttpGet<Client.Response.RefreshAuthAccessToken>(
-                $"https://{config.ApiDomain}/sns/oauth2/refresh_token?appid={config.AppId}&grant_type=refresh_token&refresh_token={refreshAuthAccessToken.RefreshToken}"
+                $"https://{refreshAuthAccessToken.ApiDomain}/sns/oauth2/refresh_token?appid={refreshAuthAccessToken.AppId}&grant_type=refresh_token&refresh_token={refreshAuthAccessToken.RefreshToken}"
             );
         }
 

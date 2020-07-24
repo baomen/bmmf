@@ -14,8 +14,8 @@ namespace BaoMen.WeChat.Pub.Client.Request
     public class BaseRequest
     {
         /// <summary>
-        ///  公众号的全局唯一票据
+        /// 接口域名
         /// </summary>
-        public string AccessToken { get; set; }
+        public string ApiDomain { get; set; }
     }
 }
