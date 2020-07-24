@@ -14,7 +14,7 @@ using Response = BaoMen.WeChat.Pub.Client.Response;
 namespace BaoMen.MultiMerchant.Web.WeChat.Pub.Controller
 {
     /// <summary>
-    /// 基础控制器
+    /// 微信基础API
     /// </summary>
     [ApiController]
     public abstract class BasicController : ControllerBase
@@ -36,6 +36,7 @@ namespace BaoMen.MultiMerchant.Web.WeChat.Pub.Controller
         /// <param name="merchantId">商户ID</param>
         /// <param name="code">网页授权第一步获取的code参数</param>
         /// <returns></returns>
+        [HttpGet]
         public ResponseData<Response.QueryAuthAccessToken> QueryAuthAccessToken(string merchantId, string code)
         {
             ResponseData<Response.QueryAuthAccessToken> responseData = new ResponseData<Response.QueryAuthAccessToken>();
