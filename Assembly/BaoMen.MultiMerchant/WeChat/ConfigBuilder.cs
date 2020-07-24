@@ -60,8 +60,8 @@ namespace BaoMen.MultiMerchant.WeChat
         {
             BaoMen.WeChat.Pub.Config config = new BaoMen.WeChat.Pub.Config
             {
-                AppId = merchantParameterManager.Get("01010101").Value,
-                AppSecret = merchantParameterManager.Get("01010102").Value,
+                AppId = merchantParameterManager.Get("02010101").Value,
+                AppSecret = merchantParameterManager.Get("02010102").Value,
                 ApiDomain = parameterManager.Get("03010103").Value
             };
             CheckPubConfig(config);

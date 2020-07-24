@@ -27,14 +27,12 @@ namespace BaoMen.Demo.AdminWebApi.Controllers
             ResponseData<Amap.Open.WebService.Client.Response.ReGeoResponse> response = new ResponseData<Amap.Open.WebService.Client.Response.ReGeoResponse>();
             try
             {
-                MultiMerchant.Amap.ConfigBuilder configBuilder = HttpContext.RequestServices.GetRequiredService<MultiMerchant.Amap.ConfigBuilder>();
-                var config = configBuilder.BuildOpenConfig();
-                Provider provider = new Provider(config);
+                MultiMerchant.Amap.Open.Proxy proxy = HttpContext.RequestServices.GetRequiredService<MultiMerchant.Amap.Open.Proxy>();
                 Amap.Open.WebService.Client.Request.ReGeoRequest request = new Amap.Open.WebService.Client.Request.ReGeoRequest
                 {
                     Location = new Location(longitude, latitude)
                 };
-                response.Data = provider.ReGeo(request);
+                response.Data = proxy.ReGeo(request);
                 if (response.Data.Status != 1)
                 {
                     response.ErrorNumber = 2;

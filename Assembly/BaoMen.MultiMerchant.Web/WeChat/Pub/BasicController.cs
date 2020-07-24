@@ -8,26 +8,35 @@ using System.Security.Permissions;
 using Microsoft.Extensions.DependencyInjection;
 using BaoMen.WeChat.Open.Provider;
 
-namespace BaoMen.MultiMerchant.Web.WeChat.Open
+namespace BaoMen.MultiMerchant.Web.WeChat.Pub
 {
     /// <summary>
     /// 基础控制器
     /// </summary>
+    [ApiController]
     public abstract class BasicController : ControllerBase
     {
+        /// <summary>
+        /// 配置构建器
+        /// </summary>
         protected readonly BaoMen.WeChat.Util.IConfigBuilder configBuilder;
 
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="serviceProvider">服务提供程序</param>
         public BasicController(IServiceProvider serviceProvider)
         {
             configBuilder = serviceProvider.GetRequiredService<BaoMen.WeChat.Util.IConfigBuilder>();
         }
 
+
         /// <summary>
-        /// 通过code获取access_token
+        /// 取得网页授权的access_token
         /// </summary>
-        /// <param name="code">请求包</param>
+        /// <param name="code">网页授权第一步获取的code参数</param>
         /// <returns></returns>
-        public Response.CodeToAccessToken CodeToAccessToken(string code)
+        public Response.CodeToAccessToken QueryAuthAccessToken(string code)
         {
             try
             {

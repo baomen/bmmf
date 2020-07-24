@@ -25,4 +25,8 @@
     </None>
   </ItemGroup>
 
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="xcopy $(ProjectDir)\bin\Release\*.nupkg C:\Users\drawe\Documents\Project\BaoMen\BMCC\bmcc\src\Packages /Y" />
+  </Target>
+
 </Project>

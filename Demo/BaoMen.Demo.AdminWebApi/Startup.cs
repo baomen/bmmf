@@ -110,8 +110,13 @@ namespace BaoMen.Demo.AdminWebApi
             services.AddSingleton<ICurrentUserService, Utils.CurrentUserService>();
             services.AddScoped<IMerchantService, Utils.MerchantService>();
 
-            services.AddSingleton<WeChat.Util.IConfigBuilder, MultiMerchant.WeChat.ConfigBuilder>();
+            // services.AddSingleton<WeChat.Util.IConfigBuilder, MultiMerchant.WeChat.ConfigBuilder>();
+            services.AddSingleton<WeChat.Util.IConfigBuilder>((serviceProvider) =>
+            {
+                return new MultiMerchant.WeChat.ConfigBuilder(serviceProvider);
+            });
             services.AddSingleton<Amap.Utils.IConfigBuilder, MultiMerchant.Amap.ConfigBuilder>();
+            services.AddSingleton<MultiMerchant.Amap.Open.Proxy>();
         }
 
         /// <summary>

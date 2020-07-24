@@ -10,6 +10,7 @@ namespace BaoMen.Amap.Open.WebService.Client.Response
     /// </summary>
     [Serializable]
     [JsonObject(MemberSerialization.OptIn)]
+    [JsonArray(AllowNullItems = false)]
     public class BusinessArea
     {
         /// <summary>

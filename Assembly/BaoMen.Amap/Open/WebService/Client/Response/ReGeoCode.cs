@@ -20,7 +20,7 @@ namespace BaoMen.Amap.Open.WebService.Client.Response
         /// 如果坐标点处于海域范围内，则结构化地址信息为：省份＋城市＋区县＋海域信息
         /// </remarks>
         [JsonProperty("formatted_address")]
-        [JsonConverter(typeof(Utils.StringConverter))]
+        //[JsonConverter(typeof(Utils.StringConverter))]
         public string FormattedAddress { get; set; }
 
         /// <summary>

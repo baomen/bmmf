@@ -95,15 +95,19 @@ namespace BaoMen.Amap.Open.WebService
             {
                 log.Level = LogLevel.Warn;
                 log.Message = "传入的URL不正确";
-                response = new TResponse();
-                response.Status = 2;
-                response.Info = "传入的URL不正确";
+                response = new TResponse
+                {
+                    Status = 2,
+                    Info = "传入的URL不正确"
+                };
             }
             else
             {
                 log.Level = LogLevel.Debug;
                 string responseFromServer = HttpGet(url);
                 log.Properties["responseFromServer"] = responseFromServer;
+                responseFromServer = responseFromServer.Replace("[[]]", "null");
+                responseFromServer = responseFromServer.Replace("[]", "null");
                 response = JsonConvert.DeserializeObject<TResponse>(responseFromServer);
                 //JObject jObject = JObject.Parse(responseFromServer);
                 //response = jObject.ToObject<TResponse>();
@@ -139,9 +143,11 @@ namespace BaoMen.Amap.Open.WebService
             {
                 log.Level = LogLevel.Warn;
                 log.Message = "传入的参数不正确";
-                response = new TResponse();
-                response.Status = 2;
-                response.Info = "传入的参数不正确";
+                response = new TResponse
+                {
+                    Status = 2,
+                    Info = "传入的参数不正确"
+                };
             }
             else
             {
@@ -149,9 +155,11 @@ namespace BaoMen.Amap.Open.WebService
                 {
                     log.Level = LogLevel.Warn;
                     log.Message = "未配置接口地址";
-                    response = new TResponse();
-                    response.Status = 2;
-                    response.Info = "未配置接口地址";
+                    response = new TResponse
+                    {
+                        Status = 2,
+                        Info = "未配置接口地址"
+                    };
                 }
                 else
                 {

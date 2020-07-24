@@ -16,14 +16,14 @@ namespace BaoMen.Amap.Open.WebService.Client.Response
         /// 建筑名称
         /// </summary>
         [JsonProperty("name")]
-        [JsonConverter(typeof(Utils.StringConverter))]
+        //[JsonConverter(typeof(Utils.StringConverter))]
         public string Name { get; set; }
 
         /// <summary>
         /// 类型
         /// </summary>
         [JsonProperty("type")]
-        [JsonConverter(typeof(Utils.StringConverter))]
+        //[JsonConverter(typeof(Utils.StringConverter))]
         public string Type { get; set; }
     }
 }
