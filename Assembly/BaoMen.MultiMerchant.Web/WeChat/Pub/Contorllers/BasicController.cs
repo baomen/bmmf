@@ -1,14 +1,11 @@
 ﻿using BaoMen.Common.Model;
-using BaoMen.MultiMerchant.Amap.Open;
 using BaoMen.MultiMerchant.Util;
 using BaoMen.MultiMerchant.WeChat;
+using BaoMen.MultiMerchant.WeChat.Pub;
 using BaoMen.MultiMerchant.WeChat.Pub.Proxy;
-using BaoMen.WeChat.Pub;
-using BaoMen.WeChat.Pub.Provider;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using Request = BaoMen.WeChat.Pub.Client.Request;
 using Response = BaoMen.WeChat.Pub.Client.Response;
 
 namespace BaoMen.MultiMerchant.Web.WeChat.Pub.Controller
@@ -31,6 +28,32 @@ namespace BaoMen.MultiMerchant.Web.WeChat.Pub.Controller
         }
 
         /// <summary>
+        /// 获取AppId
+        /// </summary>
+        /// <param name="merchantId">商户ID</param>
+        /// <returns></returns>
+        [HttpGet]
+        public ResponseData<string> GetAppId(string merchantId)
+        {
+            ResponseData<string> responseData = new ResponseData<string>();
+            try
+            {
+                IMerchantService merchantService = HttpContext.RequestServices.GetRequiredService<IMerchantService>();
+                merchantService.MerchantId = merchantId;
+                ConfigBuilder configBuilder = HttpContext.RequestServices.GetRequiredService<ConfigBuilder>();
+                Config config = configBuilder.BuildPubConifg(merchantId);
+                responseData.Data = config.AppId;
+            }
+            catch (Exception exception)
+            {
+                responseData.ErrorNumber = 1008;
+                responseData.ErrorMessage = Properties.Resources.Error_1008;
+                responseData.Exception = exception;
+            }
+            return responseData;
+        }
+
+        /// <summary>
         /// 取得网页授权的access_token
         /// </summary>
         /// <param name="merchantId">商户ID</param>
@@ -45,7 +68,12 @@ namespace BaoMen.MultiMerchant.Web.WeChat.Pub.Controller
                 IMerchantService merchantService = HttpContext.RequestServices.GetRequiredService<IMerchantService>();
                 merchantService.MerchantId = merchantId;
                 Response.QueryAuthAccessToken response = basicProxy.QueryAuthAccessToken(merchantId, code);
-                if (response.ErrorCode != 0)
+
+                if (response.ErrorCode == 0)
+                {
+                    responseData.Data = response;
+                }
+                else
                 {
                     responseData.ErrorNumber = 1007;
                     responseData.ErrorMessage = Properties.Resources.Error_1007;

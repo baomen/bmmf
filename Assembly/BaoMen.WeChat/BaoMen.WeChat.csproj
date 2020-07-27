@@ -14,6 +14,10 @@
     <DocumentationFile>BaoMen.WeChat.xml</DocumentationFile>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>BaoMen.WeChat.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\BaoMen.Common\BaoMen.Common.csproj" />
   </ItemGroup>

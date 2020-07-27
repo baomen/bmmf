@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Text;
 
 namespace BaoMen.MultiMerchant.Util
@@ -55,6 +56,9 @@ namespace BaoMen.MultiMerchant.Util
             services.AddSingleton<BaoMen.WeChat.Pub.Provider.UserProvider>();
 
             services.AddSingleton<WeChat.Pub.Proxy.BasicProxy>();
+
+            services.AddSingleton<WeChat.Pub.BusinessLogic.IAppAccessTokenManager, WeChat.Pub.BusinessLogic.AppAccessTokenManager>();
+            services.AddSingleton<WeChat.Pub.BusinessLogic.IAuthAccessTokenManager, WeChat.Pub.BusinessLogic.AuthAccessTokenManager>();
             #endregion
 
             return services;

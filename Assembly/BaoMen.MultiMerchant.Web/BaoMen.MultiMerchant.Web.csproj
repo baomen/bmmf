@@ -48,7 +48,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy $(TargetPath) C:\Users\drawe\Documents\Project\BaoMen\BMCC\bmcc\src\Reference\ /Y" />
+    <Exec Command="xcopy $(TargetPath) C:\Users\drawe\Documents\Project\BaoMen\BMCC\bmcc\src\Reference\ /Y&#xD;&#xA;xcopy $(TargetDir)*.xml C:\Users\drawe\Documents\Project\BaoMen\BMCC\bmcc\src\Reference\ /Y" />
   </Target>
 
 </Project>

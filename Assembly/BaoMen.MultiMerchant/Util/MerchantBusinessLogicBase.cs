@@ -46,10 +46,10 @@ namespace BaoMen.MultiMerchant.Util
         }
 
         /// <summary>
-        /// 获取商户ID
+        /// 获取商户服务
         /// </summary>
         /// <returns></returns>
-        protected virtual string GetMerchantId()
+        protected IMerchantService GetMerchantService()
         {
             IMerchantService merchantService;
             if (httpContextAccessor != null)
@@ -62,6 +62,16 @@ namespace BaoMen.MultiMerchant.Util
                 //}
                 merchantService = serviceProvider.GetRequiredService<IMerchantService>();
             }
+            return merchantService;
+        }
+
+        /// <summary>
+        /// 获取商户ID
+        /// </summary>
+        /// <returns></returns>
+        protected virtual string GetMerchantId()
+        {
+            IMerchantService merchantService = GetMerchantService();
             // string merchantId = merchantService.GetMerchantId();
             string merchantId = merchantService.MerchantId;
             if (string.IsNullOrEmpty(merchantId) || merchantId.Length != 32)
