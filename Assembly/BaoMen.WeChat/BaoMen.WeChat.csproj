@@ -29,6 +29,14 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pay\Provider\" />
+    <Folder Include="Pay\Request\" />
+    <Folder Include="Pay\Response\" />
+    <Folder Include="Pay\V2\Request\Service\" />
+    <Folder Include="Pay\V2\Response\Service\" />
+  </ItemGroup>
+
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy $(TargetPath) C:\Users\drawe\Documents\Project\BaoMen\BMCC\bmcc\src\Reference\ /Y" />
   </Target>

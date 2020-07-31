@@ -51,6 +51,11 @@
         public string ProxyUrl { get; set; }
 
         /// <summary>
+        /// 接口地址
+        /// </summary>
+        public string ApiUrl { get; set; }
+
+        /// <summary>
         /// 子商户公众账号ID
         /// </summary>
         public string SubAppId { get; set; }

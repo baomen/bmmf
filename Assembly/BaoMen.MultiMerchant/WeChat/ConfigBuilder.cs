@@ -113,6 +113,37 @@ namespace BaoMen.MultiMerchant.WeChat
         }
         #endregion
 
+        #region 微信支付
+        /// <summary>
+        /// 创建默认的支付配置
+        /// </summary>
+        /// <returns></returns>
+        private BaoMen.WeChat.Pay.V2.GeneralConfig CreateDefaultGeneralPayConfig()
+        {
+            return new BaoMen.WeChat.Pay.V2.GeneralConfig
+            {
+                AppId = parameterManager.Get("03010101")?.Value,
+                MchId = parameterManager.Get("0301030101")?.Value,
+                ApiUrl = parameterManager.Get("0301030301")?.Value
+            };
+        }
+
+        /// <summary>
+        /// 构建微信支付的配置
+        /// </summary>
+        /// <returns></returns>
+        public BaoMen.WeChat.Pay.V2.GeneralConfig BuildGeneralPayConfig(string merchantId = null)
+        {
+            return CreateDefaultGeneralPayConfig();
+            //Pay.Config config;
+            //if (string.IsNullOrEmpty(merchantId))
+            //{
+            //    config = CreateDefaultPayConfig();
+            //}
+            //return config;
+        }
+        #endregion
+
         ///// <summary>
         ///// 构建微信小程序的配置
         ///// </summary>

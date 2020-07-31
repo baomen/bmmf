@@ -39,6 +39,11 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="WeChat\Pay\V2\" />
+    <Folder Include="WeChat\Pay\Request\" />
+  </ItemGroup>
+
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy $(TargetPath) C:\Users\drawe\Documents\Project\BaoMen\BMCC\bmcc\src\Reference\ /Y" />
   </Target>

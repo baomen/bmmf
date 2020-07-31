@@ -21,7 +21,6 @@ namespace BaoMen.WeChat.Pub.Provider
         /// <summary>
         /// 构造函数
         /// </summary>
-        /// <param name="config">微信公众号配置信息</param>
         public BaseProvider()
         {
             logger = LogManager.GetCurrentClassLogger();
