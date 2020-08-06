@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Text;
 
 namespace BaoMen.WeChat.Pay.V2
@@ -9,6 +10,11 @@ namespace BaoMen.WeChat.Pay.V2
     /// </summary>
     public class GeneralConfig
     {
+        /// <summary>
+        /// 微信公众号AppID
+        /// </summary>
+        public string AppId { get; set; }
+
         /// <summary>
         /// 商户号
         /// </summary>

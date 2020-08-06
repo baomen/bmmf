@@ -11,6 +11,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace BaoMen.Demo.AdminWebApi.Controllers
 {
+    /// <summary>
+    /// 高德地图
+    /// </summary>
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class AmapController : ControllerBase

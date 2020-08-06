@@ -35,7 +35,11 @@ namespace BaoMen.MultiMerchant.System.BusinessLogic
 
         }
 
-
+        /// <summary>
+        /// 重写基类的方法
+        /// </summary>
+        /// <param name="item">实体</param>
+        /// <returns></returns>
         protected override int DoInsert(UploadFile item)
         {
             item.CreateTime = DateTime.Now;

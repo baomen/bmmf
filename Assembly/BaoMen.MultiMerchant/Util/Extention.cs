@@ -54,11 +54,17 @@ namespace BaoMen.MultiMerchant.Util
             services.AddSingleton<WeChat.ConfigBuilder>();
             services.AddSingleton<BaoMen.WeChat.Pub.Provider.BasicProvider>();
             services.AddSingleton<BaoMen.WeChat.Pub.Provider.UserProvider>();
+            services.AddSingleton<BaoMen.WeChat.Pay.V2.Provider.GeneralProvider>();
 
             services.AddSingleton<WeChat.Pub.Proxy.BasicProxy>();
 
             services.AddSingleton<WeChat.Pub.BusinessLogic.IAppAccessTokenManager, WeChat.Pub.BusinessLogic.AppAccessTokenManager>();
             services.AddSingleton<WeChat.Pub.BusinessLogic.IAuthAccessTokenManager, WeChat.Pub.BusinessLogic.AuthAccessTokenManager>();
+            #endregion
+
+            #region aliyun
+            services.AddSingleton<AliYun.ConfigBuilder>();
+            services.AddSingleton<AliYun.Dysms.Proxy>();
             #endregion
 
             return services;

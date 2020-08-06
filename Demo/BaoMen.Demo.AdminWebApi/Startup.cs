@@ -21,6 +21,9 @@ using System.Text;
 
 namespace BaoMen.Demo.AdminWebApi
 {
+    /// <summary>
+    /// ¿ªÊ¼
+    /// </summary>
     public class Startup
     {
         /// <summary>

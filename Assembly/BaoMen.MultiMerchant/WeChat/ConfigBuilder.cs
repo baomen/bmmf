@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace BaoMen.MultiMerchant.WeChat
@@ -23,6 +25,30 @@ namespace BaoMen.MultiMerchant.WeChat
         {
             parameterManager = serviceProvider.GetRequiredService<System.BusinessLogic.IParameterManager>();
             merchantParameterManager = serviceProvider.GetRequiredService<Merchant.BusinessLogic.IParameterManager>();
+        }
+
+        /// <summary>
+        /// 获取证书文件的地址
+        /// </summary>
+        /// <param name="mchId">商户号</param>
+        /// <param name="fileName">文件名</param>
+        /// <returns></returns>
+        public string GetSslFilePath(string mchId, string fileName)
+        {
+            string path;
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                path = parameterManager.Get("01020301").Value;
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                path = parameterManager.Get("01020302").Value;
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
+            return Path.Combine(path, "wxpay", mchId, fileName);
         }
 
         #region 公众号
@@ -124,7 +150,10 @@ namespace BaoMen.MultiMerchant.WeChat
             {
                 AppId = parameterManager.Get("03010101")?.Value,
                 MchId = parameterManager.Get("0301030101")?.Value,
-                ApiUrl = parameterManager.Get("0301030301")?.Value
+                ApiUrl = parameterManager.Get("0301030301")?.Value,
+                Key = parameterManager.Get("0301030102")?.Value,
+                SslCertPath = GetSslFilePath(parameterManager.Get("0301030101")?.Value, parameterManager.Get("0301030103")?.Value),
+                SslCertPassword = parameterManager.Get("0301030104").Value
             };
         }
 

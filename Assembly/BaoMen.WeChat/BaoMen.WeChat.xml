@@ -264,6 +264,39 @@
             HMAC-SHA256
             </summary>
         </member>
+        <member name="T:BaoMen.WeChat.Pay.Util.FeeHelper">
+            <summary>
+            费用帮助类
+            </summary>
+        </member>
+        <member name="M:BaoMen.WeChat.Pay.Util.FeeHelper.YuanToFen(System.Decimal)">
+            <summary>
+            元->分
+            </summary>
+            <param name="value">金额</param>
+            <returns></returns>
+        </member>
+        <member name="M:BaoMen.WeChat.Pay.Util.FeeHelper.YuanToFen(System.String)">
+            <summary>
+            元->分
+            </summary>
+            <param name="value">金额</param>
+            <returns></returns>
+        </member>
+        <member name="M:BaoMen.WeChat.Pay.Util.FeeHelper.FenToYuan(System.Int32)">
+            <summary>
+            分->元
+            </summary>
+            <param name="value">金额</param>
+            <returns></returns>
+        </member>
+        <member name="M:BaoMen.WeChat.Pay.Util.FeeHelper.FenToYuan(System.String)">
+            <summary>
+            分->元
+            </summary>
+            <param name="value">金额</param>
+            <returns></returns>
+        </member>
         <member name="M:BaoMen.WeChat.Pay.Util.FeeHelper.FormatYuan(System.Decimal)">
             <summary>
             格式化元的价格为小数点后两位
@@ -311,6 +344,21 @@
             普通商户配置
             </summary>
         </member>
+        <member name="P:BaoMen.WeChat.Pay.V2.GeneralConfig.AppId">
+            <summary>
+            微信公众号AppID
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pay.V2.GeneralConfig.MchId">
+            <summary>
+            商户号
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pay.V2.GeneralConfig.Key">
+            <summary>
+            商户密钥
+            </summary>
+        </member>
         <member name="P:BaoMen.WeChat.Pay.V2.GeneralConfig.SslCertPath">
             <summary>
             证书路径（包含文件名）
@@ -326,9 +374,9 @@
             交易保障等级
             </summary>
         </member>
-        <member name="P:BaoMen.WeChat.Pay.V2.GeneralConfig.IsSandbox">
+        <member name="P:BaoMen.WeChat.Pay.V2.GeneralConfig.ApiUrl">
             <summary>
-            是否是沙箱环境
+            接口地址
             </summary>
         </member>
         <member name="T:BaoMen.WeChat.Pay.V2.Provider.BaseProvider">
@@ -366,16 +414,39 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:BaoMen.WeChat.Pay.V2.Provider.BaseProvider.CreateNonceString">
+            <summary>
+            创建随机字符串
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:BaoMen.WeChat.Pay.V2.Provider.BaseProvider.GetSignKey(BaoMen.WeChat.Pay.V2.Request.GetSignKeyRequest,BaoMen.WeChat.Pay.V2.GeneralConfig)">
+            <summary>
+            发放红包接口
+            </summary>
+            <param name="request">请求参数</param>
+            <param name="config">配置</param>
+            <returns></returns>
+        </member>
         <member name="T:BaoMen.WeChat.Pay.V2.Provider.GeneralProvider">
             <summary>
             普通商户提供程序
             </summary>
         </member>
-        <member name="M:BaoMen.WeChat.Pay.V2.Provider.GeneralProvider.SendRedPack(BaoMen.WeChat.Pay.V2.Request.General.SendRedPackRequest)">
+        <member name="M:BaoMen.WeChat.Pay.V2.Provider.GeneralProvider.SendRedPack(BaoMen.WeChat.Pay.V2.Request.General.SendRedPackRequest,BaoMen.WeChat.Pay.V2.GeneralConfig)">
             <summary>
             发放红包接口
             </summary>
             <param name="request">请求参数</param>
+            <param name="config">配置</param>
+            <returns></returns>
+        </member>
+        <member name="M:BaoMen.WeChat.Pay.V2.Provider.GeneralProvider.Transfer(BaoMen.WeChat.Pay.V2.Request.General.TransferRequest,BaoMen.WeChat.Pay.V2.GeneralConfig)">
+            <summary>
+            企业付款
+            </summary>
+            <param name="request">请求参数</param>
+            <param name="config">配置</param>
             <returns></returns>
         </member>
         <member name="T:BaoMen.WeChat.Pay.V2.Request.BaseRequest">
@@ -400,14 +471,9 @@
             签名
             </summary>
         </member>
-        <member name="P:BaoMen.WeChat.Pay.V2.Request.BaseRequest.Nonce">
+        <member name="P:BaoMen.WeChat.Pay.V2.Request.BaseRequest.NonceStr">
             <summary>
             随机字符串
-            </summary>
-        </member>
-        <member name="P:BaoMen.WeChat.Pay.V2.Request.BaseRequest.MchId">
-            <summary>
-            商户号
             </summary>
         </member>
         <member name="T:BaoMen.WeChat.Pay.V2.Request.General.BaseRequest">
@@ -415,14 +481,14 @@
             普通商户请求数据基类
             </summary>
         </member>
-        <member name="P:BaoMen.WeChat.Pay.V2.Request.General.BaseRequest.Config">
-            <summary>
-            配置信息
-            </summary>
-        </member>
         <member name="T:BaoMen.WeChat.Pay.V2.Request.General.SendRedPackRequest">
             <summary>
             发放红包请求数据
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pay.V2.Request.General.SendRedPackRequest.MchId">
+            <summary>
+            商户号
             </summary>
         </member>
         <member name="P:BaoMen.WeChat.Pay.V2.Request.General.SendRedPackRequest.MchBillNo">
@@ -485,23 +551,119 @@
             活动信息
             </summary>
         </member>
+        <member name="T:BaoMen.WeChat.Pay.V2.Request.General.TransferRequest">
+            <summary>
+            企业付款请求数据
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pay.V2.Request.General.TransferRequest.MchAppId">
+            <summary>
+            商户账号appid
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pay.V2.Request.General.TransferRequest.MchId">
+            <summary>
+            商户号
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pay.V2.Request.General.TransferRequest.DeviceInfo">
+            <summary>
+            设备号
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pay.V2.Request.General.TransferRequest.ParterTradeNo">
+            <summary>
+            商户订单号
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pay.V2.Request.General.TransferRequest.OpenId">
+            <summary>
+            用户openid
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pay.V2.Request.General.TransferRequest.CheckName">
+            <summary>
+            校验用户姓名选项
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pay.V2.Request.General.TransferRequest.ReUserName">
+            <summary>
+            收款用户姓名
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pay.V2.Request.General.TransferRequest.Amount">
+            <summary>
+            金额
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pay.V2.Request.General.TransferRequest.Desc">
+            <summary>
+            企业付款备注
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pay.V2.Request.General.TransferRequest.SpBillCreateIp">
+            <summary>
+            Ip地址
+            </summary>
+        </member>
+        <member name="T:BaoMen.WeChat.Pay.V2.Request.GetSignKeyRequest">
+            <summary>
+            获取沙箱验签秘钥请求参数
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pay.V2.Request.GetSignKeyRequest.MchId">
+            <summary>
+            商户号
+            </summary>
+        </member>
         <member name="T:BaoMen.WeChat.Pay.V2.Response.BaseResponse">
             <summary>
             响应数据
             </summary>
         </member>
-        <member name="M:BaoMen.WeChat.Pay.V2.Response.BaseResponse.#ctor(System.String)">
+        <member name="M:BaoMen.WeChat.Pay.V2.Response.BaseResponse.#ctor(System.String,System.Boolean,System.String,System.String)">
             <summary>
             构造函数
             </summary>
-            <param name="xml"></param>
+            <param name="xml">待转换的xml串</param>
+            <param name="checkSign">是否检查签名</param>
+            <param name="signType">签名方式</param>
+            <param name="key">签名密钥</param>
         </member>
-        <member name="M:BaoMen.WeChat.Pay.V2.Response.BaseResponse.FromXml(System.String)">
+        <member name="M:BaoMen.WeChat.Pay.V2.Response.BaseResponse.FromXml(System.String,System.Boolean,System.String,System.String)">
             <summary>
             将xml转为WxPayData对象并返回对象内部的数据
             </summary>
             <param name="xml">待转换的xml串</param>
+            <param name="checkSign">是否检查签名</param>
+            <param name="signType">签名方式</param>
+            <param name="key">签名密钥</param>
             <returns></returns>
+        </member>
+        <member name="P:BaoMen.WeChat.Pay.V2.Response.BaseResponse.ReturnCode">
+            <summary>
+            返回状态码
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pay.V2.Response.BaseResponse.ReturnMsg">
+            <summary>
+            返回信息
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pay.V2.Response.BaseResponse.ResultCode">
+            <summary>
+            业务结果
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pay.V2.Response.BaseResponse.ErrorCode">
+            <summary>
+            错误代码
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pay.V2.Response.BaseResponse.ErrorCodeDes">
+            <summary>
+            错误代码描述
+            </summary>
         </member>
         <member name="T:BaoMen.WeChat.Pay.V2.Response.General.SendRedPackResponse">
             <summary>
@@ -514,6 +676,73 @@
             </summary>
             <param name="xml">XML</param>
         </member>
+        <member name="T:BaoMen.WeChat.Pay.V2.Response.General.TransferResponse">
+            <summary>
+            企业付款响应数据
+            </summary>
+        </member>
+        <member name="M:BaoMen.WeChat.Pay.V2.Response.General.TransferResponse.#ctor(System.String)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="xml">XML</param>
+        </member>
+        <member name="P:BaoMen.WeChat.Pay.V2.Response.General.TransferResponse.MchAppId">
+            <summary>
+            商户appid
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pay.V2.Response.General.TransferResponse.MchId">
+            <summary>
+            商户号
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pay.V2.Response.General.TransferResponse.DeviceInfo">
+            <summary>
+            商户号
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pay.V2.Response.General.TransferResponse.NonceStr">
+            <summary>
+            随机字符串
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pay.V2.Response.General.TransferResponse.ParterTradeNo">
+            <summary>
+            商户订单号
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pay.V2.Response.General.TransferResponse.PaymentNo">
+            <summary>
+            微信付款单号
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pay.V2.Response.General.TransferResponse.PaymentTime">
+            <summary>
+            付款成功时间
+            </summary>
+        </member>
+        <member name="T:BaoMen.WeChat.Pay.V2.Response.GetSignKeyResponse">
+            <summary>
+            获取沙箱验签秘钥响应参数
+            </summary>
+        </member>
+        <member name="M:BaoMen.WeChat.Pay.V2.Response.GetSignKeyResponse.#ctor(System.String)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="xml">XML</param>
+        </member>
+        <member name="P:BaoMen.WeChat.Pay.V2.Response.GetSignKeyResponse.MchId">
+            <summary>
+            商户号
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pay.V2.Response.GetSignKeyResponse.SandboxSignKey">
+            <summary>
+            沙箱密钥
+            </summary>
+        </member>
         <member name="T:BaoMen.WeChat.Pay.V2.Validator.RequestValidator">
             <summary>
             验证器
@@ -524,6 +753,14 @@
             验证场景ID
             </summary>
             <param name="sceneId">场景ID</param>
+            <param name="validationContext">验证上下文</param>
+            <returns></returns>
+        </member>
+        <member name="M:BaoMen.WeChat.Pay.V2.Validator.RequestValidator.ValidateReUserName(System.String,System.ComponentModel.DataAnnotations.ValidationContext)">
+            <summary>
+            验证收款用户姓名
+            </summary>
+            <param name="reUserName">收款用户姓名</param>
             <param name="validationContext">验证上下文</param>
             <returns></returns>
         </member>
@@ -554,6 +791,28 @@
             <summary>
             转换为URL字符串
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:BaoMen.WeChat.Pay.V2.WxPayData.IsSet(System.String)">
+            <summary>
+            判断某个字段是否已设置
+            </summary>
+            <param name="key">字段名</param>
+            <returns></returns>
+        </member>
+        <member name="M:BaoMen.WeChat.Pay.V2.WxPayData.GetValue(System.String)">
+            <summary>
+            根据字段名获取某个字段的值
+            </summary>
+            <param name="key">字段名</param>
+            <returns>对应的字段值</returns>
+        </member>
+        <member name="M:BaoMen.WeChat.Pay.V2.WxPayData.CheckSign(System.String,System.String)">
+            <summary>
+            检测签名是否正确 正确返回true，错误抛异常
+            </summary>
+            <param name="signType">签名类型</param>
+            <param name="key">密钥</param>
             <returns></returns>
         </member>
         <member name="T:BaoMen.WeChat.Pub.Client.Request.BaseRequest">
@@ -929,7 +1188,7 @@
             <summary>
             获取用户基本信息
             </summary>
-            <param name="request">请求实例</param>
+            <param name="queryUserInfo">请求实例</param>
             <returns></returns>
         </member>
     </members>

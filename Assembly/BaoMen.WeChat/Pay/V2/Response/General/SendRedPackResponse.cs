@@ -14,7 +14,7 @@ namespace BaoMen.WeChat.Pay.V2.Response.General
         /// 构造函数
         /// </summary>
         /// <param name="xml">XML</param>
-        public SendRedPackResponse(string xml = null) : base(xml)
+        public SendRedPackResponse(string xml) : base(xml, checkSign: false)
         {
 
         }

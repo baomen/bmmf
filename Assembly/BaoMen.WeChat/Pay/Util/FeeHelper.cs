@@ -1,26 +1,49 @@
 ﻿namespace BaoMen.WeChat.Pay.Util
 {
+    /// <summary>
+    /// 费用帮助类
+    /// </summary>
     public class FeeHelper
     {
-        public static int YuanToFen(decimal price)
+        /// <summary>
+        /// 元->分
+        /// </summary>
+        /// <param name="value">金额</param>
+        /// <returns></returns>
+        public static int YuanToFen(decimal value)
         {
-            return (int)(price * 100);
+            return (int)(value * 100);
         }
 
-        public static int YuanToFen(string price)
+        /// <summary>
+        /// 元->分
+        /// </summary>
+        /// <param name="value">金额</param>
+        /// <returns></returns>
+        public static int YuanToFen(string value)
         {
-            decimal.TryParse(price, out decimal result);
+            decimal.TryParse(value, out decimal result);
             return YuanToFen(result);
         }
 
-        public static decimal FenToYuan(int price)
+        /// <summary>
+        /// 分->元
+        /// </summary>
+        /// <param name="value">金额</param>
+        /// <returns></returns>
+        public static decimal FenToYuan(int value)
         {
-            return ((decimal)price) / 100;
+            return ((decimal)value) / 100;
         }
 
-        public static decimal FenToYuan(string price)
+        /// <summary>
+        /// 分->元
+        /// </summary>
+        /// <param name="value">金额</param>
+        /// <returns></returns>
+        public static decimal FenToYuan(string value)
         {
-            int.TryParse(price, out int result);
+            int.TryParse(value, out int result);
             return FenToYuan(result);
         }
 

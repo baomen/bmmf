@@ -87,5 +87,66 @@ namespace BaoMen.WeChat.Pay.V2
             buff = buff.Trim('&');
             return buff;
         }
+
+        /// <summary>
+        /// 判断某个字段是否已设置
+        /// </summary>
+        /// <param name="key">字段名</param>
+        /// <returns></returns>
+        public bool IsSet(string key)
+        {
+            m_values.TryGetValue(key, out object value);
+            if (null != value)
+                return true;
+            else
+                return false;
+        }
+
+        /// <summary>
+        /// 根据字段名获取某个字段的值
+        /// </summary>
+        /// <param name="key">字段名</param>
+        /// <returns>对应的字段值</returns>
+        public object GetValue(string key)
+        {
+            m_values.TryGetValue(key, out object value);
+            return value;
+        }
+
+        /// <summary>
+        /// 检测签名是否正确 正确返回true，错误抛异常
+        /// </summary>
+        /// <param name="signType">签名类型</param>
+        /// <param name="key">密钥</param>
+        /// <returns></returns>
+        public bool CheckSign(string signType,string key)
+        {
+            //如果没有设置签名，则跳过检测
+            if (!IsSet("sign"))
+            {
+                logger.Error("WxPayData签名存在但不合法!");
+                throw new WxPayException("WxPayData签名存在但不合法!");
+            }
+            //如果设置了签名但是签名为空，则抛异常
+            else if (GetValue("sign") == null || GetValue("sign").ToString() == "")
+            {
+                logger.Error("WxPayData签名存在但不合法!");
+                throw new WxPayException("WxPayData签名存在但不合法!");
+            }
+
+            //获取接收到的签名
+            string return_sign = GetValue("sign").ToString();
+
+            //在本地计算新的签名
+            string cal_sign = MakeSign(signType,key);
+
+            if (cal_sign == return_sign)
+            {
+                return true;
+            }
+
+            logger.Error("WxPayData签名验证错误!");
+            throw new WxPayException("WxPayData签名验证错误!");
+        }
     }
 }

@@ -9,13 +9,25 @@ using Microsoft.Extensions.Logging;
 
 namespace BaoMen.Demo.AdminWebApi
 {
+    /// <summary>
+    /// 程序
+    /// </summary>
     public class Program
     {
+        /// <summary>
+        /// 入口
+        /// </summary>
+        /// <param name="args">参数</param>
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
         }
 
+        /// <summary>
+        /// 创建宿主
+        /// </summary>
+        /// <param name="args">参数</param>
+        /// <returns></returns>
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>

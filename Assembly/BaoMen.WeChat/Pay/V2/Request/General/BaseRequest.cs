@@ -10,10 +10,6 @@ namespace BaoMen.WeChat.Pay.V2.Request.General
     /// </summary>
     public class BaseRequest : Request.BaseRequest
     {
-        /// <summary>
-        /// 配置信息
-        /// </summary>
-        [Required]
-        public GeneralConfig Config { get; set; }
+
     }
 }

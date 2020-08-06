@@ -17,7 +17,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo", "Demo", "{46D912CE-6
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaoMen.Demo.AdminWebApi", "Demo\BaoMen.Demo.AdminWebApi\BaoMen.Demo.AdminWebApi.csproj", "{4B824597-9E5A-4E3C-A54F-D4C2F84EFFB0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaoMen.Amap", "Assembly\BaoMen.Amap\BaoMen.Amap.csproj", "{42145329-382B-4A59-9EA1-E8E9786B0192}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaoMen.Amap", "Assembly\BaoMen.Amap\BaoMen.Amap.csproj", "{42145329-382B-4A59-9EA1-E8E9786B0192}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaoMen.AliYun", "Assembly\BaoMen.AliYun\BaoMen.AliYun.csproj", "{60B8BDA6-FC8F-44C1-AB43-57A6460E3947}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +51,10 @@ Global
 		{42145329-382B-4A59-9EA1-E8E9786B0192}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42145329-382B-4A59-9EA1-E8E9786B0192}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42145329-382B-4A59-9EA1-E8E9786B0192}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60B8BDA6-FC8F-44C1-AB43-57A6460E3947}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60B8BDA6-FC8F-44C1-AB43-57A6460E3947}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60B8BDA6-FC8F-44C1-AB43-57A6460E3947}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60B8BDA6-FC8F-44C1-AB43-57A6460E3947}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +66,7 @@ Global
 		{A5D4CF69-D531-4859-8EDC-48F4D45CFCE5} = {3904C3FC-96AA-41DF-BE9B-A8A4A673E6C9}
 		{4B824597-9E5A-4E3C-A54F-D4C2F84EFFB0} = {46D912CE-6AB0-4EC6-A937-6E989571AA76}
 		{42145329-382B-4A59-9EA1-E8E9786B0192} = {3904C3FC-96AA-41DF-BE9B-A8A4A673E6C9}
+		{60B8BDA6-FC8F-44C1-AB43-57A6460E3947} = {3904C3FC-96AA-41DF-BE9B-A8A4A673E6C9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FFEDABD8-5D02-4D3C-A397-8870D922EE3D}

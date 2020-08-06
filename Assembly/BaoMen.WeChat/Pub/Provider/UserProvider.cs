@@ -12,7 +12,7 @@ namespace BaoMen.WeChat.Pub.Provider
         /// <summary>
         /// 获取用户基本信息
         /// </summary>
-        /// <param name="request">请求实例</param>
+        /// <param name="queryUserInfo">请求实例</param>
         /// <returns></returns>
         public Client.Response.QueryUserInfo QueryUserInfo(Client.Request.QueryUserInfo queryUserInfo)
         {

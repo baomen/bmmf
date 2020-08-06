@@ -24,6 +24,17 @@ namespace BaoMen.WeChat.Pay.V2.Validator
             //    return new ValidationResult("Cannot start with a digit", new List<string> { "CategoryName" });
             //return ValidationResult.Success;
         }
+
+        /// <summary>
+        /// 验证收款用户姓名
+        /// </summary>
+        /// <param name="reUserName">收款用户姓名</param>
+        /// <param name="validationContext">验证上下文</param>
+        /// <returns></returns>
+        public static ValidationResult ValidateReUserName(string reUserName,ValidationContext validationContext)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
     }
 }

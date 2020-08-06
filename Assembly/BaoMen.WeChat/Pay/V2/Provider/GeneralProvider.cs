@@ -16,26 +16,67 @@ namespace BaoMen.WeChat.Pay.V2.Provider
         /// 发放红包接口
         /// </summary>
         /// <param name="request">请求参数</param>
+        /// <param name="config">配置</param>
         /// <returns></returns>
         public Response.General.SendRedPackResponse SendRedPack(Request.General.SendRedPackRequest request, GeneralConfig config)
         {
-
             if (request == null)
             {
                 logger.Warn("SendRedPack 请求参数不能为null");
                 throw new WxPayException("请求参数不能为null");
             }
+            request.ClientIp = GetIntranetIP();
+            request.MchId = config.MchId;
+            request.NonceStr = CreateNonceString();
+            request.WxAppId = config.AppId;
             request.Validate();
+            request.Sign = request.MakeSign(Constant.SignType.MD5, config.Key);
 
             string url = $"{config.ApiUrl}/mmpaymkttransfers/sendredpack";
 
             System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
             stopwatch.Start();
-            string xml = Post(request.ToXml(), url, true, 1, request.Config.SslCertPath, request.Config.SslCertPassword);
+            string xml = Post(request.ToXml(), url, true, 1, config.SslCertPath, config.SslCertPassword);
             stopwatch.Stop();
             TimeSpan ts = stopwatch.Elapsed;
             int timeCost = (int)(ts.TotalMilliseconds);//获得接口耗时
             Response.General.SendRedPackResponse response = new Response.General.SendRedPackResponse(xml);
+            //ReportCostTime(url, timeCost, result);//测速上报
+            return response;
+        }
+        #endregion
+
+        #region 企业付款接口实现
+        /// <summary>
+        /// 企业付款
+        /// </summary>
+        /// <param name="request">请求参数</param>
+        /// <param name="config">配置</param>
+        /// <returns></returns>
+        public Response.General.TransferResponse Transfer(Request.General.TransferRequest request, GeneralConfig config)
+        {
+            if (request == null)
+            {
+                logger.Warn("SendRedPack 请求参数不能为null");
+                throw new WxPayException("请求参数不能为null");
+            }
+            request.CheckName = string.IsNullOrEmpty(request.ReUserName) ? "NO_CHECK" : "FORCE_CHECK";
+            request.MchAppId = config.AppId;
+            request.MchId = config.MchId;
+            request.NonceStr = CreateNonceString();
+            request.SpBillCreateIp = GetIntranetIP();
+            request.Validate();
+            request.Sign = request.MakeSign(Constant.SignType.MD5, config.Key);
+            
+            string url = $"{config.ApiUrl}/mmpaymkttransfers/promotion/transfers";
+
+            System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
+            stopwatch.Start();
+            string xml = Post(request.ToXml(), url, true, 1, config.SslCertPath, config.SslCertPassword);
+            stopwatch.Stop();
+            TimeSpan ts = stopwatch.Elapsed;
+            int timeCost = (int)(ts.TotalMilliseconds);//获得接口耗时
+            Response.General.TransferResponse response = new Response.General.TransferResponse(xml);
             //ReportCostTime(url, timeCost, result);//测速上报
             return response;
         }

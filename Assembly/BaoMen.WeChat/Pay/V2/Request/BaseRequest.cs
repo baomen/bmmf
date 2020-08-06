@@ -66,6 +66,10 @@ namespace BaoMen.WeChat.Pay.V2.Request
                     throw new WxPayException("Request字段数据类型错误!");
                 }
             }
+            if (!string.IsNullOrEmpty(Sign))
+            {
+                xml += $"<sign><![CDATA[{Sign}]]></sign>";
+            }
             xml += "</xml>";
             return xml;
         }
@@ -75,40 +79,17 @@ namespace BaoMen.WeChat.Pay.V2.Request
         /// <summary>
         /// 签名
         /// </summary>
-        public string Sign { get; set; }
+        public string Sign { get; internal set; }
 
         /// <summary>
         /// 随机字符串
         /// </summary>
         [Required]
         [StringLength(32)]
-        public string Nonce
+        public string NonceStr
         {
-            get
-            {
-                return m_values.ContainsKey("nonce_str") ? (string)m_values["nonce_str"] : null;
-            }
-            set
-            {
-                m_values["nonce_str"] = value;
-            }
-        }
-
-        /// <summary>
-        /// 商户号
-        /// </summary>
-        [Required]
-        [StringLength(32)]
-        public string MchId
-        {
-            get
-            {
-                return m_values.ContainsKey("mch_id") ? (string)m_values["mch_id"] : null;
-            }
-            set
-            {
-                m_values["mch_id"] = value;
-            }
+            get => m_values.ContainsKey("nonce_str") ? (string)m_values["nonce_str"] : null;
+            internal set => m_values["nonce_str"] = value;
         }
 
         #endregion

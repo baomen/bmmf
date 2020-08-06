@@ -162,7 +162,7 @@ namespace BaoMen.Common.Data
         /// <param name="action">添加日志参数的方法</param>
         /// <param name="hasPermission">检查权限的方法</param>
         /// <returns></returns>
-        protected TResult Process<TResult>(DataOperationType dataOperationType, Func<TResult> func, Action<LogEventInfo> action, Func<bool> hasPermission)
+        protected TResult Process<TResult>(DataOperationType dataOperationType, Func<LogEventInfo, TResult> func, Action<LogEventInfo> action, Func<bool> hasPermission)
         {
             LogEventInfo log = CreateLog("Process<TResult>(Func<TResult> func, Action<LogEventInfo> action, Func<bool> hasPermission, DataOperationType dataOperationType)");
             log.Properties["dataOperationType"] = dataOperationType;
@@ -220,7 +220,7 @@ namespace BaoMen.Common.Data
             {
                 if (hasPermission != null && !hasPermission())
                     throw new ArgumentException("no permission");
-                TResult result = func();
+                TResult result = func(log);
                 log.Level = LogLevel.Debug;
                 log.Message = "process success";
 #if DEBUG
@@ -282,9 +282,34 @@ namespace BaoMen.Common.Data
         /// <typeparam name="TResult">返回类型</typeparam>
         /// <param name="func">查询的方法</param>
         /// <param name="action">添加日志参数的方法</param>
+        /// <returns></returns>
+        protected TResult ProcessSelect<TResult>(Func<LogEventInfo, TResult> func, Action<LogEventInfo> action = null)
+        {
+            return ProcessSelect(func, action, CheckReadPermission);
+        }
+
+        /// <summary>
+        /// 执行查询操作
+        /// </summary>
+        /// <typeparam name="TResult">返回类型</typeparam>
+        /// <param name="func">查询的方法</param>
+        /// <param name="action">添加日志参数的方法</param>
         /// <param name="hasPermission">检查权限的方法</param>
         /// <returns></returns>
         protected TResult ProcessSelect<TResult>(Func<TResult> func, Action<LogEventInfo> action, Func<bool> hasPermission)
+        {
+            return Process<TResult>(DataOperationType.Select, (log) => func.Invoke(), action, hasPermission);
+        }
+
+        /// <summary>
+        /// 执行查询操作
+        /// </summary>
+        /// <typeparam name="TResult">返回类型</typeparam>
+        /// <param name="func">查询的方法</param>
+        /// <param name="action">添加日志参数的方法</param>
+        /// <param name="hasPermission">检查权限的方法</param>
+        /// <returns></returns>
+        protected TResult ProcessSelect<TResult>(Func<LogEventInfo, TResult> func, Action<LogEventInfo> action, Func<bool> hasPermission)
         {
             return Process<TResult>(DataOperationType.Select, func, action, hasPermission);
         }
@@ -295,7 +320,18 @@ namespace BaoMen.Common.Data
         /// <param name="func">插入的方法</param>
         /// <param name="action">添加日志参数的方法</param>
         /// <returns></returns>
-        protected int ProcessInsert(Func<int> func, Action<LogEventInfo> action = null)
+        protected TResult ProcessInsert<TResult>(Func<TResult> func, Action<LogEventInfo> action = null)
+        {
+            return ProcessInsert(func, action, CheckWritePermission);
+        }
+
+        /// <summary>
+        /// 执行插入操作
+        /// </summary>
+        /// <param name="func">插入的方法</param>
+        /// <param name="action">添加日志参数的方法</param>
+        /// <returns></returns>
+        protected TResult ProcessInsert<TResult>(Func<LogEventInfo, TResult> func, Action<LogEventInfo> action = null)
         {
             return ProcessInsert(func, action, CheckWritePermission);
         }
@@ -307,9 +343,21 @@ namespace BaoMen.Common.Data
         /// <param name="action">添加日志参数的方法</param>
         /// <param name="hasPermission">检查权限的方法</param>
         /// <returns></returns>
-        protected int ProcessInsert(Func<int> func, Action<LogEventInfo> action, Func<bool> hasPermission)
+        protected TResult ProcessInsert<TResult>(Func<TResult> func, Action<LogEventInfo> action, Func<bool> hasPermission)
         {
-            return Process<int>(DataOperationType.Insert, func, action, hasPermission);
+            return Process<TResult>(DataOperationType.Insert, (log) => func.Invoke(), action, hasPermission);
+        }
+
+        /// <summary>
+        /// 执行插入操作
+        /// </summary>
+        /// <param name="func">插入的方法</param>
+        /// <param name="action">添加日志参数的方法</param>
+        /// <param name="hasPermission">检查权限的方法</param>
+        /// <returns></returns>
+        protected TResult ProcessInsert<TResult>(Func<LogEventInfo, TResult> func, Action<LogEventInfo> action, Func<bool> hasPermission)
+        {
+            return Process<TResult>(DataOperationType.Insert, func, action, hasPermission);
         }
 
         /// <summary>
@@ -318,7 +366,18 @@ namespace BaoMen.Common.Data
         /// <param name="func">更新的方法</param>
         /// <param name="action">添加日志参数的方法</param>
         /// <returns></returns>
-        protected int ProcessUpdate(Func<int> func, Action<LogEventInfo> action = null)
+        protected TResult ProcessUpdate<TResult>(Func<TResult> func, Action<LogEventInfo> action = null)
+        {
+            return ProcessUpdate(func, action, CheckWritePermission);
+        }
+
+        /// <summary>
+        /// 执行更新操作
+        /// </summary>
+        /// <param name="func">更新的方法</param>
+        /// <param name="action">添加日志参数的方法</param>
+        /// <returns></returns>
+        protected TResult ProcessUpdate<TResult>(Func<LogEventInfo, TResult> func, Action<LogEventInfo> action = null)
         {
             return ProcessUpdate(func, action, CheckWritePermission);
         }
@@ -330,9 +389,21 @@ namespace BaoMen.Common.Data
         /// <param name="action">添加日志参数的方法</param>
         /// <param name="hasPermission">检查权限的方法</param>
         /// <returns></returns>
-        protected int ProcessUpdate(Func<int> func, Action<LogEventInfo> action, Func<bool> hasPermission)
+        protected TResult ProcessUpdate<TResult>(Func<TResult> func, Action<LogEventInfo> action, Func<bool> hasPermission)
         {
-            return Process<int>(DataOperationType.Update, func, action, hasPermission);
+            return Process<TResult>(DataOperationType.Update, (log) => func.Invoke(), action, hasPermission);
+        }
+
+        /// <summary>
+        /// 执行更新操作
+        /// </summary>
+        /// <param name="func">更新的方法</param>
+        /// <param name="action">添加日志参数的方法</param>
+        /// <param name="hasPermission">检查权限的方法</param>
+        /// <returns></returns>
+        protected TResult ProcessUpdate<TResult>(Func<LogEventInfo, TResult> func, Action<LogEventInfo> action, Func<bool> hasPermission)
+        {
+            return Process<TResult>(DataOperationType.Update, func, action, hasPermission);
         }
 
         /// <summary>
@@ -341,7 +412,18 @@ namespace BaoMen.Common.Data
         /// <param name="func">删除的方法</param>
         /// <param name="action">添加日志参数的方法</param>
         /// <returns></returns>
-        protected int ProcessDelete(Func<int> func, Action<LogEventInfo> action = null)
+        protected TResult ProcessDelete<TResult>(Func<TResult> func, Action<LogEventInfo> action = null)
+        {
+            return ProcessDelete(func, action, CheckWritePermission);
+        }
+
+        /// <summary>
+        /// 执行删除操作
+        /// </summary>
+        /// <param name="func">删除的方法</param>
+        /// <param name="action">添加日志参数的方法</param>
+        /// <returns></returns>
+        protected TResult ProcessDelete<TResult>(Func<LogEventInfo, TResult> func, Action<LogEventInfo> action = null)
         {
             return ProcessDelete(func, action, CheckWritePermission);
         }
@@ -353,9 +435,58 @@ namespace BaoMen.Common.Data
         /// <param name="action">添加日志参数的方法</param>
         /// <param name="hasPermission">检查权限的方法</param>
         /// <returns></returns>
-        protected int ProcessDelete(Func<int> func, Action<LogEventInfo> action, Func<bool> hasPermission)
+        protected TResult ProcessDelete<TResult>(Func<TResult> func, Action<LogEventInfo> action, Func<bool> hasPermission)
         {
-            return Process<int>(DataOperationType.Delete, func, action, hasPermission);
+            return Process<TResult>(DataOperationType.Delete, (log) => func.Invoke(), action, hasPermission);
+        }
+
+        /// <summary>
+        /// 执行删除操作
+        /// </summary>
+        /// <param name="func">删除的方法</param>
+        /// <param name="action">添加日志参数的方法</param>
+        /// <param name="hasPermission">检查权限的方法</param>
+        /// <returns></returns>
+        protected TResult ProcessDelete<TResult>(Func<LogEventInfo, TResult> func, Action<LogEventInfo> action, Func<bool> hasPermission)
+        {
+            return Process<TResult>(DataOperationType.Delete, func, action, hasPermission);
+        }
+
+        /// <summary>
+        /// 执行数据库事务操作
+        /// </summary>
+        /// <param name="func">要执行的方法</param>
+        /// <param name="autoCommit">是否自动提交事务。默认值true</param>
+        protected void ProcessWithTransaction(Action<IDbTransaction> func, bool autoCommit = true)
+        {
+            IDbConnection conn = null;
+            IDbTransaction transaction = null;
+            try
+            {
+                conn = dal.CreateConnection();
+                conn.Open();
+                transaction = conn.BeginTransaction();
+                func?.Invoke(transaction);
+                if (autoCommit)
+                    transaction.Commit();
+            }
+            catch (NoneRowModifiedException noneRowModifiedException)
+            {
+                if (transaction != null)
+                    transaction.Rollback();
+                logger.Warn(noneRowModifiedException, "process transaction failure.none row modified.");
+            }
+            catch
+            {
+                if (transaction != null && conn.State == ConnectionState.Open)
+                    transaction.Rollback();
+                throw;
+            }
+            finally
+            {
+                if (conn != null)
+                    conn.Close();
+            }
         }
 
         /// <summary>

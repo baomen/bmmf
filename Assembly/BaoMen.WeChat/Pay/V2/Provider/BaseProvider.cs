@@ -102,7 +102,7 @@ namespace BaoMen.WeChat.Pay.V2.Provider
         /// <param name="sslCertFile">证书路径</param>
         /// <param name="sslCertPassword">证书密码</param>
         /// <returns></returns>
-        protected string Post(string xml, string url, bool useCert, int timeout, string sslCertFile, string sslCertPassword)
+        protected string Post(string xml, string url, bool useCert, int timeout, string sslCertFile = null, string sslCertPassword = null)
         {
             System.GC.Collect();//垃圾回收，回收没有正常关闭的http连接
 
@@ -205,5 +205,47 @@ namespace BaoMen.WeChat.Pay.V2.Provider
             }
             return localIP;
         }
+
+        /// <summary>
+        /// 创建随机字符串
+        /// </summary>
+        /// <returns></returns>
+        protected virtual string CreateNonceString()
+        {
+            return Guid.NewGuid().ToString("N");
+        }
+
+        #region 通用微信接口
+        /// <summary>
+        /// 发放红包接口
+        /// </summary>
+        /// <param name="request">请求参数</param>
+        /// <param name="config">配置</param>
+        /// <returns></returns>
+        public Response.GetSignKeyResponse GetSignKey(Request.GetSignKeyRequest request, GeneralConfig config)
+        {
+            if (request == null)
+            {
+                logger.Warn("SendRedPack 请求参数不能为null");
+                throw new WxPayException("请求参数不能为null");
+            }
+            request.MchId = config.MchId;
+            request.NonceStr = CreateNonceString();
+            request.Validate();
+            request.Sign = request.MakeSign(Constant.SignType.MD5, config.Key);
+
+            string url = $"{config.ApiUrl}/pay/getsignkey";
+
+            System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
+            stopwatch.Start();
+            string xml = Post(request.ToXml(), url, false, 1);
+            stopwatch.Stop();
+            TimeSpan ts = stopwatch.Elapsed;
+            int timeCost = (int)(ts.TotalMilliseconds);//获得接口耗时
+            Response.GetSignKeyResponse response = new Response.GetSignKeyResponse(xml);
+            //ReportCostTime(url, timeCost, result);//测速上报
+            return response;
+        }
+        #endregion
     }
 }

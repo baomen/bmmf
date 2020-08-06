@@ -14,21 +14,28 @@ namespace BaoMen.WeChat.Pay.V2.Response
     /// </summary>
     public abstract class BaseResponse : WxPayData
     {
+
         /// <summary>
         /// 构造函数
         /// </summary>
-        /// <param name="xml"></param>
-        public BaseResponse(string xml = null)
+        /// <param name="xml">待转换的xml串</param>
+        /// <param name="checkSign">是否检查签名</param>
+        /// <param name="signType">签名方式</param>
+        /// <param name="key">签名密钥</param>
+        public BaseResponse(string xml , bool checkSign = true, string signType = Constant.SignType.HMACSHA256, string key = null)
         {
-            FromXml(xml);
+            FromXml(xml, checkSign, signType, key);
         }
 
         /// <summary>
         /// 将xml转为WxPayData对象并返回对象内部的数据
         /// </summary>
         /// <param name="xml">待转换的xml串</param>
+        /// <param name="checkSign">是否检查签名</param>
+        /// <param name="signType">签名方式</param>
+        /// <param name="key">签名密钥</param>
         /// <returns></returns>
-        public SortedDictionary<string, object> FromXml(string xml)
+        protected SortedDictionary<string, object> FromXml(string xml, bool checkSign = true, string signType = Constant.SignType.HMACSHA256, string key = null)
         {
             if (string.IsNullOrEmpty(xml))
             {
@@ -52,13 +59,56 @@ namespace BaoMen.WeChat.Pay.V2.Response
                 {
                     return m_values;
                 }
-                //CheckSign();//验证签名,不通过会抛异常
+                if (checkSign)
+                {
+                    CheckSign(signType, key);//验证签名,不通过会抛异常
+                }
             }
             catch (WxPayException ex)
             {
                 throw new WxPayException(ex.Message);
             }
             return m_values;
+        }
+
+        /// <summary>
+        /// 返回状态码
+        /// </summary>
+        public string ReturnCode
+        {
+            get { return m_values.ContainsKey("return_code") ? (string)m_values["return_code"] : null; }
+        }
+
+        /// <summary>
+        /// 返回信息
+        /// </summary>
+        public string ReturnMsg
+        {
+            get { return m_values.ContainsKey("return_msg") ? (string)m_values["return_msg"] : null; }
+        }
+
+        /// <summary>
+        /// 业务结果
+        /// </summary>
+        public string ResultCode
+        {
+            get { return m_values.ContainsKey("result_code") ? (string)m_values["result_code"] : null; }
+        }
+
+        /// <summary>
+        /// 错误代码
+        /// </summary>
+        public string ErrorCode
+        {
+            get { return m_values.ContainsKey("err_code") ? (string)m_values["err_code"] : null; }
+        }
+
+        /// <summary>
+        /// 错误代码描述
+        /// </summary>
+        public string ErrorCodeDes
+        {
+            get { return m_values.ContainsKey("err_code_des") ? (string)m_values["err_code_des"] : null; }
         }
     }
 }

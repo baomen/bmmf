@@ -168,7 +168,7 @@ namespace BaoMen.Common.Data
         /// <param name="func">执行的方法</param>
         /// <param name="action">添加日志参数的方法</param>
         /// <returns></returns>
-        protected TResult Process<TResult>(DataOperationType dataOperationType, Func<TResult> func, Action<LogEventInfo> action = null)
+        protected TResult Process<TResult>(DataOperationType dataOperationType, Func<LogEventInfo, TResult> func, Action<LogEventInfo> action = null)
         {
             LogEventInfo log = new LogEventInfo() { LoggerName = logger.Name };
             log.Properties["method"] = "Process<TResult>(Func<TResult> func, IDictionary arguments, DataOperationType dataOperationType)";
@@ -178,7 +178,7 @@ namespace BaoMen.Common.Data
             action?.Invoke(log);
             try
             {
-                TResult result = func();
+                TResult result = func(log);
                 log.Level = LogLevel.Debug;
                 log.Message = "Process success.";
 #if DEBUG
@@ -216,6 +216,18 @@ namespace BaoMen.Common.Data
         /// <returns></returns>
         protected TResult ProcessSelect<TResult>(Func<TResult> func, Action<LogEventInfo> action = null)
         {
+            return Process(DataOperationType.Select, (log) => func.Invoke(), action);
+        }
+
+        /// <summary>
+        /// 执行查询操作
+        /// </summary>
+        /// <typeparam name="TResult">返回类型</typeparam>
+        /// <param name="func">查询的方法</param>
+        /// <param name="action">添加日志参数的方法</param>
+        /// <returns></returns>
+        protected TResult ProcessSelect<TResult>(Func<LogEventInfo, TResult> func, Action<LogEventInfo> action = null)
+        {
             return Process(DataOperationType.Select, func, action);
         }
 
@@ -225,7 +237,18 @@ namespace BaoMen.Common.Data
         /// <param name="func">插入的方法</param>
         /// <param name="action">添加日志参数的方法</param>
         /// <returns>响应的行数</returns>
-        protected int ProcessInsert(Func<int> func, Action<LogEventInfo> action = null)
+        protected TResult ProcessInsert<TResult>(Func<TResult> func, Action<LogEventInfo> action = null)
+        {
+            return Process(DataOperationType.Insert, (log) => func.Invoke(), action);
+        }
+
+        /// <summary>
+        /// 执行插入操作
+        /// </summary>
+        /// <param name="func">插入的方法</param>
+        /// <param name="action">添加日志参数的方法</param>
+        /// <returns>响应的行数</returns>
+        protected TResult ProcessInsert<TResult>(Func<LogEventInfo, TResult> func, Action<LogEventInfo> action = null)
         {
             return Process(DataOperationType.Insert, func, action);
         }
@@ -236,7 +259,18 @@ namespace BaoMen.Common.Data
         /// <param name="func">更新的方法</param>
         /// <param name="action">添加日志参数的方法</param>
         /// <returns>响应的行数</returns>
-        protected int ProcessUpdate(Func<int> func, Action<LogEventInfo> action = null)
+        protected TResult ProcessUpdate<TResult>(Func<TResult> func, Action<LogEventInfo> action = null)
+        {
+            return Process(DataOperationType.Update, (log) => func.Invoke(), action);
+        }
+
+        /// <summary>
+        /// 执行更新操作
+        /// </summary>
+        /// <param name="func">更新的方法</param>
+        /// <param name="action">添加日志参数的方法</param>
+        /// <returns>响应的行数</returns>
+        protected TResult ProcessUpdate<TResult>(Func<LogEventInfo, TResult> func, Action<LogEventInfo> action = null)
         {
             return Process(DataOperationType.Update, func, action);
         }
@@ -247,7 +281,18 @@ namespace BaoMen.Common.Data
         /// <param name="func">删除的方法</param>
         /// <param name="action">添加日志参数的方法</param>
         /// <returns>响应的行数</returns>
-        protected int ProcessDelete(Func<int> func, Action<LogEventInfo> action = null)
+        protected TResult ProcessDelete<TResult>(Func<TResult> func, Action<LogEventInfo> action = null)
+        {
+            return Process(DataOperationType.Delete, (log) => func.Invoke(), action);
+        }
+
+        /// <summary>
+        /// 执行删除操作
+        /// </summary>
+        /// <param name="func">删除的方法</param>
+        /// <param name="action">添加日志参数的方法</param>
+        /// <returns>响应的行数</returns>
+        protected TResult ProcessDelete<TResult>(Func<LogEventInfo, TResult> func, Action<LogEventInfo> action = null)
         {
             return Process(DataOperationType.Delete, func, action);
         }

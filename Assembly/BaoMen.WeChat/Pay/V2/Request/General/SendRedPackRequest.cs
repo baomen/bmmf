@@ -13,20 +13,25 @@ namespace BaoMen.WeChat.Pay.V2.Request.General
     public class SendRedPackRequest : BaseRequest
     {
         /// <summary>
+        /// 商户号
+        /// </summary>
+        [Required]
+        [StringLength(32)]
+        public string MchId
+        {
+            get => m_values.ContainsKey("mch_id") ? (string)m_values["mch_id"] : null;
+            internal set => m_values["mch_id"] = value;
+        }
+
+        /// <summary>
         /// 商户订单号
         /// </summary>
         [Required]
         [StringLength(28)]
         public string MchBillNo
         {
-            get
-            {
-                return m_values.ContainsKey("mch_billno") ? (string)m_values["mch_billno"] : null;
-            }
-            set
-            {
-                m_values["mch_billno"] = value;
-            }
+            get => m_values.ContainsKey("mch_billno") ? (string)m_values["mch_billno"] : null;
+            set => m_values["mch_billno"] = value;
         }
 
         /// <summary>
@@ -36,14 +41,8 @@ namespace BaoMen.WeChat.Pay.V2.Request.General
         [StringLength(32)]
         public string WxAppId
         {
-            get
-            {
-                return m_values.ContainsKey("wxappid") ? (string)m_values["wxappid"] : null;
-            }
-            set
-            {
-                m_values["wxappid"] = value;
-            }
+            get => m_values.ContainsKey("wxappid") ? (string)m_values["wxappid"] : null;
+            internal set => m_values["wxappid"] = value;
         }
 
         /// <summary>
@@ -53,14 +52,8 @@ namespace BaoMen.WeChat.Pay.V2.Request.General
         [StringLength(32)]
         public string SendName
         {
-            get
-            {
-                return m_values.ContainsKey("send_name") ? (string)m_values["send_name"] : null;
-            }
-            set
-            {
-                m_values["send_name"] = value;
-            }
+            get => m_values.ContainsKey("send_name") ? (string)m_values["send_name"] : null;
+            set => m_values["send_name"] = value;
         }
 
         /// <summary>
@@ -70,14 +63,8 @@ namespace BaoMen.WeChat.Pay.V2.Request.General
         [StringLength(32)]
         public string ReOpenId
         {
-            get
-            {
-                return m_values.ContainsKey("re_openid") ? (string)m_values["re_openid"] : null;
-            }
-            set
-            {
-                m_values["re_openid"] = value;
-            }
+            get => m_values.ContainsKey("re_openid") ? (string)m_values["re_openid"] : null;
+            set => m_values["re_openid"] = value;
         }
 
         /// <summary>
@@ -86,14 +73,8 @@ namespace BaoMen.WeChat.Pay.V2.Request.General
         [Required]
         public int TotalAmount
         {
-            get
-            {
-                return !m_values.ContainsKey("total_amount") || m_values["total_amount"] == null ? 0 : (int)m_values["total_amount"];
-            }
-            set
-            {
-                m_values["total_amount"] = value;
-            }
+            get => !m_values.ContainsKey("total_amount") || m_values["total_amount"] == null ? 0 : (int)m_values["total_amount"];
+            set => m_values["total_amount"] = value;
         }
 
         /// <summary>
@@ -102,14 +83,8 @@ namespace BaoMen.WeChat.Pay.V2.Request.General
         [Required]
         public int TotalNum
         {
-            get
-            {
-                return !m_values.ContainsKey("total_num") || m_values["total_num"] == null ? 0 : (int)m_values["total_num"];
-            }
-            set
-            {
-                m_values["total_num"] = value;
-            }
+            get => !m_values.ContainsKey("total_num") || m_values["total_num"] == null ? 0 : (int)m_values["total_num"];
+            set => m_values["total_num"] = value;
         }
 
         /// <summary>
@@ -119,14 +94,8 @@ namespace BaoMen.WeChat.Pay.V2.Request.General
         [StringLength(128)]
         public string Wishing
         {
-            get
-            {
-                return m_values.ContainsKey("wishing") ? (string)m_values["wishing"] : null;
-            }
-            set
-            {
-                m_values["wishing"] = value;
-            }
+            get => m_values.ContainsKey("wishing") ? (string)m_values["wishing"] : null;
+            set => m_values["wishing"] = value;
         }
 
         /// <summary>
@@ -136,14 +105,8 @@ namespace BaoMen.WeChat.Pay.V2.Request.General
         [StringLength(15)]
         public string ClientIp
         {
-            get
-            {
-                return m_values.ContainsKey("client_ip") ? (string)m_values["client_ip"] : null;
-            }
-            set
-            {
-                m_values["client_ip"] = value;
-            }
+            get => m_values.ContainsKey("client_ip") ? (string)m_values["client_ip"] : null;
+            internal set => m_values["client_ip"] = value;
         }
 
         /// <summary>
@@ -153,14 +116,8 @@ namespace BaoMen.WeChat.Pay.V2.Request.General
         [StringLength(32)]
         public string ActName
         {
-            get
-            {
-                return m_values.ContainsKey("act_name") ? (string)m_values["act_name"] : null;
-            }
-            set
-            {
-                m_values["act_name"] = value;
-            }
+            get => m_values.ContainsKey("act_name") ? (string)m_values["act_name"] : null;
+            set => m_values["act_name"] = value;
         }
 
         /// <summary>
@@ -170,14 +127,8 @@ namespace BaoMen.WeChat.Pay.V2.Request.General
         [StringLength(256)]
         public string Remark
         {
-            get
-            {
-                return m_values.ContainsKey("remark") ? (string)m_values["remark"] : null;
-            }
-            set
-            {
-                m_values["remark"] = value;
-            }
+            get => m_values.ContainsKey("remark") ? (string)m_values["remark"] : null;
+            set => m_values["remark"] = value;
         }
 
         /// <summary>
@@ -186,14 +137,8 @@ namespace BaoMen.WeChat.Pay.V2.Request.General
         [CustomValidation(typeof(RequestValidator), "ValidateSceneId")]
         public string SceneId
         {
-            get
-            {
-                return m_values.ContainsKey("scene_id") ? (string)m_values["scene_id"] : null;
-            }
-            set
-            {
-                m_values["scene_id"] = value;
-            }
+            get => m_values.ContainsKey("scene_id") ? (string)m_values["scene_id"] : null;
+            set => m_values["scene_id"] = value;
         }
 
         /// <summary>
@@ -201,14 +146,8 @@ namespace BaoMen.WeChat.Pay.V2.Request.General
         /// </summary>
         public string RiskInfo
         {
-            get
-            {
-                return m_values.ContainsKey("risk_info") ? (string)m_values["risk_info"] : null;
-            }
-            set
-            {
-                m_values["risk_info"] = value;
-            }
+            get => m_values.ContainsKey("risk_info") ? (string)m_values["risk_info"] : null;
+            set => m_values["risk_info"] = value;
         }
 
     }

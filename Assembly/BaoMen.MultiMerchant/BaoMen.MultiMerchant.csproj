@@ -27,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BaoMen.AliYun\BaoMen.AliYun.csproj" />
     <ProjectReference Include="..\BaoMen.Amap\BaoMen.Amap.csproj" />
     <ProjectReference Include="..\BaoMen.Common\BaoMen.Common.csproj" />
     <ProjectReference Include="..\BaoMen.WeChat\BaoMen.WeChat.csproj" />

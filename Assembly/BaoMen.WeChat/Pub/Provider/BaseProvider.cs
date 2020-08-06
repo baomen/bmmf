@@ -89,9 +89,11 @@ namespace BaoMen.WeChat.Pub.Provider
             {
                 log.Level = LogLevel.Warn;
                 log.Message = "传入的URL不正确";
-                response = new TResponse();
-                response.ErrorCode = 1;
-                response.ErrorMessage = "传入的URL不正确";
+                response = new TResponse
+                {
+                    ErrorCode = 1,
+                    ErrorMessage = "传入的URL不正确"
+                };
             }
             else
             {
@@ -131,9 +133,11 @@ namespace BaoMen.WeChat.Pub.Provider
             {
                 log.Level = LogLevel.Warn;
                 log.Message = "传入的参数不正确";
-                response = new TResponse();
-                response.ErrorCode = 1;
-                response.ErrorMessage = "传入的参数不正确";
+                response = new TResponse
+                {
+                    ErrorCode = 1,
+                    ErrorMessage = "传入的参数不正确"
+                };
             }
             else
             {
@@ -141,9 +145,11 @@ namespace BaoMen.WeChat.Pub.Provider
                 {
                     log.Level = LogLevel.Warn;
                     log.Message = "未配置接口地址";
-                    response = new TResponse();
-                    response.ErrorCode = 1;
-                    response.ErrorMessage = "未配置接口地址";
+                    response = new TResponse
+                    {
+                        ErrorCode = 1,
+                        ErrorMessage = "未配置接口地址"
+                    };
                 }
                 else
                 {
