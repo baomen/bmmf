@@ -84,7 +84,18 @@ namespace BaoMen.WeChat.Pay.V2.Response
         /// </summary>
         public string ReturnMsg
         {
-            get { return m_values.ContainsKey("return_msg") ? (string)m_values["return_msg"] : null; }
+            get {
+                string message = null;
+                if (m_values.ContainsKey("return_msg"))
+                {
+                    message = (string)m_values["return_msg"];
+                }
+                if(string.IsNullOrEmpty(message) && m_values.ContainsKey("retmsg"))
+                {
+                    message = (string)m_values["retmsg"];
+                }
+                return message;
+            }
         }
 
         /// <summary>
