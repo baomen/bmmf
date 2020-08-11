@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using BaoMen.Common.Data;
 using BaoMen.Common.Model;
+using BaoMen.Common.Extension;
 
 namespace BaoMen.MultiMerchant.Merchant.DataAccess
 {
@@ -121,4 +122,77 @@ namespace BaoMen.MultiMerchant.Merchant.DataAccess
         }
     }
     #endregion
+
+    public partial class Merchant
+    {
+        /// <summary>
+        /// 重写基类方法
+        /// </summary>
+        /// <param name="item">实体</param>
+        /// <param name="transaction">数据库事务</param>
+        /// <param name="getIdentity">委托</param>
+        /// <returns></returns>
+        protected override int DoInsert(Entity.Merchant item, IDbTransaction transaction, Action<IDbConnection, IDbTransaction> getIdentity = null)
+        {
+            item.Id = CreateId();
+            string procedureName = "mch_create_merchant";
+            DynamicParameters dynamicParameters = new DynamicParameters();
+            dynamicParameters.Add("in_id", item.Id, DbType.String, ParameterDirection.Input);
+            dynamicParameters.Add("in_code", item.Code, DbType.String, ParameterDirection.Input);
+            dynamicParameters.Add("in_name", item.Name, DbType.String, ParameterDirection.Input);
+            dynamicParameters.Add("in_versionId", item.VersionId, DbType.String, ParameterDirection.Input);
+            dynamicParameters.Add("in_status", item.Status, DbType.Int32, ParameterDirection.Input);
+            dynamicParameters.Add("in_description", item.Description, DbType.String, ParameterDirection.Input);
+            dynamicParameters.Add("out_errorNumber", 0, DbType.Int32, ParameterDirection.Output);
+            dynamicParameters.Add("out_errorMessage", 0, DbType.String, ParameterDirection.Output);
+
+            DapperCommand command = new DapperCommand
+            {
+                CommandText = procedureName,
+                CommandType = CommandType.StoredProcedure,
+                //CommandTimeout = 300,
+                Parameters = dynamicParameters,
+                Transaction = transaction
+            };
+            IDbConnection connection = transaction?.Connection ?? CreateConnection();
+            connection.Execute(command);
+            int errorNumber = dynamicParameters.Get<int>("out_errorNumber");
+            if (errorNumber != 0)
+            {
+                throw new DataAccessException(dynamicParameters.Get<string>("out_errorMessage"));
+            }
+            return 1;
+        }
+
+        /// <summary>
+        /// 重写基类方法
+        /// </summary>
+        /// <param name="item">实体</param>
+        /// <param name="transaction">数据库事务</param>
+        /// <returns></returns>
+        protected override int DoDelete(Entity.Merchant item, IDbTransaction transaction = null)
+        {
+            string procedureName = "mch_delete_merchant";
+            DynamicParameters dynamicParameters = new DynamicParameters();
+            dynamicParameters.Add("in_id", item.Id, DbType.String, ParameterDirection.Input);
+            dynamicParameters.Add("out_errorNumber", 0, DbType.Int32, ParameterDirection.Output);
+            dynamicParameters.Add("out_errorMessage", 0, DbType.String, ParameterDirection.Output);
+
+            DapperCommand command = new DapperCommand
+            {
+                CommandText = procedureName,
+                CommandType = CommandType.StoredProcedure,
+                Parameters = dynamicParameters,
+                Transaction = transaction
+            };
+            IDbConnection connection = transaction?.Connection ?? CreateConnection();
+            connection.Execute(command);
+            int errorNumber = dynamicParameters.Get<int>("out_errorNumber");
+            if (errorNumber != 0)
+            {
+                throw new DataAccessException(dynamicParameters.Get<string>("out_errorMessage"));
+            }
+            return 1;
+        }
+    }
 }

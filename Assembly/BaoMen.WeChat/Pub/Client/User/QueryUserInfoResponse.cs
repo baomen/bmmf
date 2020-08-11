@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace BaoMen.WeChat.Pub.Client.Response
+namespace BaoMen.WeChat.Pub.Client.User
 {
     /// <summary>
     /// 获取用户基本信息
@@ -23,7 +23,7 @@ namespace BaoMen.WeChat.Pub.Client.Response
     /// </remarks>
     [Serializable]
     [JsonObject(MemberSerialization.OptIn)]
-    public class QueryUserInfo : BaseResponse
+    public class QueryUserInfoResponse : BaseResponse
     {
         /// <summary>
         /// 用户是否订阅该公众号标识，值为0时，代表此用户没有关注该公众号，拉取不到其余信息

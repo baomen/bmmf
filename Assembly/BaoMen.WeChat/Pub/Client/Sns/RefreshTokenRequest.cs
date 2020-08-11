@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace BaoMen.WeChat.Pub.Client.Request
+namespace BaoMen.WeChat.Pub.Client.Sns
 {
     /// <summary>
     /// 刷新用户的access_token
     /// </summary>
     [Serializable]
-    public class RefreshAuthAccessToken : BaseRequest
+    public class RefreshTokenRequest : BaseRequest
     {
         /// <summary>
         /// 第三方用户唯一凭证

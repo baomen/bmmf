@@ -82,6 +82,11 @@ namespace BaoMen.WeChat.Pay.V2.Request
         public string Sign { get; internal set; }
 
         /// <summary>
+        /// 接口超时时长（秒）
+        /// </summary>
+        public int Timeout { get; set; } = 10;
+
+        /// <summary>
         /// 随机字符串
         /// </summary>
         [Required]

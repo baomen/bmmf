@@ -47,14 +47,19 @@ namespace BaoMen.MultiMerchant.WeChat.Pub.BusinessLogic
         /// <returns></returns>
         public int InserOrUpdate(Entity.AppAccessToken item)
         {
-            return ProcessUpdate(() =>
+            int rows = ProcessUpdate(() =>
+             {
+                 item.MerchantId ??= string.Empty;
+                 return dal.InserOrUpdate(item);
+             }, (log) =>
+             {
+                 log.Properties[nameof(item)] = item;
+             });
+            if (rows > 0)
             {
-                item.MerchantId ??= string.Empty;
-                return dal.InserOrUpdate(item);
-            }, (log) =>
-            {
-                log.Properties[nameof(item)] = item;
-            });
+                RemoveCache();
+            }
+            return rows;
         }
     }
     #endregion

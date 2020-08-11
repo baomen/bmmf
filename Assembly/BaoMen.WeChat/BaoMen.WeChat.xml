@@ -471,6 +471,11 @@
             签名
             </summary>
         </member>
+        <member name="P:BaoMen.WeChat.Pay.V2.Request.BaseRequest.Timeout">
+            <summary>
+            接口超时时长（秒）
+            </summary>
+        </member>
         <member name="P:BaoMen.WeChat.Pay.V2.Request.BaseRequest.NonceStr">
             <summary>
             随机字符串
@@ -815,42 +820,122 @@
             <param name="key">密钥</param>
             <returns></returns>
         </member>
-        <member name="T:BaoMen.WeChat.Pub.Client.Request.BaseRequest">
+        <member name="T:BaoMen.WeChat.Pub.Client.BaseRequest">
             <summary>
             客户端请求基类
             </summary>
         </member>
-        <member name="P:BaoMen.WeChat.Pub.Client.Request.BaseRequest.ApiDomain">
+        <member name="P:BaoMen.WeChat.Pub.Client.BaseRequest.ApiDomain">
             <summary>
             接口域名
             </summary>
         </member>
-        <member name="T:BaoMen.WeChat.Pub.Client.Request.QueryAccessToken">
+        <member name="T:BaoMen.WeChat.Pub.Client.BaseResponse">
             <summary>
-            查询访问凭据
+            公众号的响应基类
             </summary>
         </member>
-        <member name="P:BaoMen.WeChat.Pub.Client.Request.QueryAccessToken.AppId">
+        <member name="P:BaoMen.WeChat.Pub.Client.BaseResponse.ErrorCode">
             <summary>
-            第三方用户唯一凭证
+             errcode	 错误代码
             </summary>
         </member>
-        <member name="P:BaoMen.WeChat.Pub.Client.Request.QueryAccessToken.AppSecret">
+        <member name="P:BaoMen.WeChat.Pub.Client.BaseResponse.ErrorMessage">
             <summary>
-            第三方用户唯一凭证密钥
+            errmsg	 错误信息
             </summary>
         </member>
-        <member name="T:BaoMen.WeChat.Pub.Client.Request.QueryAuthAccessToken">
+        <member name="T:BaoMen.WeChat.Pub.Client.Sns.AccessTokenRequest">
             <summary>
             获取网页授权的access_token
             </summary>
         </member>
-        <member name="P:BaoMen.WeChat.Pub.Client.Request.QueryAuthAccessToken.Code">
+        <member name="P:BaoMen.WeChat.Pub.Client.Sns.AccessTokenRequest.Code">
             <summary>
             code	 是	 填写第一步获取的code参数
             </summary>
         </member>
-        <member name="T:BaoMen.WeChat.Pub.Client.Request.QueryUserInfo">
+        <member name="T:BaoMen.WeChat.Pub.Client.Sns.AccessTokenResponse">
+            <summary>
+            用户票据
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pub.Client.Sns.AccessTokenResponse.AccessToken">
+            <summary>
+            access_token	 网页授权接口调用凭证,注意：此access_token与基础支持的access_token不同
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pub.Client.Sns.AccessTokenResponse.ExpiresIn">
+            <summary>
+            expires_in	 access_token接口调用凭证超时时间，单位（秒）
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pub.Client.Sns.AccessTokenResponse.RefreshToken">
+            <summary>
+            refresh_token	 用户刷新access_token
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pub.Client.Sns.AccessTokenResponse.OpenId">
+            <summary>
+            openid	 用户唯一标识，请注意，在未关注公众号时，用户访问公众号的网页，也会产生一个用户和公众号唯一的OpenID
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pub.Client.Sns.AccessTokenResponse.Scope">
+            <summary>
+            scope	 用户授权的作用域，使用逗号（,）分隔
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pub.Client.Sns.AccessTokenResponse.UnionId">
+            <summary>
+            unionid	 当且仅当该网站应用已获得该用户的userinfo授权时，才会出现该字段。
+            </summary>
+        </member>
+        <member name="T:BaoMen.WeChat.Pub.Client.Sns.RefreshTokenRequest">
+            <summary>
+            刷新用户的access_token
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pub.Client.Sns.RefreshTokenRequest.AppId">
+            <summary>
+            第三方用户唯一凭证
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pub.Client.Sns.RefreshTokenRequest.RefreshToken">
+            <summary>
+            refresh_token	 是	 填写通过access_token获取到的refresh_token参数
+            </summary>
+        </member>
+        <member name="T:BaoMen.WeChat.Pub.Client.Sns.RefreshTokenResponse">
+            <summary>
+            用户票据
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pub.Client.Sns.RefreshTokenResponse.AccessToken">
+            <summary>
+            access_token	 网页授权接口调用凭证,注意：此access_token与基础支持的access_token不同
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pub.Client.Sns.RefreshTokenResponse.ExpiresIn">
+            <summary>
+            expires_in	 access_token接口调用凭证超时时间，单位（秒）
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pub.Client.Sns.RefreshTokenResponse.RefreshToken">
+            <summary>
+            refresh_token	 用户刷新access_token
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pub.Client.Sns.RefreshTokenResponse.OpenId">
+            <summary>
+            openid	 用户唯一标识，请注意，在未关注公众号时，用户访问公众号的网页，也会产生一个用户和公众号唯一的OpenID
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pub.Client.Sns.RefreshTokenResponse.Scope">
+            <summary>
+            scope	 用户授权的作用域，使用逗号（,）分隔
+            </summary>
+        </member>
+        <member name="T:BaoMen.WeChat.Pub.Client.Sns.UserInfoRequest">
              <summary>
              获取用户的基本信息
              </summary>
@@ -861,102 +946,102 @@
             lang	 否	 返回国家地区语言版本，zh_CN 简体，zh_TW 繁体，en 英语
              </remarks>
         </member>
-        <member name="P:BaoMen.WeChat.Pub.Client.Request.QueryUserInfo.OpenId">
+        <member name="P:BaoMen.WeChat.Pub.Client.Sns.UserInfoRequest.OpenId">
             <summary>
             普通用户的标识，对当前公众号唯一
             </summary>
         </member>
-        <member name="P:BaoMen.WeChat.Pub.Client.Request.QueryUserInfo.Language">
+        <member name="P:BaoMen.WeChat.Pub.Client.Sns.UserInfoRequest.Language">
             <summary>
             国家地区语言版本，zh_CN 简体，zh_TW 繁体，en 英语
             </summary>
         </member>
-        <member name="P:BaoMen.WeChat.Pub.Client.Request.QueryUserInfo.AccessToken">
+        <member name="P:BaoMen.WeChat.Pub.Client.Sns.UserInfoRequest.AccessToken">
             <summary>
             access_token	是	调用接口凭证
             </summary>
         </member>
-        <member name="T:BaoMen.WeChat.Pub.Client.Request.RefreshAuthAccessToken">
+        <member name="T:BaoMen.WeChat.Pub.Client.Sns.UserInfoResponse">
             <summary>
-            刷新用户的access_token
+            获取用户基本信息
             </summary>
         </member>
-        <member name="P:BaoMen.WeChat.Pub.Client.Request.RefreshAuthAccessToken.AppId">
+        <member name="P:BaoMen.WeChat.Pub.Client.Sns.UserInfoResponse.OpenId">
+            <summary>
+            用户的标识，对当前公众号唯一
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pub.Client.Sns.UserInfoResponse.NickName">
+            <summary>
+            用户的昵称
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pub.Client.Sns.UserInfoResponse.Sex">
+            <summary>
+            用户的性别，值为1时是男性，值为2时是女性，值为0时是未知
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pub.Client.Sns.UserInfoResponse.City">
+            <summary>
+            用户所在城市
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pub.Client.Sns.UserInfoResponse.Country">
+            <summary>
+            用户所在国家
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pub.Client.Sns.UserInfoResponse.Province">
+            <summary>
+            用户所在省份
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pub.Client.Sns.UserInfoResponse.HeadImgUrl">
+            <summary>
+            用户头像，最后一个数值代表正方形头像大小（有0、46、64、96、132数值可选，0代表640*640正方形头像），用户没有头像时该项为空
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pub.Client.Sns.UserInfoResponse.UnionId">
+            <summary>
+            只有在用户将公众号绑定到微信开放平台帐号后，才会出现该字段。
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pub.Client.Sns.UserInfoResponse.Privilege">
+            <summary>
+            用户特权信息，json 数组，如微信沃卡用户为（chinaunicom）
+            </summary>
+        </member>
+        <member name="T:BaoMen.WeChat.Pub.Client.TokenRequest">
+            <summary>
+            查询访问凭据
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Pub.Client.TokenRequest.AppId">
             <summary>
             第三方用户唯一凭证
             </summary>
         </member>
-        <member name="P:BaoMen.WeChat.Pub.Client.Request.RefreshAuthAccessToken.RefreshToken">
+        <member name="P:BaoMen.WeChat.Pub.Client.TokenRequest.AppSecret">
             <summary>
-            refresh_token	 是	 填写通过access_token获取到的refresh_token参数
+            第三方用户唯一凭证密钥
             </summary>
         </member>
-        <member name="T:BaoMen.WeChat.Pub.Client.Response.BaseResponse">
-            <summary>
-            公众号的全局唯一票据
-            </summary>
-        </member>
-        <member name="P:BaoMen.WeChat.Pub.Client.Response.BaseResponse.ErrorCode">
-            <summary>
-             errcode	 错误代码
-            </summary>
-        </member>
-        <member name="P:BaoMen.WeChat.Pub.Client.Response.BaseResponse.ErrorMessage">
-            <summary>
-            errmsg	 错误信息
-            </summary>
-        </member>
-        <member name="T:BaoMen.WeChat.Pub.Client.Response.QueryAccessToken">
+        <member name="T:BaoMen.WeChat.Pub.Client.TokenResponse">
             <summary>
             公众号的全局唯一票据
             </summary>
         </member>
-        <member name="P:BaoMen.WeChat.Pub.Client.Response.QueryAccessToken.AccessToken">
+        <member name="P:BaoMen.WeChat.Pub.Client.TokenResponse.AccessToken">
             <summary>
              access_token	 获取到的凭证
             </summary>
         </member>
-        <member name="P:BaoMen.WeChat.Pub.Client.Response.QueryAccessToken.ExpiresIn">
+        <member name="P:BaoMen.WeChat.Pub.Client.TokenResponse.ExpiresIn">
             <summary>
             expires_in	 凭证有效时间，单位：秒
             </summary>
         </member>
-        <member name="T:BaoMen.WeChat.Pub.Client.Response.QueryAuthAccessToken">
-            <summary>
-            用户票据
-            </summary>
-        </member>
-        <member name="P:BaoMen.WeChat.Pub.Client.Response.QueryAuthAccessToken.AccessToken">
-            <summary>
-            access_token	 网页授权接口调用凭证,注意：此access_token与基础支持的access_token不同
-            </summary>
-        </member>
-        <member name="P:BaoMen.WeChat.Pub.Client.Response.QueryAuthAccessToken.ExpiresIn">
-            <summary>
-            expires_in	 access_token接口调用凭证超时时间，单位（秒）
-            </summary>
-        </member>
-        <member name="P:BaoMen.WeChat.Pub.Client.Response.QueryAuthAccessToken.RefreshToken">
-            <summary>
-            refresh_token	 用户刷新access_token
-            </summary>
-        </member>
-        <member name="P:BaoMen.WeChat.Pub.Client.Response.QueryAuthAccessToken.OpenId">
-            <summary>
-            openid	 用户唯一标识，请注意，在未关注公众号时，用户访问公众号的网页，也会产生一个用户和公众号唯一的OpenID
-            </summary>
-        </member>
-        <member name="P:BaoMen.WeChat.Pub.Client.Response.QueryAuthAccessToken.Scope">
-            <summary>
-            scope	 用户授权的作用域，使用逗号（,）分隔
-            </summary>
-        </member>
-        <member name="P:BaoMen.WeChat.Pub.Client.Response.QueryAuthAccessToken.UnionId">
-            <summary>
-            unionid	 当且仅当该网站应用已获得该用户的userinfo授权时，才会出现该字段。
-            </summary>
-        </member>
-        <member name="T:BaoMen.WeChat.Pub.Client.Response.QueryUserInfo">
+        <member name="T:BaoMen.WeChat.Pub.Client.User.QueryUserInfoResponse">
              <summary>
              获取用户基本信息
              </summary>
@@ -974,121 +1059,91 @@
             subscribe_time	 用户关注时间，为时间戳。如果用户曾多次关注，则取最后关注时间
              </remarks>
         </member>
-        <member name="P:BaoMen.WeChat.Pub.Client.Response.QueryUserInfo.Subscribe">
+        <member name="P:BaoMen.WeChat.Pub.Client.User.QueryUserInfoResponse.Subscribe">
             <summary>
             用户是否订阅该公众号标识，值为0时，代表此用户没有关注该公众号，拉取不到其余信息
             </summary>
         </member>
-        <member name="P:BaoMen.WeChat.Pub.Client.Response.QueryUserInfo.OpenId">
+        <member name="P:BaoMen.WeChat.Pub.Client.User.QueryUserInfoResponse.OpenId">
             <summary>
             用户的标识，对当前公众号唯一
             </summary>
         </member>
-        <member name="P:BaoMen.WeChat.Pub.Client.Response.QueryUserInfo.NickName">
+        <member name="P:BaoMen.WeChat.Pub.Client.User.QueryUserInfoResponse.NickName">
             <summary>
             用户的昵称
             </summary>
         </member>
-        <member name="P:BaoMen.WeChat.Pub.Client.Response.QueryUserInfo.Sex">
+        <member name="P:BaoMen.WeChat.Pub.Client.User.QueryUserInfoResponse.Sex">
             <summary>
             用户的性别，值为1时是男性，值为2时是女性，值为0时是未知
             </summary>
         </member>
-        <member name="P:BaoMen.WeChat.Pub.Client.Response.QueryUserInfo.City">
+        <member name="P:BaoMen.WeChat.Pub.Client.User.QueryUserInfoResponse.City">
             <summary>
             用户所在城市
             </summary>
         </member>
-        <member name="P:BaoMen.WeChat.Pub.Client.Response.QueryUserInfo.Country">
+        <member name="P:BaoMen.WeChat.Pub.Client.User.QueryUserInfoResponse.Country">
             <summary>
             用户所在国家
             </summary>
         </member>
-        <member name="P:BaoMen.WeChat.Pub.Client.Response.QueryUserInfo.Province">
+        <member name="P:BaoMen.WeChat.Pub.Client.User.QueryUserInfoResponse.Province">
             <summary>
             用户所在省份
             </summary>
         </member>
-        <member name="P:BaoMen.WeChat.Pub.Client.Response.QueryUserInfo.Language">
+        <member name="P:BaoMen.WeChat.Pub.Client.User.QueryUserInfoResponse.Language">
             <summary>
             用户的语言，简体中文为zh_CN
             </summary>
         </member>
-        <member name="P:BaoMen.WeChat.Pub.Client.Response.QueryUserInfo.HeadImgUrl">
+        <member name="P:BaoMen.WeChat.Pub.Client.User.QueryUserInfoResponse.HeadImgUrl">
             <summary>
             用户头像，最后一个数值代表正方形头像大小（有0、46、64、96、132数值可选，0代表640*640正方形头像），用户没有头像时该项为空
             </summary>
         </member>
-        <member name="P:BaoMen.WeChat.Pub.Client.Response.QueryUserInfo.SubscribeTime">
+        <member name="P:BaoMen.WeChat.Pub.Client.User.QueryUserInfoResponse.SubscribeTime">
             <summary>
             用户关注时间，为时间戳。如果用户曾多次关注，则取最后关注时间
             </summary>
         </member>
-        <member name="P:BaoMen.WeChat.Pub.Client.Response.QueryUserInfo.UnionId">
+        <member name="P:BaoMen.WeChat.Pub.Client.User.QueryUserInfoResponse.UnionId">
             <summary>
             只有在用户将公众号绑定到微信开放平台帐号后，才会出现该字段。
             </summary>
         </member>
-        <member name="P:BaoMen.WeChat.Pub.Client.Response.QueryUserInfo.Remark">
+        <member name="P:BaoMen.WeChat.Pub.Client.User.QueryUserInfoResponse.Remark">
             <summary>
             公众号运营者对粉丝的备注，公众号运营者可在微信公众平台用户管理界面对粉丝添加备注
             </summary>
         </member>
-        <member name="P:BaoMen.WeChat.Pub.Client.Response.QueryUserInfo.GroupId">
+        <member name="P:BaoMen.WeChat.Pub.Client.User.QueryUserInfoResponse.GroupId">
             <summary>
             用户所在的分组ID（兼容旧的用户分组接口）
             </summary>
         </member>
-        <member name="P:BaoMen.WeChat.Pub.Client.Response.QueryUserInfo.TagIdList">
+        <member name="P:BaoMen.WeChat.Pub.Client.User.QueryUserInfoResponse.TagIdList">
             <summary>
             用户被打上的标签ID列表
             </summary>
         </member>
-        <member name="P:BaoMen.WeChat.Pub.Client.Response.QueryUserInfo.SubscribeScene">
+        <member name="P:BaoMen.WeChat.Pub.Client.User.QueryUserInfoResponse.SubscribeScene">
             <summary>
             返回用户关注的渠道来源，ADD_SCENE_SEARCH 公众号搜索，ADD_SCENE_ACCOUNT_MIGRATION 公众号迁移，
             ADD_SCENE_PROFILE_CARD 名片分享，ADD_SCENE_QR_CODE 扫描二维码，ADD_SCENEPROFILE LINK 图文页内名称点击，
             ADD_SCENE_PROFILE_ITEM 图文页右上角菜单，ADD_SCENE_PAID 支付后关注，ADD_SCENE_OTHERS 其他
             </summary>
         </member>
-        <member name="P:BaoMen.WeChat.Pub.Client.Response.QueryUserInfo.QRScene">
+        <member name="P:BaoMen.WeChat.Pub.Client.User.QueryUserInfoResponse.QRScene">
             <summary>
             二维码扫码场景（开发者自定义）
             </summary>
         </member>
-        <member name="P:BaoMen.WeChat.Pub.Client.Response.QueryUserInfo.QRSceneStr">
+        <member name="P:BaoMen.WeChat.Pub.Client.User.QueryUserInfoResponse.QRSceneStr">
             <summary>
             二维码扫码场景描述（开发者自定义）
-            </summary>
-        </member>
-        <member name="T:BaoMen.WeChat.Pub.Client.Response.RefreshAuthAccessToken">
-            <summary>
-            用户票据
-            </summary>
-        </member>
-        <member name="P:BaoMen.WeChat.Pub.Client.Response.RefreshAuthAccessToken.AccessToken">
-            <summary>
-            access_token	 网页授权接口调用凭证,注意：此access_token与基础支持的access_token不同
-            </summary>
-        </member>
-        <member name="P:BaoMen.WeChat.Pub.Client.Response.RefreshAuthAccessToken.ExpiresIn">
-            <summary>
-            expires_in	 access_token接口调用凭证超时时间，单位（秒）
-            </summary>
-        </member>
-        <member name="P:BaoMen.WeChat.Pub.Client.Response.RefreshAuthAccessToken.RefreshToken">
-            <summary>
-            refresh_token	 用户刷新access_token
-            </summary>
-        </member>
-        <member name="P:BaoMen.WeChat.Pub.Client.Response.RefreshAuthAccessToken.OpenId">
-            <summary>
-            openid	 用户唯一标识，请注意，在未关注公众号时，用户访问公众号的网页，也会产生一个用户和公众号唯一的OpenID
-            </summary>
-        </member>
-        <member name="P:BaoMen.WeChat.Pub.Client.Response.RefreshAuthAccessToken.Scope">
-            <summary>
-            scope	 用户授权的作用域，使用逗号（,）分隔
             </summary>
         </member>
         <member name="T:BaoMen.WeChat.Pub.Provider.BaseProvider">
@@ -1144,7 +1199,7 @@
             基础处理程序
             </summary>
         </member>
-        <member name="M:BaoMen.WeChat.Pub.Provider.BasicProvider.QueryAccessToken(BaoMen.WeChat.Pub.Client.Request.QueryAccessToken)">
+        <member name="M:BaoMen.WeChat.Pub.Provider.BasicProvider.Token(BaoMen.WeChat.Pub.Client.TokenRequest)">
             <summary>
             取得公众号的全局唯一票据
             </summary>
@@ -1154,11 +1209,11 @@
             公众号可以使用AppID和AppSecret调用本接口来获取access_token。AppID和AppSecret可在开发模式中获得（需要已经成为开发者，且帐号没有异常状态）。注意调用所有微信接口时均需使用https协议。
             </remarks>
         </member>
-        <member name="M:BaoMen.WeChat.Pub.Provider.BasicProvider.QueryAuthAccessToken(BaoMen.WeChat.Pub.Client.Request.QueryAuthAccessToken)">
+        <member name="M:BaoMen.WeChat.Pub.Provider.BasicProvider.AccessToken(BaoMen.WeChat.Pub.Client.Sns.AccessTokenRequest)">
             <summary>
             取得网页授权的access_token
             </summary>
-            <param name="queryAuthAccessToken">请求包</param>
+            <param name="accessTokenRequest">请求包</param>
             <returns></returns>
             <remarks>
             首先请注意，这里通过code换取的网页授权access_token,与基础支持中的access_token不同。
@@ -1168,28 +1223,31 @@
             refresh_token拥有较长的有效期（7天、30天、60天、90天），当refresh_token失效的后，需要用户重新授权。
             </remarks>
         </member>
-        <member name="M:BaoMen.WeChat.Pub.Provider.BasicProvider.RefreshAuthAccessToken(BaoMen.WeChat.Pub.Client.Request.RefreshAuthAccessToken)">
+        <member name="M:BaoMen.WeChat.Pub.Provider.BasicProvider.RefreshToken(BaoMen.WeChat.Pub.Client.Sns.RefreshTokenRequest)">
             <summary>
             刷新网页授权的access_token
             </summary>
-            <param name="refreshAuthAccessToken">请求包</param>
+            <param name="refreshTokenRequest">请求包</param>
             <returns></returns>
             <remarks>
             由于access_token拥有较短的有效期，当access_token超时后，可以使用refresh_token进行刷新，
             refresh_token拥有较长的有效期（7天、30天、60天、90天），当refresh_token失效的后，需要用户重新授权。
             </remarks>
         </member>
+        <member name="M:BaoMen.WeChat.Pub.Provider.BasicProvider.UserInfo(BaoMen.WeChat.Pub.Client.Sns.UserInfoRequest)">
+            <summary>
+            拉取用户信息(需scope为 snsapi_userinfo)
+            </summary>
+            <param name="userInfoRequest">请求包</param>
+            <returns></returns>
+            <remarks>
+            如果网页授权作用域为snsapi_userinfo，则此时开发者可以通过access_token和openid拉取用户信息了。
+            </remarks>
+        </member>
         <member name="T:BaoMen.WeChat.Pub.Provider.UserProvider">
             <summary>
             用户处理程序
             </summary>
-        </member>
-        <member name="M:BaoMen.WeChat.Pub.Provider.UserProvider.QueryUserInfo(BaoMen.WeChat.Pub.Client.Request.QueryUserInfo)">
-            <summary>
-            获取用户基本信息
-            </summary>
-            <param name="queryUserInfo">请求实例</param>
-            <returns></returns>
         </member>
     </members>
 </doc>

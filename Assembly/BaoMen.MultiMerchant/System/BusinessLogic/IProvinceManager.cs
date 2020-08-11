@@ -14,7 +14,7 @@ namespace BaoMen.MultiMerchant.System.BusinessLogic
     /// <summary>
     /// 省份信息业务逻辑接口
     /// </summary>
-    public interface IProvinceManager : ICacheableBusinessLogic<string,Province,ProvinceFilter>, Util.IGetNameManager<string>
+    public interface IProvinceManager : ICacheableBusinessLogic<string,Province,ProvinceFilter>, Util.IGetNameManager<string>, Util.IGetKeyManager<string>
     {
         
     }

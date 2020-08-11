@@ -1,14 +1,14 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace BaoMen.WeChat.Pub.Client.Response
+namespace BaoMen.WeChat.Pub.Client
 {
     /// <summary>
     /// 公众号的全局唯一票据
     /// </summary>
     [Serializable]
     [JsonObject(MemberSerialization.OptIn)]
-    public class QueryAccessToken : BaseResponse
+    public class TokenResponse : BaseResponse
     {
         /// <summary>
         ///  access_token	 获取到的凭证

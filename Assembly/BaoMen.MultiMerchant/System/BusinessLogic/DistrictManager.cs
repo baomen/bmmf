@@ -16,7 +16,7 @@ namespace BaoMen.MultiMerchant.System.BusinessLogic
     /// <summary>
     /// 地区信息业务逻辑
     /// </summary>
-    public partial class DistrictManager : CacheableBusinessLogicBase<string,District,DistrictFilter,DataAccess.District>,IDistrictManager
+    public partial class DistrictManager : CacheableBusinessLogicBase<string, District, DistrictFilter, DataAccess.District>, IDistrictManager
     {
         private readonly IOperateHistoryManager operateHistoryManager;
 
@@ -84,6 +84,16 @@ namespace BaoMen.MultiMerchant.System.BusinessLogic
         public string GetName(string key)
         {
             return Get(key)?.Name;
+        }
+
+        /// <summary>
+        /// 根据名称查找ID
+        /// </summary>
+        /// <param name="name">名称</param>
+        /// <returns></returns>
+        public string GetKey(string name)
+        {
+            return GetList().Where(p => p.Name.StartsWith(name)).FirstOrDefault()?.Id;
         }
     }
     #endregion

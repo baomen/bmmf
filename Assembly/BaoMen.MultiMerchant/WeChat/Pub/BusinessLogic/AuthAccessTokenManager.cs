@@ -39,6 +39,28 @@ namespace BaoMen.MultiMerchant.WeChat.Pub.BusinessLogic
         {
             get { return "ComplexKey"; }
         }
+
+        /// <summary>
+        /// 插入或更新数据
+        /// </summary>
+        /// <param name="item">应用访问凭据</param>
+        /// <returns></returns>
+        public int InserOrUpdate(Entity.AuthAccessToken item)
+        {
+            int rows = ProcessUpdate(() =>
+            {
+                item.MerchantId ??= string.Empty;
+                return dal.InserOrUpdate(item);
+            }, (log) =>
+            {
+                log.Properties[nameof(item)] = item;
+            });
+            if (rows > 0)
+            {
+                RemoveCache();
+            }
+            return rows;
+        }
     }
     #endregion
 }

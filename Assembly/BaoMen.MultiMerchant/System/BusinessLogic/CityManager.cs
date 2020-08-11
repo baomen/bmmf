@@ -87,6 +87,16 @@ namespace BaoMen.MultiMerchant.System.BusinessLogic
         {
             return Get(key)?.Name;
         }
+
+        /// <summary>
+        /// 根据名称查找ID
+        /// </summary>
+        /// <param name="name">名称</param>
+        /// <returns></returns>
+        public string GetKey(string name)
+        {
+            return GetList().Where(p => p.Name.StartsWith(name)).FirstOrDefault()?.Id;
+        }
     }
     #endregion
 }

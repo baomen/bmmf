@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BaoMen.WeChat.Pub.Client.Request
+namespace BaoMen.WeChat.Pub.Client.Sns
 {
     /// <summary>
     /// 获取用户的基本信息
@@ -14,7 +14,7 @@ namespace BaoMen.WeChat.Pub.Client.Request
     ///lang	 否	 返回国家地区语言版本，zh_CN 简体，zh_TW 繁体，en 英语
     /// </remarks>
     [Serializable]
-    public class QueryUserInfo : BaseRequest
+    public class UserInfoRequest : BaseRequest
     {
         /// <summary>
         /// 普通用户的标识，对当前公众号唯一
@@ -24,7 +24,7 @@ namespace BaoMen.WeChat.Pub.Client.Request
         /// <summary>
         /// 国家地区语言版本，zh_CN 简体，zh_TW 繁体，en 英语
         /// </summary>
-        public string Language { get; set; }
+        public string Language { get; set; } = "zh_CN";
 
         /// <summary>
         /// access_token	是	调用接口凭证

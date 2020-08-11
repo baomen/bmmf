@@ -437,6 +437,7 @@ namespace BaoMen.MultiMerchant.Merchant.BusinessLogic
                 log.Properties["item"] = item;
             });
         }
+
     }
     #endregion
 }

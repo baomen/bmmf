@@ -1,4 +1,5 @@
-﻿using BaoMen.Common.Model;
+﻿using AutoMapper;
+using BaoMen.Common.Model;
 using BaoMen.MultiMerchant.Util;
 using BaoMen.MultiMerchant.WeChat;
 using BaoMen.MultiMerchant.WeChat.Pub;
@@ -6,7 +7,7 @@ using BaoMen.MultiMerchant.WeChat.Pub.Proxy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using Response = BaoMen.WeChat.Pub.Client.Response;
+using Client = BaoMen.WeChat.Pub.Client;
 
 namespace BaoMen.MultiMerchant.Web.WeChat.Pub.Controller
 {
@@ -17,6 +18,7 @@ namespace BaoMen.MultiMerchant.Web.WeChat.Pub.Controller
     public abstract class BasicController : ControllerBase
     {
         private readonly BasicProxy basicProxy;
+        private readonly IMapper mapper;
 
         /// <summary>
         /// 构造函数
@@ -25,6 +27,7 @@ namespace BaoMen.MultiMerchant.Web.WeChat.Pub.Controller
         public BasicController(IServiceProvider serviceProvider)
         {
             basicProxy = serviceProvider.GetRequiredService<BasicProxy>();
+            mapper = serviceProvider.GetRequiredService<IMapper>();
         }
 
         /// <summary>
@@ -60,18 +63,57 @@ namespace BaoMen.MultiMerchant.Web.WeChat.Pub.Controller
         /// <param name="code">网页授权第一步获取的code参数</param>
         /// <returns></returns>
         [HttpGet]
-        public ResponseData<Response.QueryAuthAccessToken> QueryAuthAccessToken(string merchantId, string code)
+        public ResponseData<Models.AccessTokenResponse> QueryAuthAccessToken(string merchantId, string code)
         {
-            ResponseData<Response.QueryAuthAccessToken> responseData = new ResponseData<Response.QueryAuthAccessToken>();
+            ResponseData<Models.AccessTokenResponse> responseData = new ResponseData<Models.AccessTokenResponse>();
             try
             {
                 IMerchantService merchantService = HttpContext.RequestServices.GetRequiredService<IMerchantService>();
                 merchantService.MerchantId = merchantId;
-                Response.QueryAuthAccessToken response = basicProxy.QueryAuthAccessToken(merchantId, code);
+                Client.Sns.AccessTokenResponse response = basicProxy.AccessToken(merchantId, code);
 
                 if (response.ErrorCode == 0)
                 {
-                    responseData.Data = response;
+                    responseData.Data = mapper.Map<Models.AccessTokenResponse>(response);
+                }
+                else
+                {
+                    responseData.ErrorNumber = 1007;
+                    responseData.ErrorMessage = Properties.Resources.Error_1007;
+                }
+            }
+            catch (Exception exception)
+            {
+                responseData.ErrorNumber = 1008;
+                responseData.ErrorMessage = Properties.Resources.Error_1008;
+                responseData.Exception = exception;
+            }
+            return responseData;
+        }
+
+        /// <summary>
+        /// 拉取用户信息(需scope为 snsapi_userinfo)
+        /// </summary>
+        /// <param name="merchantId">商户ID</param>
+        /// <param name="openId">用户微信OpenId</param>
+        /// <param name="accessToken">网页授权接口调用凭证</param>
+        /// <returns></returns>
+        /// <remarks>
+        /// 如果网页授权作用域为snsapi_userinfo，则此时开发者可以通过access_token和openid拉取用户信息了。
+        /// </remarks>
+        [HttpGet]
+        public ResponseData<Models.UserInfoResponse> UserInfo(string merchantId, string openId, string accessToken)
+        {
+            ResponseData<Models.UserInfoResponse> responseData = new ResponseData<Models.UserInfoResponse>();
+            try
+            {
+                IMerchantService merchantService = HttpContext.RequestServices.GetRequiredService<IMerchantService>();
+                merchantService.MerchantId = merchantId;
+                Client.Sns.UserInfoResponse response = basicProxy.UserInfo(merchantId, openId);
+
+                if (response.ErrorCode == 0)
+                {
+                    responseData.Data = mapper.Map<Models.UserInfoResponse>(response);
                 }
                 else
                 {

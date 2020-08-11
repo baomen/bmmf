@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
 
-namespace BaoMen.WeChat.Pub.Client.Response
+namespace BaoMen.WeChat.Pub.Client.Sns
 {
     /// <summary>
     /// 用户票据
     /// </summary>
     [Serializable]
     [JsonObject(MemberSerialization.OptIn)]
-    public class QueryAuthAccessToken : BaseResponse
+    public class AccessTokenResponse : BaseResponse
     {
         /// <summary>
         /// access_token	 网页授权接口调用凭证,注意：此access_token与基础支持的access_token不同
@@ -23,7 +23,7 @@ namespace BaoMen.WeChat.Pub.Client.Response
         /// expires_in	 access_token接口调用凭证超时时间，单位（秒）
         /// </summary>
         [JsonProperty("expires_in")]
-        public string ExpiresIn { get; set; }
+        public int ExpiresIn { get; set; }
 
         /// <summary>
         /// refresh_token	 用户刷新access_token

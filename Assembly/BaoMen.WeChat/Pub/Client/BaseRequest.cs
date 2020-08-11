@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
 
-namespace BaoMen.WeChat.Pub.Client.Request
+namespace BaoMen.WeChat.Pub.Client
 {
     /// <summary>
     /// 客户端请求基类
     /// </summary>
     [Serializable]
     [JsonObject(MemberSerialization.OptIn)]
-    public class BaseRequest
+    public abstract class BaseRequest
     {
         /// <summary>
         /// 接口域名

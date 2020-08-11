@@ -6,14 +6,14 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.ComponentModel;
 
-namespace BaoMen.WeChat.Pub.Client.Response
+namespace BaoMen.WeChat.Pub.Client
 {
     /// <summary>
-    /// 公众号的全局唯一票据
+    /// 公众号的响应基类
     /// </summary>
     [Serializable]
     [JsonObject(MemberSerialization.OptIn)]
-    public class BaseResponse
+    public abstract class BaseResponse
     {
         /// <summary>
         ///  errcode	 错误代码

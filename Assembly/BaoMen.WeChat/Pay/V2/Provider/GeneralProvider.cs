@@ -72,7 +72,7 @@ namespace BaoMen.WeChat.Pay.V2.Provider
 
             System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
             stopwatch.Start();
-            string xml = Post(request.ToXml(), url, true, 1, config.SslCertPath, config.SslCertPassword);
+            string xml = Post(request.ToXml(), url, true, request.Timeout, config.SslCertPath, config.SslCertPassword);
             stopwatch.Stop();
             TimeSpan ts = stopwatch.Elapsed;
             int timeCost = (int)(ts.TotalMilliseconds);//获得接口耗时

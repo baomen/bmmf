@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BaoMen.WeChat.Pub.Client.Request
+namespace BaoMen.WeChat.Pub.Client
 {
     /// <summary>
     /// 查询访问凭据
     /// </summary>
-    public class QueryAccessToken : BaseRequest
+    public class TokenRequest : BaseRequest
     {
         /// <summary>
         /// 第三方用户唯一凭证

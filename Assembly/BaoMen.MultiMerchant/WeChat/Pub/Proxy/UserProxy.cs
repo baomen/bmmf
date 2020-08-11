@@ -4,8 +4,6 @@ using BaoMen.WeChat.MiniProgram.Client.Response;
 using BaoMen.WeChat.Pub.Provider;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using Request = BaoMen.WeChat.Pub.Client.Request;
-using Response = BaoMen.WeChat.Pub.Client.Response;
 
 namespace BaoMen.MultiMerchant.WeChat.Pub.Proxy
 {
@@ -30,23 +28,23 @@ namespace BaoMen.MultiMerchant.WeChat.Pub.Proxy
             basicProxy = serviceProvider.GetRequiredService<BasicProxy>();
         }
 
-        /// <summary>
-        /// 获取用户基本信息
-        /// </summary>
-        /// <param name="merchantId">商户ID</param>
-        /// <param name="openId">用户的OpenId</param>
-        /// <returns></returns>
-        public Response.QueryUserInfo QueryUserInfo(string merchantId, string openId)
-        {
-            Config config = configBuilder.BuildPubConifg(merchantId);
-            Request.QueryUserInfo request = new Request.QueryUserInfo
-            {
-                AccessToken = basicProxy.QueryAccessToken(merchantId),
-                ApiDomain = config.ApiDomain,
-                Language = "zh_CN",
-                OpenId = openId
-            };
-            return userProvider.QueryUserInfo(request);
-        }
+        ///// <summary>
+        ///// 获取用户基本信息
+        ///// </summary>
+        ///// <param name="merchantId">商户ID</param>
+        ///// <param name="openId">用户的OpenId</param>
+        ///// <returns></returns>
+        //public QueryUserInfo QueryUserInfo(string merchantId, string openId)
+        //{
+        //    Config config = configBuilder.BuildPubConifg(merchantId);
+        //    Request.QueryUserInfo request = new Request.QueryUserInfo
+        //    {
+        //        AccessToken = basicProxy.QueryAccessToken(merchantId),
+        //        ApiDomain = config.ApiDomain,
+        //        Language = "zh_CN",
+        //        OpenId = openId
+        //    };
+        //    return userProvider.QueryUserInfo(request);
+        //}
     }
 }

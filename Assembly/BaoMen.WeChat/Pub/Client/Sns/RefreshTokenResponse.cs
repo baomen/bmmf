@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
 
-namespace BaoMen.WeChat.Pub.Client.Response
+namespace BaoMen.WeChat.Pub.Client.Sns
 {
     /// <summary>
     /// 用户票据
     /// </summary>
     [Serializable]
     [JsonObject(MemberSerialization.OptIn)]
-    public class RefreshAuthAccessToken : BaseResponse
+    public class RefreshTokenResponse : BaseResponse
     {
         /// <summary>
         /// access_token	 网页授权接口调用凭证,注意：此access_token与基础支持的access_token不同
