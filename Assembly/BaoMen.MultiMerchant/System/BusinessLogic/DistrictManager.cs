@@ -93,6 +93,7 @@ namespace BaoMen.MultiMerchant.System.BusinessLogic
         /// <returns></returns>
         public string GetKey(string name)
         {
+            if (string.IsNullOrEmpty(name)) return name;
             return GetList().Where(p => p.Name.StartsWith(name)).FirstOrDefault()?.Id;
         }
     }

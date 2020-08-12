@@ -13,6 +13,7 @@ namespace BaoMen.MultiMerchant.Web.WeChat.Pub.Mapper
         public AutoMapperProfile()
         {
             CreateMap<Client.Sns.AccessTokenResponse, Models.AccessTokenResponse>();
+            CreateMap<Client.Sns.UserInfoResponse, Models.UserInfoResponse>();
         }
 
     }

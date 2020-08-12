@@ -109,7 +109,7 @@ namespace BaoMen.MultiMerchant.Web.WeChat.Pub.Controller
             {
                 IMerchantService merchantService = HttpContext.RequestServices.GetRequiredService<IMerchantService>();
                 merchantService.MerchantId = merchantId;
-                Client.Sns.UserInfoResponse response = basicProxy.UserInfo(merchantId, openId);
+                Client.Sns.UserInfoResponse response = basicProxy.UserInfo(merchantId, openId, accessToken);
 
                 if (response.ErrorCode == 0)
                 {
