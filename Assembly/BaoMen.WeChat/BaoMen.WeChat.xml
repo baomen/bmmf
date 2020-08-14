@@ -1199,6 +1199,11 @@
             基础处理程序
             </summary>
         </member>
+        <member name="M:BaoMen.WeChat.Pub.Provider.BasicProvider.#ctor">
+            <summary>
+            构造函数
+            </summary>
+        </member>
         <member name="M:BaoMen.WeChat.Pub.Provider.BasicProvider.Token(BaoMen.WeChat.Pub.Client.TokenRequest)">
             <summary>
             取得公众号的全局唯一票据

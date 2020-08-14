@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -9,6 +10,14 @@ namespace BaoMen.WeChat.Pub.Provider
     /// </summary>
     public class BasicProvider : BaseProvider
     {
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        public BasicProvider()
+        {
+            logger = LogManager.GetCurrentClassLogger();
+        }
+
         /// <summary>
         /// 取得公众号的全局唯一票据
         /// </summary>

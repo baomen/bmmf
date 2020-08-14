@@ -11,7 +11,7 @@ namespace BaoMen.WeChat.Pub.Provider
     /// <summary>
     /// 处理程序基类
     /// </summary>
-    public class BaseProvider
+    public abstract class BaseProvider
     {
         /// <summary>
         /// 日志实例
@@ -23,7 +23,6 @@ namespace BaoMen.WeChat.Pub.Provider
         /// </summary>
         public BaseProvider()
         {
-            logger = LogManager.GetCurrentClassLogger();
         }
 
         /// <summary>
