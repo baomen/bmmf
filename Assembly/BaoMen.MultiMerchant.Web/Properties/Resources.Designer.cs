@@ -214,6 +214,24 @@ namespace BaoMen.MultiMerchant.Web.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 验证码不正确.
+        /// </summary>
+        public static string Error_1009 {
+            get {
+                return ResourceManager.GetString("Error_1009", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 手机验证码不正确.
+        /// </summary>
+        public static string Error_1010 {
+            get {
+                return ResourceManager.GetString("Error_1010", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 请求无效（数据验证未通过）.
         /// </summary>
         public static string Error_400 {

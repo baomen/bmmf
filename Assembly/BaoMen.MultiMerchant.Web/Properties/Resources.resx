@@ -168,6 +168,12 @@
   <data name="Error_1008" xml:space="preserve">
     <value>调用API失败</value>
   </data>
+  <data name="Error_1009" xml:space="preserve">
+    <value>验证码不正确</value>
+  </data>
+  <data name="Error_1010" xml:space="preserve">
+    <value>手机验证码不正确</value>
+  </data>
   <data name="Error_400" xml:space="preserve">
     <value>请求无效（数据验证未通过）</value>
   </data>
