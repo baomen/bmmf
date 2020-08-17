@@ -54,21 +54,6 @@ namespace BaoMen.MultiMerchant.Merchant.DataAccess
         }
 
         /// <summary>
-        /// 取得更新数据的数据库命令
-        /// </summary>
-        /// <param name="item">实体数据</param>
-        /// <returns></returns>
-        protected override DapperCommand CreateUpdateCommand(Entity.User item)
-        {
-            string sql = $"UPDATE {TableName} SET UserName=@UserName,Password=@Password,Name=@Name,Mobile=@Mobile,Email=@Email,Avatar=@Avatar,Status=@Status,WechatOpenId=@WechatOpenId,WechatMpOpenId=@WechatMpOpenId,WechatUnionId=@WechatUnionId,DingTalkId=@DingTalkId,AlipayId=@AlipayId,Description=@Description WHERE Id=@Id And MerchantId=@MerchantId";
-            return new DapperCommand()
-            {
-                CommandText = sql,
-                Parameters = item
-            };
-        }
-
-        /// <summary>
         /// 取得删除数据的数据库命令
         /// </summary>
         /// <param name="item">实体实例</param>
@@ -139,6 +124,22 @@ namespace BaoMen.MultiMerchant.Merchant.DataAccess
 
     public partial class User
     {
+
+        /// <summary>
+        /// 取得更新数据的数据库命令
+        /// </summary>
+        /// <param name="item">实体数据</param>
+        /// <returns></returns>
+        protected override DapperCommand CreateUpdateCommand(Entity.User item)
+        {
+            string sql = $"UPDATE {TableName} SET UserName=@UserName,Name=@Name,Mobile=@Mobile,Email=@Email,Avatar=@Avatar,Status=@Status,WechatOpenId=@WechatOpenId,WechatMpOpenId=@WechatMpOpenId,WechatUnionId=@WechatUnionId,DingTalkId=@DingTalkId,AlipayId=@AlipayId,Description=@Description WHERE Id=@Id And MerchantId=@MerchantId";
+            return new DapperCommand()
+            {
+                CommandText = sql,
+                Parameters = item
+            };
+        }
+
         /// <summary>
         /// 修改密码
         /// </summary>
@@ -167,6 +168,7 @@ namespace BaoMen.MultiMerchant.Merchant.DataAccess
                 log.Properties["item"] = item;
             });
         }
+
         /// <summary>
         /// 修改头像
         /// </summary>

@@ -21,15 +21,17 @@ namespace BaoMen.MultiMerchant.System.BusinessLogic
     public partial class CityManager : CacheableBusinessLogicBase<string, City, CityFilter, DataAccess.City>, ICityManager
     {
         private readonly IOperateHistoryManager operateHistoryManager;
+        private readonly IServiceProvider serviceProvider;
 
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="configuration">配置实例</param>
-        /// <param name="operateHistoryManager">操作日志业务逻辑</param>
-        public CityManager(IConfiguration configuration, IOperateHistoryManager operateHistoryManager) : base(configuration)
+        /// <param name="serviceProvider">服务提供程序</param>
+        public CityManager(IConfiguration configuration, IServiceProvider serviceProvider) : base(configuration)
         {
-            this.operateHistoryManager = operateHistoryManager;
+            operateHistoryManager = serviceProvider.GetRequiredService<IOperateHistoryManager>();
+            this.serviceProvider = serviceProvider;
         }
 
 
@@ -70,6 +72,9 @@ namespace BaoMen.MultiMerchant.System.BusinessLogic
         /// <returns></returns>
         protected override int DoDelete(Entity.City item)
         {
+            IDistrictManager districtManager = serviceProvider.GetRequiredService<IDistrictManager>();
+            int count = districtManager.GetListCount(new DistrictFilter { Id = new Common.Model.FilterProperty<string> { Value = item.Id.Substring(0, 4), CompareOperator = DbCompareOperator.StartWith } });
+            if (count > 0) throw new ArgumentException("地市含有地区数据，无法删除");
             int affectRows = base.DoDelete(item);
             if (affectRows > 0)
             {

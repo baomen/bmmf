@@ -9,6 +9,8 @@ using System.Linq;
 using BaoMen.MultiMerchant.System.Entity;
 using BaoMen.Common.Data;
 using BaoMen.Common.Constant;
+using System;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace BaoMen.MultiMerchant.System.BusinessLogic
 {
@@ -16,18 +18,20 @@ namespace BaoMen.MultiMerchant.System.BusinessLogic
     /// <summary>
     /// 省份信息业务逻辑
     /// </summary>
-    public partial class ProvinceManager : CacheableBusinessLogicBase<string,Province,ProvinceFilter,DataAccess.Province>,IProvinceManager
+    public partial class ProvinceManager : CacheableBusinessLogicBase<string, Province, ProvinceFilter, DataAccess.Province>, IProvinceManager
     {
         private readonly IOperateHistoryManager operateHistoryManager;
+        private readonly IServiceProvider serviceProvider;
 
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="configuration">配置实例</param>
-        /// <param name="operateHistoryManager">操作日志业务逻辑</param>
-        public ProvinceManager(IConfiguration configuration, IOperateHistoryManager operateHistoryManager) : base(configuration)
+        /// <param name="serviceProvider">服务提供程序</param>
+        public ProvinceManager(IConfiguration configuration, IServiceProvider serviceProvider) : base(configuration)
         {
-            this.operateHistoryManager = operateHistoryManager;
+            operateHistoryManager = serviceProvider.GetRequiredService<IOperateHistoryManager>();
+            this.serviceProvider = serviceProvider;
         }
 
 
@@ -68,6 +72,9 @@ namespace BaoMen.MultiMerchant.System.BusinessLogic
         /// <returns></returns>
         protected override int DoDelete(Entity.Province item)
         {
+            ICityManager cityManager = serviceProvider.GetRequiredService<ICityManager>();
+            int cityCount = cityManager.GetListCount(new CityFilter { Id = new Common.Model.FilterProperty<string> { Value = item.Id.Substring(0, 2), CompareOperator = DbCompareOperator.StartWith } });
+            if (cityCount > 0) throw new ArgumentException("省份含有地市数据，无法删除");
             int affectRows = base.DoDelete(item);
             if (affectRows > 0)
             {

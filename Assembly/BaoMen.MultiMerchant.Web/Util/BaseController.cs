@@ -192,7 +192,7 @@ namespace BaoMen.MultiMerchant.Web.Util
         /// <param name="pageSize">页大小</param>
         /// <returns></returns>
         [HttpGet]
-        public virtual ResponseData<TotalAndItem<TModel>> GetList([FromQuery]TFilter filter, string sort, int pageIndex = 1, int pageSize = 10)
+        public virtual ResponseData<TotalAndItem<TModel>> GetList([FromQuery] TFilter filter, string sort, int pageIndex = 1, int pageSize = 10)
         {
             ResponseData<TotalAndItem<TModel>> responseData = new ResponseData<TotalAndItem<TModel>>();
             try
@@ -259,7 +259,7 @@ namespace BaoMen.MultiMerchant.Web.Util
         /// <param name="model">创建模型</param>
         /// <returns></returns>
         [HttpPost]
-        public virtual ResponseData<TModel> Create([FromBody]TCreate model)
+        public virtual ResponseData<TModel> Create([FromBody] TCreate model)
         {
             ResponseData<TModel> responseData = new ResponseData<TModel>();
             try
@@ -272,6 +272,7 @@ namespace BaoMen.MultiMerchant.Web.Util
                 {
                     responseData.ErrorNumber = 1001;
                     responseData.ErrorMessage = Properties.Resources.Error_1001;
+                    logger.Warn("Create Warn: inert rows=0, model={model}", model);
                 }
             }
             catch (Exception exception)
@@ -290,7 +291,7 @@ namespace BaoMen.MultiMerchant.Web.Util
         /// <param name="model">更新模型</param>
         /// <returns></returns>
         [HttpPut]
-        public virtual ResponseData Update([FromBody]TUpdate model)
+        public virtual ResponseData Update([FromBody] TUpdate model)
         {
             ResponseData responseData = new ResponseData();
             try
@@ -301,6 +302,7 @@ namespace BaoMen.MultiMerchant.Web.Util
                 {
                     responseData.ErrorNumber = 1002;
                     responseData.ErrorMessage = Properties.Resources.Error_1002;
+                    logger.Warn("Update Warn: inert rows=0, model={model}", model);
                 }
             }
             catch (Exception exception)
@@ -320,7 +322,7 @@ namespace BaoMen.MultiMerchant.Web.Util
         /// <returns></returns>
         [HttpDelete]
         //[System.Web.Http.Cors.DisableCors]
-        public virtual ResponseData Delete([FromBody]TDelete model)
+        public virtual ResponseData Delete([FromBody] TDelete model)
         {
             ResponseData responseData = new ResponseData();
             try
@@ -331,6 +333,7 @@ namespace BaoMen.MultiMerchant.Web.Util
                 {
                     responseData.ErrorNumber = 1003;
                     responseData.ErrorMessage = Properties.Resources.Error_1003;
+                    logger.Warn("Delete Warn: inert rows=0, model={model}", model);
                 }
             }
             catch (Exception exception)
@@ -381,7 +384,7 @@ namespace BaoMen.MultiMerchant.Web.Util
         /// <param name="id">标识</param>
         /// <returns></returns>
         [HttpGet]
-        public virtual ResponseData<ICollection<TModel>> GetChildren([FromQuery]TKey id)
+        public virtual ResponseData<ICollection<TModel>> GetChildren([FromQuery] TKey id)
         {
             ResponseData<ICollection<TModel>> responseData = new ResponseData<ICollection<TModel>>();
             try
@@ -404,7 +407,7 @@ namespace BaoMen.MultiMerchant.Web.Util
         /// <param name="id">标识</param>
         /// <returns></returns>
         [HttpGet]
-        public virtual ResponseData<ICollection<TModel>> GetAllChildren([FromQuery]TKey id)
+        public virtual ResponseData<ICollection<TModel>> GetAllChildren([FromQuery] TKey id)
         {
             ResponseData<ICollection<TModel>> responseData = new ResponseData<ICollection<TModel>>();
             try
@@ -541,7 +544,7 @@ namespace BaoMen.MultiMerchant.Web.Util
         /// <param name="pageSize">页大小</param>
         /// <returns></returns>
         [HttpGet]
-        public override ResponseData<TotalAndItem<TModel>> GetList([FromQuery]TFilter filter, string sort, int pageIndex = 1, int pageSize = 10)
+        public override ResponseData<TotalAndItem<TModel>> GetList([FromQuery] TFilter filter, string sort, int pageIndex = 1, int pageSize = 10)
         {
             ResponseData<TotalAndItem<TModel>> responseData = new ResponseData<TotalAndItem<TModel>>();
             try
@@ -599,7 +602,7 @@ namespace BaoMen.MultiMerchant.Web.Util
         /// <param name="model">创建模型</param>
         /// <returns></returns>
         [HttpPost]
-        public virtual ResponseData<TModel> Create([FromBody]TCreate model)
+        public virtual ResponseData<TModel> Create([FromBody] TCreate model)
         {
             ResponseData<TModel> responseData = new ResponseData<TModel>();
             try
@@ -613,6 +616,7 @@ namespace BaoMen.MultiMerchant.Web.Util
                 {
                     responseData.ErrorNumber = 1001;
                     responseData.ErrorMessage = Properties.Resources.Error_1001;
+                    logger.Warn("Create Warn: inert rows=0, model={model}", model);
                 }
             }
             catch (Exception exception)
@@ -631,7 +635,7 @@ namespace BaoMen.MultiMerchant.Web.Util
         /// <param name="model">更新模型</param>
         /// <returns></returns>
         [HttpPut]
-        public virtual ResponseData Update([FromBody]TUpdate model)
+        public virtual ResponseData Update([FromBody] TUpdate model)
         {
             ResponseData responseData = new ResponseData();
             try
@@ -643,6 +647,7 @@ namespace BaoMen.MultiMerchant.Web.Util
                 {
                     responseData.ErrorNumber = 1002;
                     responseData.ErrorMessage = Properties.Resources.Error_1002;
+                    logger.Warn("Update Warn: inert rows=0, model={model}", model);
                 }
             }
             catch (Exception exception)
@@ -662,7 +667,7 @@ namespace BaoMen.MultiMerchant.Web.Util
         /// <returns></returns>
         [HttpDelete]
         //[System.Web.Http.Cors.DisableCors]
-        public virtual ResponseData Delete([FromBody]TDelete model)
+        public virtual ResponseData Delete([FromBody] TDelete model)
         {
             ResponseData responseData = new ResponseData();
             try
@@ -674,6 +679,7 @@ namespace BaoMen.MultiMerchant.Web.Util
                 {
                     responseData.ErrorNumber = 1003;
                     responseData.ErrorMessage = Properties.Resources.Error_1003;
+                    logger.Warn("Delete Warn: inert rows=0, model={model}", model);
                 }
             }
             catch (Exception exception)
@@ -724,7 +730,7 @@ namespace BaoMen.MultiMerchant.Web.Util
         /// <param name="id">标识</param>
         /// <returns></returns>
         [HttpGet]
-        public virtual ResponseData<ICollection<TModel>> GetChildren([FromQuery]TKey id)
+        public virtual ResponseData<ICollection<TModel>> GetChildren([FromQuery] TKey id)
         {
             ResponseData<ICollection<TModel>> responseData = new ResponseData<ICollection<TModel>>();
             try
@@ -749,7 +755,7 @@ namespace BaoMen.MultiMerchant.Web.Util
         /// <param name="id">标识</param>
         /// <returns></returns>
         [HttpGet]
-        public virtual ResponseData<ICollection<TModel>> GetAllChildren([FromQuery]TKey id)
+        public virtual ResponseData<ICollection<TModel>> GetAllChildren([FromQuery] TKey id)
         {
             ResponseData<ICollection<TModel>> responseData = new ResponseData<ICollection<TModel>>();
             try

@@ -63,13 +63,7 @@ namespace BaoMen.MultiMerchant.Merchant.BusinessLogic
         {
             item.CreateTime = DateTime.Now;
             item.Password = item.Password.To32MD5();
-            item.Email ??= string.Empty;
-            item.UserName ??= string.Empty;
-            item.WechatMpOpenId ??= string.Empty;
-            item.WechatOpenId ??= string.Empty;
-            item.WechatUnionId ??= string.Empty;
-            item.DingTalkId ??= string.Empty;
-            item.AlipayId ??= string.Empty;
+            PrepareUser(item);
             return ProcessWithTransaction((transaction) =>
             {
                 int rows = dal.Insert(item, transaction);
@@ -86,8 +80,7 @@ namespace BaoMen.MultiMerchant.Merchant.BusinessLogic
         /// <returns></returns>
         protected override int DoUpdate(User item)
         {
-            item.Email ??= string.Empty;
-            item.UserName ??= string.Empty;
+            PrepareUser(item);
             return ProcessWithTransaction((transaction) =>
             {
                 int rows = DeleteExtention(item, transaction);
@@ -112,6 +105,17 @@ namespace BaoMen.MultiMerchant.Merchant.BusinessLogic
                 operateHistoryManager.Insert(item.Id, item, DataOperationType.Delete, transaction: transaction);
                 return rows;
             });
+        }
+
+        private void PrepareUser(Entity.User item)
+        {
+            item.Email ??= string.Empty;
+            item.UserName ??= string.Empty;
+            item.WechatMpOpenId ??= string.Empty;
+            item.WechatOpenId ??= string.Empty;
+            item.WechatUnionId ??= string.Empty;
+            item.DingTalkId ??= string.Empty;
+            item.AlipayId ??= string.Empty;
         }
 
         private int InsertExtention(User item, IDbTransaction transaction)

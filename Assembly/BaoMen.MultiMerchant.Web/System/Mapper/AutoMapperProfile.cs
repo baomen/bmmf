@@ -43,7 +43,8 @@ namespace BaoMen.MultiMerchant.Web.System.Mapper
             CreateMap<Models.UpdateParameter, Entity.Parameter>();
             CreateMap<Models.DeleteParameter, Entity.Parameter>();
 
-            CreateMap<Entity.OperateHistory, Models.OperateHistory>().ForMember(dest => dest.UserName, opt => opt.ConvertUsing<KeyToNameConverter<string, IUserManager>, string>(src => src.UserId));
+            CreateMap<Entity.OperateHistory, Models.OperateHistory>()
+                .ForMember(dest => dest.UserName, opt => opt.ConvertUsing<KeyToNameConverter<string, IUserManager>, string>(src => src.UserId));
 
             CreateMap<Entity.Version, Models.Version>();
             CreateMap<Entity.Version, TextValue<string>>().ForMember(dest => dest.Text, opt => opt.MapFrom(src => src.Name)).ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.Id));

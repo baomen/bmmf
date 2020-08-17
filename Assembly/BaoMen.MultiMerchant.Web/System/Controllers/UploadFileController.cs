@@ -36,8 +36,9 @@ namespace BaoMen.MultiMerchant.Web.System.Controllers
             ResponseData<Models.UploadFile> responseData = new ResponseData<Models.UploadFile>();
             try
             {
-                Entity.UploadFile uploadFile = manager.CreateUploadFile(
-                    createUploadFile.CreateUserId, createUploadFile.RelatedId, createUploadFile.Type, createUploadFile.File.FileName);
+                MultiMerchant.Util.ICurrentUserService currentUserService = GetRequiredService<MultiMerchant.Util.ICurrentUserService>();
+                string createUserId = currentUserService.GetCurrentUser().Id;
+                Entity.UploadFile uploadFile = manager.CreateUploadFile(createUserId, createUploadFile.RelatedId, createUploadFile.Type, createUploadFile.File.FileName);
                 string physicalPath = manager.GetPhysicalPath(uploadFile.RelativePath);
                 manager.SaveFile(physicalPath, createUploadFile.File);
                 int rows = manager.Insert(uploadFile);
