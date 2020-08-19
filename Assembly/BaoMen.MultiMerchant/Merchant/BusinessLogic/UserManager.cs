@@ -427,6 +427,7 @@ namespace BaoMen.MultiMerchant.Merchant.BusinessLogic
         /// <returns></returns>
         public int ModifyPersonalSetting(User item)
         {
+            item.Email ??= string.Empty;
             return ProcessUpdate(() =>
             {
                 int row = dal.ModifyPersonalSetting(item);

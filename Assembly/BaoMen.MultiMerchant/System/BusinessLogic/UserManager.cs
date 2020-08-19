@@ -96,6 +96,11 @@ namespace BaoMen.MultiMerchant.System.BusinessLogic
                 throw new ArgumentException("用户名已经存在");
             }
             item.Email ??= string.Empty;
+            item.WechatMpOpenId ??= string.Empty;
+            item.WechatOpenId ??= string.Empty;
+            item.WechatUnionId ??= string.Empty;
+            item.DingTalkId ??= string.Empty;
+            item.AlipayId ??= string.Empty;
             return ProcessWithTransaction((transaction) =>
             {
                 int rows = DeleteExtention(item, transaction);
@@ -351,6 +356,7 @@ namespace BaoMen.MultiMerchant.System.BusinessLogic
         /// <returns></returns>
         public int ModifyPersonalSetting(User item)
         {
+            item.Email ??= string.Empty;
             return ProcessUpdate(() =>
             {
                 int row = dal.ModifyPersonalSetting(item);

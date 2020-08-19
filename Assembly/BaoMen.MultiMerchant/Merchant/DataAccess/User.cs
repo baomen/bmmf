@@ -202,27 +202,18 @@ namespace BaoMen.MultiMerchant.Merchant.DataAccess
         /// 修改个人设置
         /// </summary>
         /// <param name="item">用户实体</param>
-        /// <param name="connection">数据库连接</param>
-        /// <param name="transaction">数据库事务</param>
         /// <returns></returns>
-        internal int ModifyPersonalSetting(Entity.User item, IDbConnection connection = null, IDbTransaction transaction = null)
+        internal int ModifyPersonalSetting(Entity.User item)
         {
             return ProcessUpdate(() =>
             {
-                string sql = $"update {TableName} set Name=@Name,Email=@Email,Description=@Description where Id=@Id";
+                string sql = $"update {TableName} set Name=@Name,Email=@Email,Description=@Description where Id=@Id and MerchantId=@MerchantId";
                 DapperCommand command = new DapperCommand
                 {
                     CommandText = sql,
-                    Transaction = transaction,
-                    Parameters = new
-                    {
-                        item.Avatar,
-                        item.Id,
-                        item.Name,
-                        item.Email,
-                        item.Description
-                    }
+                    Parameters = item
                 };
+                IDbConnection connection = CreateConnection();
                 return connection.Execute(command);
             }, (log) =>
             {
