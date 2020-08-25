@@ -9,7 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using Client = BaoMen.WeChat.Pub.Client;
 
-namespace BaoMen.MultiMerchant.Web.WeChat.Pub.Controller
+namespace BaoMen.MultiMerchant.Web.WeChat.Pub.Controllers
 {
     /// <summary>
     /// 微信基础API

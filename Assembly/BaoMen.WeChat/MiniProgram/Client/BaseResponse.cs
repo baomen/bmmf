@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using BaoMen.WeChat.Util;
+using Newtonsoft.Json;
 using System;
 
 namespace BaoMen.WeChat.MiniProgram.Client.Response
@@ -21,6 +22,11 @@ namespace BaoMen.WeChat.MiniProgram.Client.Response
         /// </summary>
         [JsonProperty("errmsg")]
         public string ErrorMessage { get; set; }
+
+        /// <summary>
+        /// 元数据
+        /// </summary>
+        public Metadata Metadata { get; set; }
 
         ///// <summary>
         ///// 反序列化事件

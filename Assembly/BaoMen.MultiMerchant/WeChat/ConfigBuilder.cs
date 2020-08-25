@@ -173,36 +173,79 @@ namespace BaoMen.MultiMerchant.WeChat
         }
         #endregion
 
-        ///// <summary>
-        ///// 构建微信小程序的配置
-        ///// </summary>
-        ///// <returns></returns>
-        //public BaoMen.WeChat.MiniProgram.Config BuildMiniPorgramConifg(string merchantId)
-        //{
-        //    BaoMen.WeChat.MiniProgram.Config config = new BaoMen.WeChat.MiniProgram.Config
-        //    {
-        //        AppId = merchantParameterManager.Get("01010201").Value,
-        //        AppSecret = merchantParameterManager.Get("01010202").Value,
-        //        ApiDomain = parameterManager.Get("03010103").Value
-        //    };
-        //    CheckMiniProgramConfig(config);
-        //    logger.Trace("build wechat mini program config {config}", config);
-        //    return config;
-        //}
+        #region 小程序
+        /// <summary>
+        /// 构建微信小程序的配置
+        /// </summary>
+        /// <returns></returns>
+        public MiniProgram.Config BuildMiniPorgramConifg(string merchantId = null)
+        {
+            MiniProgram.Config config;
+            if (string.IsNullOrEmpty(merchantId))
+            {
+                config = CreateDefaultMiniProgramConfig();
+            }
+            else
+            {
+                config = CreateMerchantMiniProgramConfig(merchantId);
+                //没配置使用默认
+                if (string.IsNullOrEmpty(config.AppId) || string.IsNullOrEmpty(config.AppSecret))
+                {
+                    config = CreateDefaultMiniProgramConfig();
+                }
+            }
+            CheckMiniProgramConfig(config);
+            logger.Trace("build wechat mini program config {config}", config);
+            return config;
+        }
 
-        ///// <summary>
-        ///// 创建小程序配置
-        ///// </summary>
-        ///// <returns></returns>
-        //protected override BaoMen.WeChat.MiniProgram.Config CreateMiniProgramConfig()
-        //{
-        //    return new BaoMen.WeChat.MiniProgram.Config
-        //    {
-        //        AppId = parameterManager.Get("03010201").Value,
-        //        AppSecret = parameterManager.Get("03010202").Value,
-        //        ApiDomain = parameterManager.Get("03010203").Value
-        //    };
-        //}
+        /// <summary>
+        /// 创建默认的小程序配置
+        /// </summary>
+        /// <returns></returns>
+        private MiniProgram.Config CreateDefaultMiniProgramConfig()
+        {
+            return new MiniProgram.Config
+            {
+                AppId = parameterManager.Get("03010201").Value,
+                AppSecret = parameterManager.Get("03010202").Value,
+                ApiDomain = parameterManager.Get("03010203").Value
+            };
+        }
+
+        private MiniProgram.Config CreateMerchantMiniProgramConfig(string merchantId)
+        {
+            return new MiniProgram.Config
+            {
+                AppId = merchantParameterManager.Get("02010201").Value,
+                AppSecret = merchantParameterManager.Get("02010202").Value,
+                ApiDomain = parameterManager.Get("03010203").Value
+            };
+        }
+
+        /// <summary>
+        /// 检查微信小程序配置
+        /// </summary>
+        /// <param name="config">微信小程序配置</param>
+        private void CheckMiniProgramConfig(MiniProgram.Config config)
+        {
+            if (string.IsNullOrEmpty(config.AppId))
+            {
+                logger.Warn("create mini-program config error.AppId is null or empty");
+                throw new ArgumentNullException("AppId", "参数为空");
+            }
+            if (string.IsNullOrEmpty(config.AppSecret))
+            {
+                logger.Warn("create mini-program config error.AppSecret is null or empty");
+                throw new ArgumentNullException("AppSecret", "参数为空");
+            }
+            if (string.IsNullOrEmpty(config.ApiDomain))
+            {
+                logger.Warn("create mini-program config error.ApiDomain is null or empty");
+                throw new ArgumentNullException("ApiDomain", "参数为空");
+            }
+        }
+        #endregion
 
         ///// <summary>
         ///// 创建微信开放平台应用

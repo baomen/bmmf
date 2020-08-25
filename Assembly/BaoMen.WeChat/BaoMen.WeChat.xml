@@ -9,19 +9,19 @@
             客户端请求基类
             </summary>
         </member>
-        <member name="P:BaoMen.WeChat.MiniProgram.Client.Request.BaseRequest.AccessToken">
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.Request.BaseRequest.AppId">
             <summary>
-             公众号的全局唯一票据
+            小程序的AppId
             </summary>
         </member>
-        <member name="T:BaoMen.WeChat.MiniProgram.Client.Request.CodeToSession">
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.Request.BaseRequest.AppSecret">
             <summary>
-            登录凭证校验
+            小程序的开发者密码
             </summary>
         </member>
-        <member name="P:BaoMen.WeChat.MiniProgram.Client.Request.CodeToSession.JsCode">
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.Request.BaseRequest.ApiDomain">
             <summary>
-            js_code	string		是	登录时获取的 code
+            接口域名
             </summary>
         </member>
         <member name="T:BaoMen.WeChat.MiniProgram.Client.Response.BaseResponse">
@@ -39,24 +39,9 @@
             errmsg	 错误信息
             </summary>
         </member>
-        <member name="T:BaoMen.WeChat.MiniProgram.Client.Response.CodeToSession">
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.Response.BaseResponse.Metadata">
             <summary>
-            登录凭证校验
-            </summary>
-        </member>
-        <member name="P:BaoMen.WeChat.MiniProgram.Client.Response.CodeToSession.OpenId">
-            <summary>
-            openid	 用户唯一标识，请注意，在未关注公众号时，用户访问公众号的网页，也会产生一个用户和公众号唯一的OpenID
-            </summary>
-        </member>
-        <member name="P:BaoMen.WeChat.MiniProgram.Client.Response.CodeToSession.SessionKey">
-            <summary>
-            session_key	string	会话密钥
-            </summary>
-        </member>
-        <member name="P:BaoMen.WeChat.MiniProgram.Client.Response.CodeToSession.UnionId">
-            <summary>
-            unionid	string	用户在开放平台的唯一标识符，在满足 UnionID 下发条件的情况下会返回，详见 UnionID 机制说明。。
+            元数据
             </summary>
         </member>
         <member name="T:BaoMen.WeChat.MiniProgram.Client.Response.QueryAccessToken">
@@ -73,6 +58,117 @@
             <summary>
             expires_in	 凭证有效时间，单位：秒
             </summary>
+        </member>
+        <member name="T:BaoMen.WeChat.MiniProgram.Client.Sns.CodeToSessionRequest">
+            <summary>
+            登录凭证校验
+            </summary>
+            <remarks>
+            appid	string		是	小程序 appId
+            secret string 是   小程序 appSecret
+            js_code string 是   登录时获取的 code
+            grant_type string 是   授权类型，此处只需填写 authorization_code
+            </remarks>
+        </member>
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.Sns.CodeToSessionRequest.JsCode">
+            <summary>
+            js_code	string		是	登录时获取的 code
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.Sns.CodeToSessionRequest.GrantType">
+            <summary>
+            grant_type string 是   授权类型，此处只需填写 authorization_code
+            </summary>
+        </member>
+        <member name="T:BaoMen.WeChat.MiniProgram.Client.Sns.CodeToSessionResponse">
+            <summary>
+            登录凭证校验
+            </summary>
+            <remarks>
+            openid	string	用户唯一标识
+            session_key string 会话密钥
+            unionid string 用户在开放平台的唯一标识符，在满足 UnionID 下发条件的情况下会返回，详见 UnionID 机制说明。
+            errcode number  错误码
+            errmsg string 错误信息
+            </remarks>
+        </member>
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.Sns.CodeToSessionResponse.OpenId">
+            <summary>
+            openid	 用户唯一标识，请注意，在未关注公众号时，用户访问公众号的网页，也会产生一个用户和公众号唯一的OpenID
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.Sns.CodeToSessionResponse.SessionKey">
+            <summary>
+            session_key	string	会话密钥
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.Sns.CodeToSessionResponse.UnionId">
+            <summary>
+            unionid	string	用户在开放平台的唯一标识符，在满足 UnionID 下发条件的情况下会返回，详见 UnionID 机制说明。。
+            </summary>
+        </member>
+        <member name="T:BaoMen.WeChat.MiniProgram.Provider.BaseProvider">
+            <summary>
+            处理程序基类
+            </summary>
+        </member>
+        <member name="F:BaoMen.WeChat.MiniProgram.Provider.BaseProvider.logger">
+            <summary>
+            日志实例
+            </summary>
+        </member>
+        <member name="M:BaoMen.WeChat.MiniProgram.Provider.BaseProvider.HttpGet(System.String)">
+            <summary>
+            发送http GET请求
+            </summary>
+            <param name="url">请求地址</param>
+            <returns></returns>
+        </member>
+        <member name="M:BaoMen.WeChat.MiniProgram.Provider.BaseProvider.HttpPost(System.String,System.String)">
+            <summary>
+            发送http POST请求
+            </summary>
+            <param name="url">请求地址</param>
+            <param name="data">发送的数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:BaoMen.WeChat.MiniProgram.Provider.BaseProvider.HttpGet``1(System.String)">
+            <summary>
+            向微信接口发送http get请求。（Json序列化的请求与响应）
+            </summary>
+            <typeparam name="TResponse">响应类型</typeparam>
+            <param name="url">接口URL</param>
+            <returns></returns>
+        </member>
+        <member name="M:BaoMen.WeChat.MiniProgram.Provider.BaseProvider.HttpPost``2(``0,System.String)">
+            <summary>
+            向微信接口发送http post请求。（Json序列化的请求与响应）
+            </summary>
+            <typeparam name="TRequest">请求类型</typeparam>
+            <typeparam name="TResponse">响应类型</typeparam>
+            <param name="request">请求实例</param>
+            <param name="url">接口URL</param>
+            <returns></returns>
+        </member>
+        <member name="T:BaoMen.WeChat.MiniProgram.Provider.BasicProvider">
+            <summary>
+            基础处理程序
+            </summary>
+        </member>
+        <member name="M:BaoMen.WeChat.MiniProgram.Provider.BasicProvider.#ctor">
+            <summary>
+            构造函数
+            </summary>
+        </member>
+        <member name="M:BaoMen.WeChat.MiniProgram.Provider.BasicProvider.CodeToSession(BaoMen.WeChat.MiniProgram.Client.Sns.CodeToSessionRequest)">
+            <summary>
+            登录凭证校验
+            </summary>
+            <param name="codeToSessionRequest">请求包</param>
+            <returns></returns>
+            <remarks>
+            通过 wx.login 接口获得临时登录凭证 code 后传到开发者服务器调用此接口完成登录流程。更多使用方法详见 小程序登录。
+            </remarks>
         </member>
         <member name="T:BaoMen.WeChat.Open.Client.Request.BaseRequest">
             <summary>
@@ -1252,6 +1348,31 @@
         <member name="T:BaoMen.WeChat.Pub.Provider.UserProvider">
             <summary>
             用户处理程序
+            </summary>
+        </member>
+        <member name="T:BaoMen.WeChat.Util.Metadata">
+            <summary>
+            元数据
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Util.Metadata.CallTime">
+            <summary>
+            调用时间
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Util.Metadata.Elapsed">
+            <summary>
+            时长
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Util.Metadata.RowResponse">
+            <summary>
+            原始返回数据
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.Util.Metadata.RowRequest">
+            <summary>
+            原始请求数据
             </summary>
         </member>
     </members>

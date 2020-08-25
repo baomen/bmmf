@@ -1,15 +1,13 @@
-﻿using BaoMen.WeChat.Util;
+﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace BaoMen.MultiMerchant.Web.WeChat.Pub.Models
+namespace BaoMen.MultiMerchant.WeChat.MiniProgram.Models
 {
     /// <summary>
-    /// 公众号的响应基类
+    /// 公众号的全局唯一票据
     /// </summary>
     [Serializable]
-    public abstract class BaseResponse
+    public class BaseResponse
     {
         /// <summary>
         ///  errcode	 错误代码

@@ -60,6 +60,9 @@ namespace BaoMen.MultiMerchant.Util
 
             services.AddSingleton<WeChat.Pub.BusinessLogic.IAppAccessTokenManager, WeChat.Pub.BusinessLogic.AppAccessTokenManager>();
             services.AddSingleton<WeChat.Pub.BusinessLogic.IAuthAccessTokenManager, WeChat.Pub.BusinessLogic.AuthAccessTokenManager>();
+
+            services.AddSingleton<BaoMen.WeChat.MiniProgram.Provider.BasicProvider>();
+            services.AddSingleton<WeChat.MiniProgram.Proxy.BasicProxy>();
             #endregion
 
             #region aliyun

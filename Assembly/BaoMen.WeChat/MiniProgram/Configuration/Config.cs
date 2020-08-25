@@ -2,22 +2,22 @@
 //using System.Collections.Generic;
 //using System.Text;
 
-//namespace BaoMen.WeChat.MiniProgram
+//namespace BaoMen.WeChat.MiniProgram.Configuration
 //{
 //    /// <summary>
 //    /// 微信公众号配置
 //    /// </summary>
-//    public class Config : Util.Config
+//    public interface IConfig
 //    {
 //        /// <summary>
 //        /// 开发者ID
 //        /// </summary>
-//        public string AppId { get; set; }
+//        public string AppId { get; }
 
 //        /// <summary>
 //        /// 开发者密码
 //        /// </summary>
-//        public string AppSecret { get; set; }
+//        public string AppSecret { get; }
 
 //    }
 //}
