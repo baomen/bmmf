@@ -1,7 +1,6 @@
-﻿using BaoMen.WeChat.MiniProgram.Client.Request;
-using System;
+﻿using System;
 
-namespace BaoMen.WeChat.MiniProgram.Client.Sns
+namespace BaoMen.WeChat.MiniProgram.Client.Basic
 {
     /// <summary>
     /// 登录凭证校验
@@ -13,7 +12,7 @@ namespace BaoMen.WeChat.MiniProgram.Client.Sns
     /// grant_type string 是   授权类型，此处只需填写 authorization_code
     /// </remarks>
     [Serializable]
-    public class CodeToSessionRequest : BaseRequest
+    public class CodeToSessionRequest : BaseAppRequest
     {
         /// <summary>
         /// js_code	string		是	登录时获取的 code

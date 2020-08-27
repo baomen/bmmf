@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using BaoMen.WeChat.MiniProgram.Client.Response;
-using Newtonsoft.Json;
 
 namespace BaoMen.MultiMerchant.WeChat.MiniProgram.Models
 {

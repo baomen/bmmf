@@ -1,6 +1,4 @@
-﻿using BaoMen.MultiMerchant.Util;
-using BaoMen.MultiMerchant.WeChat.Pub.BusinessLogic;
-using BaoMen.WeChat.MiniProgram.Client.Response;
+﻿using BaoMen.MultiMerchant.WeChat.Pub.BusinessLogic;
 using BaoMen.WeChat.Pub.Provider;
 using Microsoft.Extensions.DependencyInjection;
 using System;

@@ -1,19 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using BaoMen.WeChat.MiniProgram.Client.Response;
-using BaoMen.WeChat.MiniProgram;
-using System.Security.Permissions;
-using Microsoft.Extensions.DependencyInjection;
-using BaoMen.WeChat.MiniProgram.Provider;
+﻿using AutoMapper;
 using BaoMen.Common.Model;
-using NLog;
-using BaoMen.MultiMerchant.WeChat.MiniProgram.Proxy;
-using AutoMapper;
-using Models = BaoMen.MultiMerchant.WeChat.MiniProgram.Models;
-using BaoMen.WeChat.MiniProgram.Client.Sns;
 using BaoMen.MultiMerchant.Util;
+using BaoMen.MultiMerchant.WeChat.MiniProgram.Proxy;
+using BaoMen.WeChat.MiniProgram.Client.Basic;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
+using NLog;
+using System;
+using Models = BaoMen.MultiMerchant.WeChat.MiniProgram.Models;
 
 namespace BaoMen.MultiMerchant.Web.WeChat.MiniProgram.Controllers
 {
@@ -64,8 +58,53 @@ namespace BaoMen.MultiMerchant.Web.WeChat.MiniProgram.Controllers
                 IMerchantService merchantService = HttpContext.RequestServices.GetRequiredService<IMerchantService>();
                 merchantService.MerchantId = merchantId;
                 CodeToSessionResponse response = basicProxy.CodeToSession(code, merchantId);
-                responseData.Data = mapper.Map<Models.CodeToSessionResponse>(response);
-                if (response.ErrorCode != 0)
+                if (response.ErrorCode == 0)
+                {
+                    responseData.Data = mapper.Map<Models.CodeToSessionResponse>(response);
+                }
+                else
+                {
+                    responseData.ErrorNumber = response.ErrorCode;
+                    responseData.ErrorMessage = response.ErrorMessage;
+                }
+            }
+            catch (Exception exception)
+            {
+                responseData.ErrorNumber = 1000;
+                responseData.ErrorMessage = Properties.Resources.Error_1000;
+                responseData.Exception = exception;
+                logger.Error(exception);
+            }
+            return responseData;
+        }
+
+        /// <summary>
+        /// 用户支付完成后，获取该用户的 UnionId，无需用户授权。本接口支持第三方平台代理查询。
+        /// </summary>
+        /// <param name="merchantId">商户ID</param>
+        /// <param name="openId">微信小程序OpenIdparam>
+        /// <returns></returns>
+        /// <remarks>
+        /// 注意：调用前需要用户完成支付，且在支付后的五分钟内有效。
+        /// </remarks>
+        [HttpGet]
+        public ResponseData<Models.GetPaidUnionIdReponse> GetPaidUnionId(string merchantId,string openId)
+        {
+            ResponseData<Models.GetPaidUnionIdReponse> responseData = new ResponseData<Models.GetPaidUnionIdReponse>();
+            try
+            {
+                if (string.IsNullOrEmpty(openId))
+                {
+                    throw new ArgumentNullException("openId");
+                }
+                IMerchantService merchantService = HttpContext.RequestServices.GetRequiredService<IMerchantService>();
+                merchantService.MerchantId = merchantId;
+                GetPaidUnionIdReponse response = basicProxy.GetPaidUnionId(openId, merchantId);
+                if (response.ErrorCode == 0)
+                {
+                    responseData.Data = mapper.Map<Models.GetPaidUnionIdReponse>(response);
+                }
+                else
                 {
                     responseData.ErrorNumber = response.ErrorCode;
                     responseData.ErrorMessage = response.ErrorMessage;

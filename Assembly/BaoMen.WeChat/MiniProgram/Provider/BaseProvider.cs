@@ -86,7 +86,7 @@ namespace BaoMen.WeChat.MiniProgram.Provider
         /// <param name="url">接口URL</param>
         /// <returns></returns>
         protected TResponse HttpGet<TResponse>(string url)
-            where TResponse : Client.Response.BaseResponse, new()
+            where TResponse : Client.BaseResponse, new()
         {
             LogEventInfo log = new LogEventInfo() { LoggerName = logger.Name };
             log.Properties["method"] = "BaoMen.WeChat.Pub.Provider.HttpGet<TResponse>(string parameterId, Func<string, string> formatUrl, string httpMethod)";
@@ -142,7 +142,7 @@ namespace BaoMen.WeChat.MiniProgram.Provider
         /// <returns></returns>
         protected TResponse HttpPost<TRequest, TResponse>(TRequest request, string url)
             //where TRequest : Client.Request.BaseRequest
-            where TResponse : Client.Response.BaseResponse, new()
+            where TResponse : Client.BaseResponse, new()
         {
             LogEventInfo log = new LogEventInfo() { LoggerName = logger.Name };
             log.Properties["method"] = "BaoMen.WeChat.Pub.Provider.HttpPost<TRequest, TResponse>(TRequest request, string parameterId, Func<string, string> formatUrl, string httpMethod)";

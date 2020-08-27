@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using System;
 
-namespace BaoMen.WeChat.MiniProgram.Client.Response
+namespace BaoMen.WeChat.MiniProgram.Client
 {
     /// <summary>
     /// 公众号的全局唯一票据

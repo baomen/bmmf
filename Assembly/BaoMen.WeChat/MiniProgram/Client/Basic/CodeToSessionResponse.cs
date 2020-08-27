@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using BaoMen.WeChat.MiniProgram.Client.Response;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System;
 
-namespace BaoMen.WeChat.MiniProgram.Client.Sns
+namespace BaoMen.WeChat.MiniProgram.Client.Basic
 {
     /// <summary>
     /// 登录凭证校验

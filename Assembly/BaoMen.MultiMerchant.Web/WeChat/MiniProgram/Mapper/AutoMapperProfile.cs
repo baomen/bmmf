@@ -13,7 +13,8 @@ namespace BaoMen.MultiMerchant.Web.WeChat.MiniProgram.Mapper
         /// </summary>
         public AutoMapperProfile()
         {
-            CreateMap<Client.Sns.CodeToSessionResponse, Models.CodeToSessionResponse>();
+            CreateMap<Client.Basic.CodeToSessionResponse, Models.CodeToSessionResponse>();
+            CreateMap<Client.Basic.GetPaidUnionIdReponse, Models.GetPaidUnionIdReponse>();
         }
 
     }
