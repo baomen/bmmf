@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Runtime.Serialization;
 
 namespace BaoMen.Common.Model
@@ -7,25 +8,26 @@ namespace BaoMen.Common.Model
     /// 返回的数据
     /// </summary>
     [Serializable]
-    [DataContract]
+    //[JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
+    //[DataContract]
     public class ResponseData
     {
         /// <summary>
         /// 错误编号。0为无错误
         /// </summary>
-        [DataMember]
+        //[DataMember]
         public int ErrorNumber { get; set; }
 
         /// <summary>
         /// 错误描述
         /// </summary>
-        [DataMember]
+        //[DataMember]
         public string ErrorMessage { get; set; }
 
         /// <summary>
         /// 异常信息
         /// </summary>
-        [DataMember]
+        //[DataMember]
         public Exception Exception { get; set; }
 
     }
@@ -34,7 +36,7 @@ namespace BaoMen.Common.Model
     /// 返回的数据
     /// </summary>
     [Serializable]
-    [DataContract]
+    //[DataContract]
     public class ResponseData<T> : ResponseData
     {
         /// <summary>
@@ -59,7 +61,7 @@ namespace BaoMen.Common.Model
         /// <summary>
         /// 获取或设置值
         /// </summary>
-        [DataMember]
+        //[DataMember]
         public T Data { get; set; }
 
 

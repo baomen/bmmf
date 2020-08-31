@@ -3,6 +3,7 @@ using Aliyun.Acs.Core.Exceptions;
 using Aliyun.Acs.Core.Http;
 using Aliyun.Acs.Core.Profile;
 using BaoMen.Common.Model;
+using BaoMen.MultiMerchant.AliYun.Dysms.BusinessLogic;
 using BaoMen.MultiMerchant.System.BusinessLogic;
 using NLog;
 using System;
@@ -21,16 +22,19 @@ namespace BaoMen.MultiMerchant.AliYun.Dysms
         private readonly ConfigBuilder configBuilder;
         private static readonly ILogger logger = LogManager.GetCurrentClassLogger();
         private readonly IParameterManager parameterManager;
+        private readonly CaptchaManager captchaManager;
 
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="configBuilder">配置构建器</param>
         /// <param name="parameterManager">系统参数业务逻辑</param>
-        public Proxy(ConfigBuilder configBuilder, IParameterManager parameterManager)
+        /// <param name="captchaManager">验证码业务逻辑</param>
+        public Proxy(ConfigBuilder configBuilder, IParameterManager parameterManager, CaptchaManager captchaManager)
         {
             this.configBuilder = configBuilder;
             this.parameterManager = parameterManager;
+            this.captchaManager = captchaManager;
         }
 
         /// <summary>
@@ -42,7 +46,27 @@ namespace BaoMen.MultiMerchant.AliYun.Dysms
         /// <returns></returns>
         public CommonResponse SendRegistCaptcha(string phoneNumbers, string code, string merchantId = null)
         {
-            return SendSms(phoneNumbers, parameterManager.Get("030202020203")?.Value, GetCaptchaTemplateParam(code), merchantId);
+            DateTime now = DateTime.Now;
+            Entity.Captcha captcha = captchaManager.Get(phoneNumbers);
+            if (captcha != null)
+            {
+                if (captcha.ExpirationTime > DateTime.Now)
+                {
+                    throw new ArgumentException("未到重发时间，请不要频繁尝试");
+                }
+            }
+            captcha = new Entity.Captcha
+            {
+                ExpirationTime = now.AddMinutes(1),
+                PhoneNumber = phoneNumbers,
+                SendTime = now,
+                Type = Entity.CaptchaType.Regist,
+                Code = code,
+                Status = Entity.CaptchaStatus.Valid
+            };
+            CommonResponse commonResponse = SendSms(phoneNumbers, parameterManager.Get("030202020203")?.Value, GetCaptchaTemplateParam(code), merchantId);
+            captchaManager.Set(captcha);
+            return commonResponse;
         }
 
         /// <summary>
@@ -54,7 +78,27 @@ namespace BaoMen.MultiMerchant.AliYun.Dysms
         /// <returns></returns>
         public CommonResponse SendLoginCaptcha(string phoneNumbers, string code, string merchantId = null)
         {
-            return SendSms(phoneNumbers, parameterManager.Get("030202020205")?.Value, GetCaptchaTemplateParam(code), merchantId);
+            DateTime now = DateTime.Now;
+            Entity.Captcha captcha = captchaManager.Get(phoneNumbers);
+            if (captcha != null)
+            {
+                if (captcha.ExpirationTime > DateTime.Now)
+                {
+                    throw new ArgumentException("未到重发时间，请不要频繁尝试");
+                }
+            }
+            captcha = new Entity.Captcha
+            {
+                ExpirationTime = now.AddMinutes(1),
+                PhoneNumber = phoneNumbers,
+                SendTime = now,
+                Type = Entity.CaptchaType.Login,
+                Code = code,
+                Status = Entity.CaptchaStatus.Valid
+            };
+            CommonResponse commonResponse = SendSms(phoneNumbers, parameterManager.Get("030202020205")?.Value, GetCaptchaTemplateParam(code), merchantId);
+            captchaManager.Set(captcha);
+            return commonResponse;
         }
 
         /// <summary>

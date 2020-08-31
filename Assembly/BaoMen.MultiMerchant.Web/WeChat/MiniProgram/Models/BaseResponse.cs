@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace BaoMen.MultiMerchant.WeChat.MiniProgram.Models
+namespace BaoMen.MultiMerchant.Web.WeChat.MiniProgram.Models
 {
     /// <summary>
     /// 公众号的全局唯一票据

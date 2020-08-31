@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace BaoMen.MultiMerchant.WeChat.MiniProgram.Models
+namespace BaoMen.MultiMerchant.Web.WeChat.MiniProgram.Models
 {
     /// <summary>
     /// 用户支付完成后，获取该用户的 UnionId

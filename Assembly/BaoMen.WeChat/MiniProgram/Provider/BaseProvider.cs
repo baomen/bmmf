@@ -4,6 +4,7 @@ using NLog;
 using System;
 using System.IO;
 using System.Net;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace BaoMen.WeChat.MiniProgram.Provider
@@ -189,6 +190,32 @@ namespace BaoMen.WeChat.MiniProgram.Provider
             log.Properties["response"] = response;
             logger.Log(log);
             return response;
+        }
+
+        /// <summary>
+        /// AES解密
+        /// </summary>
+        /// <param name="encryptedData">加密的字符串</param>
+        /// <param name="key">密钥</param>
+        /// <param name="iv">向量</param>
+        /// <returns></returns>
+        protected virtual string DecryptAES(string encryptedData, string key, string iv)
+        {
+            if (string.IsNullOrEmpty(encryptedData)) return null;
+            Byte[] toEncryptArray = Convert.FromBase64String(encryptedData);
+
+            RijndaelManaged rm = new RijndaelManaged
+            {
+                Key = Convert.FromBase64String(key),
+                IV = Convert.FromBase64String(iv),
+                Mode = CipherMode.CBC,
+                Padding = PaddingMode.PKCS7
+            };
+
+            ICryptoTransform cTransform = rm.CreateDecryptor();
+            Byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
+
+            return Encoding.UTF8.GetString(resultArray);
         }
     }
 }

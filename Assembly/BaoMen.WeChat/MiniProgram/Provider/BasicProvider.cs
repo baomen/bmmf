@@ -1,5 +1,9 @@
 ﻿using BaoMen.WeChat.MiniProgram.Client.Basic;
+using BaoMen.WeChat.Util;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using NLog;
+using System;
 
 namespace BaoMen.WeChat.MiniProgram.Provider
 {
@@ -63,6 +67,44 @@ namespace BaoMen.WeChat.MiniProgram.Provider
                 //$"https://{request.ApiDomain}/wxa/getpaidunionid?access_token={request.AccessToken}&openid={request.OpenId}&transaction_id={request.TransactionId}&mch_id={request.MchId}&out_trade_no={request.OutTradeNo}"
                 url
             );
+        }
+
+        /// <summary>
+        /// 解密数据
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public DecryptDataResponse DecryptData(DecryptDataRequest request)
+        {
+            DecryptDataResponse response = new DecryptDataResponse();
+            Metadata metadata = new Metadata
+            {
+                CallTime = DateTime.Now,
+                RowRequest = JsonConvert.SerializeObject(request)
+            };
+            System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
+            stopwatch.Start();
+            string decrypted = DecryptAES(request.EncryptedData, request.SessionKey, request.IV);
+            stopwatch.Stop();
+            metadata.Elapsed = stopwatch.Elapsed;
+            metadata.RowResponse = decrypted;
+            JObject decryptedData = JObject.Parse(decrypted);
+            if (decryptedData == null || decryptedData["watermark"] == null)
+            {
+                response.ErrorCode = 100;
+                response.ErrorMessage = "加密数据不正确";
+            }
+            else if (decryptedData["watermark"]["appid"].ToString() != request.AppId)
+            {
+                response.ErrorCode = 100;
+                response.ErrorMessage = "AppId不正确";
+            }
+            else
+            {
+                response.DecryptedData = decryptedData;
+                response.Metadata = metadata;
+            }
+            return response;
         }
     }
 }

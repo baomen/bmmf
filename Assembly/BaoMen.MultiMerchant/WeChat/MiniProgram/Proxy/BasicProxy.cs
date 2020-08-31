@@ -23,6 +23,7 @@ namespace BaoMen.MultiMerchant.WeChat.MiniProgram.Proxy
         private readonly BasicProvider basicProvider;
 
         private readonly IAppAccessTokenManager appAccessTokenManager;
+        private readonly ISessionManager sessionManager;
 
         /// <summary>
         /// 构造函数
@@ -32,6 +33,7 @@ namespace BaoMen.MultiMerchant.WeChat.MiniProgram.Proxy
         {
             basicProvider = serviceProvider.GetRequiredService<BasicProvider>();
             appAccessTokenManager = serviceProvider.GetRequiredService<IAppAccessTokenManager>();
+            sessionManager = serviceProvider.GetRequiredService<ISessionManager>();
         }
 
         /// <summary>
@@ -98,13 +100,27 @@ namespace BaoMen.MultiMerchant.WeChat.MiniProgram.Proxy
                 AppSecret = config.AppSecret,
                 JsCode = jsCode
             };
-            return basicProvider.CodeToSession(codeToSessionRequest);
+            CodeToSessionResponse response = basicProvider.CodeToSession(codeToSessionRequest);
+            if (response.ErrorCode == 0)
+            {
+                Entity.Session session = new Entity.Session
+                {
+                    AppId = config.AppId,
+                    CreateTime = DateTime.Now,
+                    MerchantId = merchantId,
+                    OpenId = response.OpenId,
+                    SessionKey = response.SessionKey,
+                    UnionId = response.UnionId
+                };
+                sessionManager.InserOrUpdate(session);
+            }
+            return response;
         }
 
         /// <summary>
         /// 用户支付完成后，获取该用户的 UnionId，无需用户授权。本接口支持第三方平台代理查询。
         /// </summary>
-        /// <param name="openId">微信小程序OpenIdparam>
+        /// <param name="openId">微信小程序OpenId</param>
         /// <param name="merchantId">商户ID</param>
         /// <returns></returns>
         /// <remarks>
@@ -120,6 +136,32 @@ namespace BaoMen.MultiMerchant.WeChat.MiniProgram.Proxy
                 OpenId = openId
             };
             return basicProvider.GetPaidUnionId(request);
+        }
+
+        /// <summary>
+        /// 解密数据
+        /// </summary>
+        /// <param name="openId">微信小程序OpenId</param>
+        /// <param name="encryptedData">加密的数据</param>
+        /// <param name="iv">向量</param>
+        /// <param name="merchantId">商户ID</param>
+        /// <returns></returns>
+        public DecryptDataResponse DecryptData(string openId, string encryptedData, string iv, string merchantId = null)
+        {
+            Config config = configBuilder.BuildMiniPorgramConifg(merchantId);
+            Entity.Session session = sessionManager.Get(Tuple.Create(config.AppId, openId));
+            if (session == null)
+            {
+                throw new ArgumentNullException("session key");
+            }
+            DecryptDataRequest request = new DecryptDataRequest
+            {
+                AppId = config.AppId,
+                EncryptedData = encryptedData,
+                IV = iv,
+                SessionKey = session.SessionKey
+            };
+            return basicProvider.DecryptData(request);
         }
     }
 }

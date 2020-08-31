@@ -1,5 +1,4 @@
 ﻿using Client = BaoMen.WeChat.MiniProgram.Client;
-using Models = BaoMen.MultiMerchant.WeChat.MiniProgram.Models;
 
 namespace BaoMen.MultiMerchant.Web.WeChat.MiniProgram.Mapper
 {
@@ -15,6 +14,7 @@ namespace BaoMen.MultiMerchant.Web.WeChat.MiniProgram.Mapper
         {
             CreateMap<Client.Basic.CodeToSessionResponse, Models.CodeToSessionResponse>();
             CreateMap<Client.Basic.GetPaidUnionIdReponse, Models.GetPaidUnionIdReponse>();
+            CreateMap<Client.Basic.DecryptDataResponse, Models.DecryptDataResponse>();
         }
 
     }

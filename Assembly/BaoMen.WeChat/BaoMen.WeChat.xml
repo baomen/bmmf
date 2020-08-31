@@ -107,6 +107,41 @@
             unionid	string	用户在开放平台的唯一标识符，在满足 UnionID 下发条件的情况下会返回，详见 UnionID 机制说明。。
             </summary>
         </member>
+        <member name="T:BaoMen.WeChat.MiniProgram.Client.Basic.DecryptDataRequest">
+            <summary>
+            解密数据请求
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.Basic.DecryptDataRequest.AppId">
+            <summary>
+            小程序的AppId
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.Basic.DecryptDataRequest.EncryptedData">
+            <summary>
+            加密的数据
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.Basic.DecryptDataRequest.SessionKey">
+            <summary>
+            会话密钥
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.Basic.DecryptDataRequest.IV">
+            <summary>
+            向量
+            </summary>
+        </member>
+        <member name="T:BaoMen.WeChat.MiniProgram.Client.Basic.DecryptDataResponse">
+            <summary>
+            解密数据响应
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.Basic.DecryptDataResponse.DecryptedData">
+            <summary>
+            加密的数据
+            </summary>
+        </member>
         <member name="T:BaoMen.WeChat.MiniProgram.Client.Basic.GetAccessTokenRequest">
             <summary>
             获取小程序全局唯一后台接口调用凭据
@@ -233,6 +268,15 @@
             <param name="url">接口URL</param>
             <returns></returns>
         </member>
+        <member name="M:BaoMen.WeChat.MiniProgram.Provider.BaseProvider.DecryptAES(System.String,System.String,System.String)">
+            <summary>
+            AES解密
+            </summary>
+            <param name="encryptedData">加密的字符串</param>
+            <param name="key">密钥</param>
+            <param name="iv">向量</param>
+            <returns></returns>
+        </member>
         <member name="T:BaoMen.WeChat.MiniProgram.Provider.BasicProvider">
             <summary>
             基础处理程序
@@ -271,6 +315,13 @@
             <remarks>
             注意：调用前需要用户完成支付，且在支付后的五分钟内有效。
             </remarks>
+        </member>
+        <member name="M:BaoMen.WeChat.MiniProgram.Provider.BasicProvider.DecryptData(BaoMen.WeChat.MiniProgram.Client.Basic.DecryptDataRequest)">
+            <summary>
+            解密数据
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
         </member>
         <member name="T:BaoMen.WeChat.Open.Client.Request.BaseRequest">
             <summary>
