@@ -132,14 +132,70 @@
             向量
             </summary>
         </member>
-        <member name="T:BaoMen.WeChat.MiniProgram.Client.Basic.DecryptDataResponse">
+        <member name="T:BaoMen.WeChat.MiniProgram.Client.Basic.DecryptDataResponse`1">
             <summary>
             解密数据响应
             </summary>
+            <typeparam name="T">解密后数据的类型</typeparam>
         </member>
-        <member name="P:BaoMen.WeChat.MiniProgram.Client.Basic.DecryptDataResponse.DecryptedData">
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.Basic.DecryptDataResponse`1.DecryptedData">
             <summary>
             加密的数据
+            </summary>
+        </member>
+        <member name="T:BaoMen.WeChat.MiniProgram.Client.Basic.IDecryptedData">
+            <summary>
+            解密数据接口
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.Basic.IDecryptedData.Watermark">
+            <summary>
+            水印数据
+            </summary>
+        </member>
+        <member name="T:BaoMen.WeChat.MiniProgram.Client.Basic.Watermark">
+            <summary>
+            水印
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.Basic.Watermark.AppId">
+            <summary>
+            小程序的AppId
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.Basic.Watermark.Timestamp">
+            <summary>
+            时间戳
+            </summary>
+        </member>
+        <member name="T:BaoMen.WeChat.MiniProgram.Client.Basic.PhoneNumberInfo">
+            <summary>
+            获取手机号码的解密后的数据
+            </summary>
+            <remarks>
+            phoneNumber	String	用户绑定的手机号（国外手机号会有区号）
+            purePhoneNumber String  没有区号的手机号
+            countryCode String 区号
+            </remarks>
+        </member>
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.Basic.PhoneNumberInfo.PhoneNumber">
+            <summary>
+            用户绑定的手机号（国外手机号会有区号）
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.Basic.PhoneNumberInfo.PurePhoneNumber">
+            <summary>
+            没有区号的手机号
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.Basic.PhoneNumberInfo.CountryCode">
+            <summary>
+            区号
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.Basic.PhoneNumberInfo.Watermark">
+            <summary>
+            水印
             </summary>
         </member>
         <member name="T:BaoMen.WeChat.MiniProgram.Client.Basic.GetAccessTokenRequest">
@@ -316,11 +372,12 @@
             注意：调用前需要用户完成支付，且在支付后的五分钟内有效。
             </remarks>
         </member>
-        <member name="M:BaoMen.WeChat.MiniProgram.Provider.BasicProvider.DecryptData(BaoMen.WeChat.MiniProgram.Client.Basic.DecryptDataRequest)">
+        <member name="M:BaoMen.WeChat.MiniProgram.Provider.BasicProvider.DecryptData``1(BaoMen.WeChat.MiniProgram.Client.Basic.DecryptDataRequest)">
             <summary>
             解密数据
             </summary>
-            <param name="request"></param>
+            <param name="request">请求数据</param>
+            <typeparam name="T">解密后的数据类型</typeparam>
             <returns></returns>
         </member>
         <member name="T:BaoMen.WeChat.Open.Client.Request.BaseRequest">

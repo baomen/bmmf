@@ -119,38 +119,38 @@ namespace BaoMen.MultiMerchant.Web.WeChat.MiniProgram.Controllers
             return responseData;
         }
 
-        /// <summary>
-        /// 解密数据(调用前一定保证sessionkey有效，具体见微信文档wx.checkSession)
-        /// </summary>
-        /// <param name="request">请求信息</param>
-        /// <returns></returns>
-        [HttpPost]
-        public ResponseData<Models.DecryptDataResponse> DecryptData([FromBody] Models.DecryptDataRequest request)
-        {
-            ResponseData<Models.DecryptDataResponse> responseData = new ResponseData<Models.DecryptDataResponse>();
-            try
-            {
-                IMerchantService merchantService = HttpContext.RequestServices.GetRequiredService<IMerchantService>();
-                merchantService.MerchantId = request.MerchantId;
-                DecryptDataResponse response = basicProxy.DecryptData(request.OpenId, request.EncryptedData, request.IV, request.MerchantId);
-                if (response.ErrorCode == 0)
-                {
-                    responseData.Data = mapper.Map<Models.DecryptDataResponse>(response);
-                }
-                else
-                {
-                    responseData.ErrorNumber = response.ErrorCode;
-                    responseData.ErrorMessage = response.ErrorMessage;
-                }
-            }
-            catch (Exception exception)
-            {
-                responseData.ErrorNumber = 1000;
-                responseData.ErrorMessage = Properties.Resources.Error_1000;
-                responseData.Exception = exception;
-                logger.Error(exception);
-            }
-            return responseData;
-        }
+        ///// <summary>
+        ///// 解密数据(调用前一定保证sessionkey有效，具体见微信文档wx.checkSession)
+        ///// </summary>
+        ///// <param name="request">请求信息</param>
+        ///// <returns></returns>
+        //[HttpPost]
+        //public ResponseData<Models.DecryptDataResponse> DecryptData([FromBody] Models.DecryptDataRequest request)
+        //{
+        //    ResponseData<Models.DecryptDataResponse> responseData = new ResponseData<Models.DecryptDataResponse>();
+        //    try
+        //    {
+        //        IMerchantService merchantService = HttpContext.RequestServices.GetRequiredService<IMerchantService>();
+        //        merchantService.MerchantId = request.MerchantId;
+        //        DecryptDataResponse response = basicProxy.DecryptData(request.OpenId, request.EncryptedData, request.IV, request.MerchantId);
+        //        if (response.ErrorCode == 0)
+        //        {
+        //            responseData.Data = mapper.Map<Models.DecryptDataResponse>(response);
+        //        }
+        //        else
+        //        {
+        //            responseData.ErrorNumber = response.ErrorCode;
+        //            responseData.ErrorMessage = response.ErrorMessage;
+        //        }
+        //    }
+        //    catch (Exception exception)
+        //    {
+        //        responseData.ErrorNumber = 1000;
+        //        responseData.ErrorMessage = Properties.Resources.Error_1000;
+        //        responseData.Exception = exception;
+        //        logger.Error(exception);
+        //    }
+        //    return responseData;
+        //}
     }
 }

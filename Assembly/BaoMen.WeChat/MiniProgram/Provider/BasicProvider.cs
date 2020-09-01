@@ -72,11 +72,13 @@ namespace BaoMen.WeChat.MiniProgram.Provider
         /// <summary>
         /// 解密数据
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="request">请求数据</param>
+        /// <typeparam name="T">解密后的数据类型</typeparam>
         /// <returns></returns>
-        public DecryptDataResponse DecryptData(DecryptDataRequest request)
+        public DecryptDataResponse<T> DecryptData<T>(DecryptDataRequest request)
+            where T : IDecryptedData
         {
-            DecryptDataResponse response = new DecryptDataResponse();
+            DecryptDataResponse<T> response = new DecryptDataResponse<T>();
             Metadata metadata = new Metadata
             {
                 CallTime = DateTime.Now,
@@ -88,13 +90,13 @@ namespace BaoMen.WeChat.MiniProgram.Provider
             stopwatch.Stop();
             metadata.Elapsed = stopwatch.Elapsed;
             metadata.RowResponse = decrypted;
-            JObject decryptedData = JObject.Parse(decrypted);
-            if (decryptedData == null || decryptedData["watermark"] == null)
+            T decryptedData = JsonConvert.DeserializeObject<T>(decrypted);
+            if (decryptedData == null || decryptedData.Watermark == null)
             {
                 response.ErrorCode = 100;
                 response.ErrorMessage = "加密数据不正确";
             }
-            else if (decryptedData["watermark"]["appid"].ToString() != request.AppId)
+            else if (decryptedData.Watermark.AppId != request.AppId)
             {
                 response.ErrorCode = 100;
                 response.ErrorMessage = "AppId不正确";
@@ -104,6 +106,22 @@ namespace BaoMen.WeChat.MiniProgram.Provider
                 response.DecryptedData = decryptedData;
                 response.Metadata = metadata;
             }
+            //JObject decryptedData = JObject.Parse(decrypted);
+            //if (decryptedData == null || decryptedData["watermark"] == null)
+            //{
+            //    response.ErrorCode = 100;
+            //    response.ErrorMessage = "加密数据不正确";
+            //}
+            //else if (decryptedData["watermark"]["appid"].ToString() != request.AppId)
+            //{
+            //    response.ErrorCode = 100;
+            //    response.ErrorMessage = "AppId不正确";
+            //}
+            //else
+            //{
+            //    response.DecryptedData = decryptedData;
+            //    response.Metadata = metadata;
+            //}
             return response;
         }
     }

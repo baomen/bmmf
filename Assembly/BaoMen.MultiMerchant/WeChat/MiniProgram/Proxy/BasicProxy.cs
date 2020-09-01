@@ -145,11 +145,29 @@ namespace BaoMen.MultiMerchant.WeChat.MiniProgram.Proxy
         /// <param name="encryptedData">加密的数据</param>
         /// <param name="iv">向量</param>
         /// <param name="merchantId">商户ID</param>
+        /// <typeparam name="T">解密后的数据类型</typeparam>
         /// <returns></returns>
-        public DecryptDataResponse DecryptData(string openId, string encryptedData, string iv, string merchantId = null)
+        public DecryptDataResponse<T> DecryptData<T>(string openId, string encryptedData, string iv, string merchantId = null)
+            where T : IDecryptedData
         {
             Config config = configBuilder.BuildMiniPorgramConifg(merchantId);
             Entity.Session session = sessionManager.Get(Tuple.Create(config.AppId, openId));
+            return DecryptData<T>(session, encryptedData, iv, merchantId);
+        }
+
+        /// <summary>
+        /// 解密数据
+        /// </summary>
+        /// <param name="session">微信小程序登录凭证校验实体</param>
+        /// <param name="encryptedData">加密的数据</param>
+        /// <param name="iv">向量</param>
+        /// <param name="merchantId">商户ID</param>
+        /// <typeparam name="T">解密后的数据类型</typeparam>
+        /// <returns></returns>
+        public DecryptDataResponse<T> DecryptData<T>(Entity.Session session, string encryptedData, string iv, string merchantId = null)
+            where T : IDecryptedData
+        {
+            Config config = configBuilder.BuildMiniPorgramConifg(merchantId);
             if (session == null)
             {
                 throw new ArgumentNullException("session key");
@@ -161,7 +179,7 @@ namespace BaoMen.MultiMerchant.WeChat.MiniProgram.Proxy
                 IV = iv,
                 SessionKey = session.SessionKey
             };
-            return basicProvider.DecryptData(request);
+            return basicProvider.DecryptData<T>(request);
         }
     }
 }
