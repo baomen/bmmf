@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaoMen.Demo.AdminWebApi", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaoMen.Amap", "Assembly\BaoMen.Amap\BaoMen.Amap.csproj", "{42145329-382B-4A59-9EA1-E8E9786B0192}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaoMen.AliYun", "Assembly\BaoMen.AliYun\BaoMen.AliYun.csproj", "{60B8BDA6-FC8F-44C1-AB43-57A6460E3947}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaoMen.AliYun", "Assembly\BaoMen.AliYun\BaoMen.AliYun.csproj", "{60B8BDA6-FC8F-44C1-AB43-57A6460E3947}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
