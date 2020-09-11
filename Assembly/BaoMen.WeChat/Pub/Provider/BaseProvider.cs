@@ -1,7 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using NLog;
-using System;
 using System.IO;
 using System.Net;
 using System.Text;

@@ -1,8 +1,5 @@
 ﻿using Newtonsoft.Json;
-using RabbitMQ.Client.Exceptions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace BaoMen.WeChat.MiniProgram.Client
 {

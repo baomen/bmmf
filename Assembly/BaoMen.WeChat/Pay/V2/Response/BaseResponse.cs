@@ -1,10 +1,6 @@
-﻿using BaoMen.Common.Model;
-using BaoMen.WeChat.Pay.Util;
+﻿using BaoMen.WeChat.Pay.Util;
 using BaoMen.WeChat.Pay.WxPay.Util;
-using NLog;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Xml;
 
 namespace BaoMen.WeChat.Pay.V2.Response

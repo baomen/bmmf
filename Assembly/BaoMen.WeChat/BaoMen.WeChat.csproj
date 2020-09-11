@@ -19,10 +19,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BaoMen.Common\BaoMen.Common.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="..\..\logo.jpg">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
@@ -35,6 +31,11 @@
     <Folder Include="Pay\Response\" />
     <Folder Include="Pay\V2\Request\Service\" />
     <Folder Include="Pay\V2\Response\Service\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="NLog" Version="4.7.4" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
