@@ -67,6 +67,94 @@ namespace BaoMen.MultiMerchant.Web.Util
                 return 10;
             return pageSize;
         }
+
+        /// <summary>
+        /// 调用
+        /// </summary>
+        /// <typeparam name="T">返回的类型</typeparam>
+        /// <returns></returns>
+        private T Invoke<T>(Action<T> action = null)
+            where T : ResponseData, new()
+        {
+            T responseData = new T();
+            try
+            {
+                action?.Invoke(responseData);
+            }
+            catch (AutoMapperMappingException autoMapperMappingException)
+            {
+                responseData.ErrorNumber = 1009;
+                responseData.ErrorMessage = Properties.Resources.Error_1009;
+                //responseData.Exception = autoMapperMappingException;
+                logger.Error(autoMapperMappingException);
+            }
+            catch (Exception exception)
+            {
+                responseData.ErrorNumber = 1000;
+                responseData.ErrorMessage = Properties.Resources.Error_1000;
+                responseData.Exception = exception;
+                logger.Error(exception);
+            }
+            return responseData;
+        }
+
+        /// <summary>
+        /// 调用
+        /// </summary>
+        /// <param name="responseData">响应数据</param>
+        /// <param name="action">委托</param>
+        /// <typeparam name="T">返回的类型</typeparam>
+        private void Invoke<T>(T responseData, Action action = null)
+            where T : ResponseData, new()
+        {
+            try
+            {
+                action?.Invoke();
+            }
+            catch (AutoMapperMappingException autoMapperMappingException)
+            {
+                responseData.ErrorNumber = 1009;
+                responseData.ErrorMessage = Properties.Resources.Error_1009;
+                //responseData.Exception = autoMapperMappingException;
+                logger.Error(autoMapperMappingException);
+            }
+            catch (Exception exception)
+            {
+                responseData.ErrorNumber = 1000;
+                responseData.ErrorMessage = Properties.Resources.Error_1000;
+                responseData.Exception = exception;
+                logger.Error(exception);
+            }
+        }
+
+        /// <summary>
+        /// 调用
+        /// </summary>
+        /// <returns></returns>
+        protected ResponseData Invoke(Action<ResponseData> action = null)
+        {
+            return Invoke<ResponseData>(action);
+        }
+
+        /// <summary>
+        /// 调用
+        /// </summary>
+        /// <typeparam name="T">返回的Data的类型</typeparam>
+        /// <returns></returns>
+        protected ResponseData<T> Invoke<T>(Action<ResponseData<T>> action = null)
+        {
+            return Invoke<ResponseData<T>>(action);
+        }
+
+        /// <summary>
+        /// 调用
+        /// </summary>
+        /// <typeparam name="T">返回的Data的类型</typeparam>
+        /// <returns></returns>
+        protected void Invoke<T>(ResponseData<T> responseData, Action action = null)
+        {
+            Invoke<ResponseData<T>>(responseData, action);
+        }
     }
 
     /// <summary>
@@ -118,23 +206,31 @@ namespace BaoMen.MultiMerchant.Web.Util
         protected virtual ResponseData<T> DoGet<T>(TKey id)
             where T : class
         {
-            ResponseData<T> responseData = new ResponseData<T>();
-            try
+            return Invoke<T>((responseData) =>
             {
                 TEntity entity = manager.Get(id);
                 if (entity != null)
                 {
                     responseData.Data = mapper.Map<T>(entity);
                 }
-            }
-            catch (Exception exception)
-            {
-                responseData.ErrorNumber = 1000;
-                responseData.ErrorMessage = Properties.Resources.Error_1000;
-                responseData.Exception = exception;
-                logger.Error(exception);
-            }
-            return responseData;
+            });
+            //ResponseData<T> responseData = new ResponseData<T>();
+            //try
+            //{
+            //    TEntity entity = manager.Get(id);
+            //    if (entity != null)
+            //    {
+            //        responseData.Data = mapper.Map<T>(entity);
+            //    }
+            //}
+            //catch (Exception exception)
+            //{
+            //    responseData.ErrorNumber = 1000;
+            //    responseData.ErrorMessage = Properties.Resources.Error_1000;
+            //    responseData.Exception = exception;
+            //    logger.Error(exception);
+            //}
+            //return responseData;
         }
 
         /// <summary>
@@ -147,18 +243,22 @@ namespace BaoMen.MultiMerchant.Web.Util
         protected virtual ResponseData<ICollection<T>> DoGetList<T>(TFilter filter, string sortExpression = null)
             where T : class
         {
-            ResponseData<ICollection<T>> responseData = new ResponseData<ICollection<T>>();
-            try
+            return Invoke<ICollection<T>>((responseData) =>
             {
                 responseData.Data = mapper.Map<ICollection<T>>(manager.GetList(filter, sortExpression));
-            }
-            catch (Exception e)
-            {
-                responseData.ErrorNumber = 1000;
-                responseData.ErrorMessage = Properties.Resources.Error_1000;
-                responseData.Exception = e;
-            }
-            return responseData;
+            });
+            //ResponseData<ICollection<T>> responseData = new ResponseData<ICollection<T>>();
+            //try
+            //{
+            //    responseData.Data = mapper.Map<ICollection<T>>(manager.GetList(filter, sortExpression));
+            //}
+            //catch (Exception e)
+            //{
+            //    responseData.ErrorNumber = 1000;
+            //    responseData.ErrorMessage = Properties.Resources.Error_1000;
+            //    responseData.Exception = e;
+            //}
+            //return responseData;
         }
 
         /// <summary>
@@ -168,18 +268,22 @@ namespace BaoMen.MultiMerchant.Web.Util
         /// <returns></returns>
         protected virtual ResponseData<int> DoGetListCount(TFilter filter)
         {
-            ResponseData<int> responseData = new ResponseData<int>();
-            try
+            return Invoke<int>((responseData) =>
             {
                 responseData.Data = manager.GetListCount(filter);
-            }
-            catch (Exception e)
-            {
-                responseData.ErrorNumber = 1000;
-                responseData.ErrorMessage = Properties.Resources.Error_1000;
-                responseData.Exception = e;
-            }
-            return responseData;
+            });
+            //ResponseData<int> responseData = new ResponseData<int>();
+            //try
+            //{
+            //    responseData.Data = manager.GetListCount(filter);
+            //}
+            //catch (Exception e)
+            //{
+            //    responseData.ErrorNumber = 1000;
+            //    responseData.ErrorMessage = Properties.Resources.Error_1000;
+            //    responseData.Exception = e;
+            //}
+            //return responseData;
         }
         #endregion
 
@@ -194,8 +298,7 @@ namespace BaoMen.MultiMerchant.Web.Util
         [HttpGet]
         public virtual ResponseData<TotalAndItem<TModel>> GetList([FromQuery] TFilter filter, string sort, int pageIndex = 1, int pageSize = 10)
         {
-            ResponseData<TotalAndItem<TModel>> responseData = new ResponseData<TotalAndItem<TModel>>();
-            try
+            return Invoke<TotalAndItem<TModel>>((responseData) =>
             {
                 pageSize = CheckPageSize(pageSize);
                 Tuple<int, ICollection<TEntity>> entityListAndCount = manager.GetCountAndList(filter, sort, GetStartRowIndex(pageIndex, pageSize), pageSize);
@@ -204,15 +307,26 @@ namespace BaoMen.MultiMerchant.Web.Util
                     Total = entityListAndCount.Item1,
                     Items = mapper.Map<ICollection<TModel>>(entityListAndCount.Item2)
                 };
-            }
-            catch (Exception exception)
-            {
-                responseData.ErrorNumber = 1000;
-                responseData.ErrorMessage = Properties.Resources.Error_1000;
-                responseData.Exception = exception;
-                logger.Error(exception);
-            }
-            return responseData;
+            });
+            //ResponseData<TotalAndItem<TModel>> responseData = new ResponseData<TotalAndItem<TModel>>();
+            //try
+            //{
+            //    pageSize = CheckPageSize(pageSize);
+            //    Tuple<int, ICollection<TEntity>> entityListAndCount = manager.GetCountAndList(filter, sort, GetStartRowIndex(pageIndex, pageSize), pageSize);
+            //    responseData.Data = new TotalAndItem<TModel>
+            //    {
+            //        Total = entityListAndCount.Item1,
+            //        Items = mapper.Map<ICollection<TModel>>(entityListAndCount.Item2)
+            //    };
+            //}
+            //catch (Exception exception)
+            //{
+            //    responseData.ErrorNumber = 1000;
+            //    responseData.ErrorMessage = Properties.Resources.Error_1000;
+            //    responseData.Exception = exception;
+            //    logger.Error(exception);
+            //}
+            //return responseData;
         }
 
         #endregion
@@ -261,8 +375,7 @@ namespace BaoMen.MultiMerchant.Web.Util
         [HttpPost]
         public virtual ResponseData<TModel> Create([FromBody] TCreate model)
         {
-            ResponseData<TModel> responseData = new ResponseData<TModel>();
-            try
+            return Invoke<TModel>((responseData) =>
             {
                 TEntity entity = mapper.Map<TEntity>(model);
                 int rows = manager.Insert(entity);
@@ -274,15 +387,29 @@ namespace BaoMen.MultiMerchant.Web.Util
                     responseData.ErrorMessage = Properties.Resources.Error_1001;
                     logger.Warn("Create Warn: inert rows=0, model={model}", model);
                 }
-            }
-            catch (Exception exception)
-            {
-                responseData.ErrorNumber = 1000;
-                responseData.ErrorMessage = Properties.Resources.Error_1000;
-                responseData.Exception = exception;
-                logger.Error(exception);
-            }
-            return responseData;
+            });
+            //ResponseData<TModel> responseData = new ResponseData<TModel>();
+            //try
+            //{
+            //    TEntity entity = mapper.Map<TEntity>(model);
+            //    int rows = manager.Insert(entity);
+            //    if (rows > 0)
+            //        responseData.Data = mapper.Map<TModel>(entity);
+            //    else
+            //    {
+            //        responseData.ErrorNumber = 1001;
+            //        responseData.ErrorMessage = Properties.Resources.Error_1001;
+            //        logger.Warn("Create Warn: inert rows=0, model={model}", model);
+            //    }
+            //}
+            //catch (Exception exception)
+            //{
+            //    responseData.ErrorNumber = 1000;
+            //    responseData.ErrorMessage = Properties.Resources.Error_1000;
+            //    responseData.Exception = exception;
+            //    logger.Error(exception);
+            //}
+            //return responseData;
         }
 
         /// <summary>
@@ -293,8 +420,7 @@ namespace BaoMen.MultiMerchant.Web.Util
         [HttpPut]
         public virtual ResponseData Update([FromBody] TUpdate model)
         {
-            ResponseData responseData = new ResponseData();
-            try
+            return Invoke((responseData) =>
             {
                 TEntity entity = mapper.Map<TEntity>(model);
                 int rows = manager.Update(entity);
@@ -304,15 +430,27 @@ namespace BaoMen.MultiMerchant.Web.Util
                     responseData.ErrorMessage = Properties.Resources.Error_1002;
                     logger.Warn("Update Warn: inert rows=0, model={model}", model);
                 }
-            }
-            catch (Exception exception)
-            {
-                responseData.ErrorNumber = 1000;
-                responseData.ErrorMessage = Properties.Resources.Error_1000;
-                responseData.Exception = exception;
-                logger.Error(exception);
-            }
-            return responseData;
+            });
+            //ResponseData responseData = new ResponseData();
+            //try
+            //{
+            //    TEntity entity = mapper.Map<TEntity>(model);
+            //    int rows = manager.Update(entity);
+            //    if (rows == 0)
+            //    {
+            //        responseData.ErrorNumber = 1002;
+            //        responseData.ErrorMessage = Properties.Resources.Error_1002;
+            //        logger.Warn("Update Warn: inert rows=0, model={model}", model);
+            //    }
+            //}
+            //catch (Exception exception)
+            //{
+            //    responseData.ErrorNumber = 1000;
+            //    responseData.ErrorMessage = Properties.Resources.Error_1000;
+            //    responseData.Exception = exception;
+            //    logger.Error(exception);
+            //}
+            //return responseData;
         }
 
         /// <summary>
@@ -324,8 +462,7 @@ namespace BaoMen.MultiMerchant.Web.Util
         //[System.Web.Http.Cors.DisableCors]
         public virtual ResponseData Delete([FromBody] TDelete model)
         {
-            ResponseData responseData = new ResponseData();
-            try
+            return Invoke((responseData) =>
             {
                 TEntity entity = mapper.Map<TEntity>(model);
                 int rows = manager.Delete(entity);
@@ -335,15 +472,27 @@ namespace BaoMen.MultiMerchant.Web.Util
                     responseData.ErrorMessage = Properties.Resources.Error_1003;
                     logger.Warn("Delete Warn: inert rows=0, model={model}", model);
                 }
-            }
-            catch (Exception exception)
-            {
-                responseData.ErrorNumber = 1000;
-                responseData.ErrorMessage = Properties.Resources.Error_1000;
-                responseData.Exception = exception;
-                logger.Error(exception);
-            }
-            return responseData;
+            });
+            //ResponseData responseData = new ResponseData();
+            //try
+            //{
+            //    TEntity entity = mapper.Map<TEntity>(model);
+            //    int rows = manager.Delete(entity);
+            //    if (rows == 0)
+            //    {
+            //        responseData.ErrorNumber = 1003;
+            //        responseData.ErrorMessage = Properties.Resources.Error_1003;
+            //        logger.Warn("Delete Warn: inert rows=0, model={model}", model);
+            //    }
+            //}
+            //catch (Exception exception)
+            //{
+            //    responseData.ErrorNumber = 1000;
+            //    responseData.ErrorMessage = Properties.Resources.Error_1000;
+            //    responseData.Exception = exception;
+            //    logger.Error(exception);
+            //}
+            //return responseData;
         }
         #endregion
     }
@@ -386,19 +535,23 @@ namespace BaoMen.MultiMerchant.Web.Util
         [HttpGet]
         public virtual ResponseData<ICollection<TModel>> GetChildren([FromQuery] TKey id)
         {
-            ResponseData<ICollection<TModel>> responseData = new ResponseData<ICollection<TModel>>();
-            try
+            return Invoke<ICollection<TModel>>((responseData) =>
             {
                 responseData.Data = mapper.Map<ICollection<TModel>>(manager.GetChildren(id));
-            }
-            catch (Exception exception)
-            {
-                responseData.ErrorNumber = 1000;
-                responseData.ErrorMessage = Properties.Resources.Error_1000;
-                responseData.Exception = exception;
-                logger.Error(exception);
-            }
-            return responseData;
+            });
+            //ResponseData<ICollection<TModel>> responseData = new ResponseData<ICollection<TModel>>();
+            //try
+            //{
+            //    responseData.Data = mapper.Map<ICollection<TModel>>(manager.GetChildren(id));
+            //}
+            //catch (Exception exception)
+            //{
+            //    responseData.ErrorNumber = 1000;
+            //    responseData.ErrorMessage = Properties.Resources.Error_1000;
+            //    responseData.Exception = exception;
+            //    logger.Error(exception);
+            //}
+            //return responseData;
         }
 
         /// <summary>
@@ -409,19 +562,23 @@ namespace BaoMen.MultiMerchant.Web.Util
         [HttpGet]
         public virtual ResponseData<ICollection<TModel>> GetAllChildren([FromQuery] TKey id)
         {
-            ResponseData<ICollection<TModel>> responseData = new ResponseData<ICollection<TModel>>();
-            try
+            return Invoke<ICollection<TModel>>((responseData) =>
             {
                 responseData.Data = mapper.Map<ICollection<TModel>>(manager.GetAllChildren(id));
-            }
-            catch (Exception exception)
-            {
-                responseData.ErrorNumber = 1000;
-                responseData.ErrorMessage = Properties.Resources.Error_1000;
-                responseData.Exception = exception;
-                logger.Error(exception);
-            }
-            return responseData;
+            });
+            //ResponseData<ICollection<TModel>> responseData = new ResponseData<ICollection<TModel>>();
+            //try
+            //{
+            //    responseData.Data = mapper.Map<ICollection<TModel>>(manager.GetAllChildren(id));
+            //}
+            //catch (Exception exception)
+            //{
+            //    responseData.ErrorNumber = 1000;
+            //    responseData.ErrorMessage = Properties.Resources.Error_1000;
+            //    responseData.Exception = exception;
+            //    logger.Error(exception);
+            //}
+            //return responseData;
         }
     }
 
@@ -466,8 +623,7 @@ namespace BaoMen.MultiMerchant.Web.Util
         protected override ResponseData<T> DoGet<T>(TKey id)
             where T : class
         {
-            ResponseData<T> responseData = new ResponseData<T>();
-            try
+            return Invoke<T>((responseData) =>
             {
                 string merchantId = merchantService.MerchantId;
                 TEntity entity = manager.Get(id);
@@ -475,15 +631,25 @@ namespace BaoMen.MultiMerchant.Web.Util
                 {
                     responseData.Data = mapper.Map<T>(entity);
                 }
-            }
-            catch (Exception exception)
-            {
-                responseData.ErrorNumber = 1000;
-                responseData.ErrorMessage = Properties.Resources.Error_1000;
-                responseData.Exception = exception;
-                logger.Error(exception);
-            }
-            return responseData;
+            });
+            //ResponseData<T> responseData = new ResponseData<T>();
+            //try
+            //{
+            //    string merchantId = merchantService.MerchantId;
+            //    TEntity entity = manager.Get(id);
+            //    if (entity != null && entity.MerchantId == merchantId)
+            //    {
+            //        responseData.Data = mapper.Map<T>(entity);
+            //    }
+            //}
+            //catch (Exception exception)
+            //{
+            //    responseData.ErrorNumber = 1000;
+            //    responseData.ErrorMessage = Properties.Resources.Error_1000;
+            //    responseData.Exception = exception;
+            //    logger.Error(exception);
+            //}
+            //return responseData;
         }
 
         /// <summary>
@@ -495,19 +661,26 @@ namespace BaoMen.MultiMerchant.Web.Util
         protected override ResponseData<ICollection<T>> DoGetList<T>(TFilter filter, string sortExpression = null)
         {
             ResponseData<ICollection<T>> responseData = new ResponseData<ICollection<T>>();
-            try
-            {
-                filter.MerchantId = merchantService.MerchantId;
-                return base.DoGetList<T>(filter, sortExpression);
-            }
-            catch (Exception exception)
-            {
-                responseData.ErrorNumber = 1000;
-                responseData.ErrorMessage = Properties.Resources.Error_1000;
-                responseData.Exception = exception;
-                logger.Error(exception);
-            }
+            Invoke(responseData, () =>
+             {
+                 filter.MerchantId = merchantService.MerchantId;
+                 responseData = base.DoGetList<T>(filter, sortExpression);
+             });
             return responseData;
+            //ResponseData<ICollection<T>> responseData = new ResponseData<ICollection<T>>();
+            //try
+            //{
+            //    filter.MerchantId = merchantService.MerchantId;
+            //    return base.DoGetList<T>(filter, sortExpression);
+            //}
+            //catch (Exception exception)
+            //{
+            //    responseData.ErrorNumber = 1000;
+            //    responseData.ErrorMessage = Properties.Resources.Error_1000;
+            //    responseData.Exception = exception;
+            //    logger.Error(exception);
+            //}
+            //return responseData;
         }
 
         /// <summary>
@@ -518,19 +691,26 @@ namespace BaoMen.MultiMerchant.Web.Util
         protected override ResponseData<int> DoGetListCount(TFilter filter)
         {
             ResponseData<int> responseData = new ResponseData<int>();
-            try
-            {
-                filter.MerchantId = merchantService.MerchantId;
-                return base.DoGetListCount(filter);
-            }
-            catch (Exception exception)
-            {
-                responseData.ErrorNumber = 1000;
-                responseData.ErrorMessage = Properties.Resources.Error_1000;
-                responseData.Exception = exception;
-                logger.Error(exception);
-            }
+            Invoke(responseData, () =>
+             {
+                 filter.MerchantId = merchantService.MerchantId;
+                 responseData = base.DoGetListCount(filter);
+             });
             return responseData;
+            //ResponseData<int> responseData = new ResponseData<int>();
+            //try
+            //{
+            //    filter.MerchantId = merchantService.MerchantId;
+            //    return base.DoGetListCount(filter);
+            //}
+            //catch (Exception exception)
+            //{
+            //    responseData.ErrorNumber = 1000;
+            //    responseData.ErrorMessage = Properties.Resources.Error_1000;
+            //    responseData.Exception = exception;
+            //    logger.Error(exception);
+            //}
+            //return responseData;
         }
         #endregion
 
@@ -547,19 +727,26 @@ namespace BaoMen.MultiMerchant.Web.Util
         public override ResponseData<TotalAndItem<TModel>> GetList([FromQuery] TFilter filter, string sort, int pageIndex = 1, int pageSize = 10)
         {
             ResponseData<TotalAndItem<TModel>> responseData = new ResponseData<TotalAndItem<TModel>>();
-            try
-            {
-                filter.MerchantId = merchantService.MerchantId;
-                return base.GetList(filter, sort, pageIndex, pageSize);
-            }
-            catch (Exception exception)
-            {
-                responseData.ErrorNumber = 1000;
-                responseData.ErrorMessage = Properties.Resources.Error_1000;
-                responseData.Exception = exception;
-                logger.Error(exception);
-            }
+            Invoke<TotalAndItem<TModel>>(responseData, () =>
+             {
+                 filter.MerchantId = merchantService.MerchantId;
+                 responseData = base.GetList(filter, sort, pageIndex, pageSize);
+             });
             return responseData;
+            //ResponseData<TotalAndItem<TModel>> responseData = new ResponseData<TotalAndItem<TModel>>();
+            //try
+            //{
+            //    filter.MerchantId = merchantService.MerchantId;
+            //    return base.GetList(filter, sort, pageIndex, pageSize);
+            //}
+            //catch (Exception exception)
+            //{
+            //    responseData.ErrorNumber = 1000;
+            //    responseData.ErrorMessage = Properties.Resources.Error_1000;
+            //    responseData.Exception = exception;
+            //    logger.Error(exception);
+            //}
+            //return responseData;
         }
         #endregion
     }
@@ -604,8 +791,7 @@ namespace BaoMen.MultiMerchant.Web.Util
         [HttpPost]
         public virtual ResponseData<TModel> Create([FromBody] TCreate model)
         {
-            ResponseData<TModel> responseData = new ResponseData<TModel>();
-            try
+            return Invoke<TModel>((responseData) =>
             {
                 TEntity entity = mapper.Map<TEntity>(model);
                 entity.MerchantId = merchantService.MerchantId;
@@ -618,15 +804,30 @@ namespace BaoMen.MultiMerchant.Web.Util
                     responseData.ErrorMessage = Properties.Resources.Error_1001;
                     logger.Warn("Create Warn: inert rows=0, model={model}", model);
                 }
-            }
-            catch (Exception exception)
-            {
-                responseData.ErrorNumber = 1000;
-                responseData.ErrorMessage = Properties.Resources.Error_1000;
-                responseData.Exception = exception;
-                logger.Error(exception);
-            }
-            return responseData;
+            });
+            //ResponseData<TModel> responseData = new ResponseData<TModel>();
+            //try
+            //{
+            //    TEntity entity = mapper.Map<TEntity>(model);
+            //    entity.MerchantId = merchantService.MerchantId;
+            //    int rows = manager.Insert(entity);
+            //    if (rows > 0)
+            //        responseData.Data = mapper.Map<TModel>(entity);
+            //    else
+            //    {
+            //        responseData.ErrorNumber = 1001;
+            //        responseData.ErrorMessage = Properties.Resources.Error_1001;
+            //        logger.Warn("Create Warn: inert rows=0, model={model}", model);
+            //    }
+            //}
+            //catch (Exception exception)
+            //{
+            //    responseData.ErrorNumber = 1000;
+            //    responseData.ErrorMessage = Properties.Resources.Error_1000;
+            //    responseData.Exception = exception;
+            //    logger.Error(exception);
+            //}
+            //return responseData;
         }
 
         /// <summary>
@@ -637,8 +838,7 @@ namespace BaoMen.MultiMerchant.Web.Util
         [HttpPut]
         public virtual ResponseData Update([FromBody] TUpdate model)
         {
-            ResponseData responseData = new ResponseData();
-            try
+            return Invoke((responseData) =>
             {
                 TEntity entity = mapper.Map<TEntity>(model);
                 entity.MerchantId = merchantService.MerchantId;
@@ -649,15 +849,28 @@ namespace BaoMen.MultiMerchant.Web.Util
                     responseData.ErrorMessage = Properties.Resources.Error_1002;
                     logger.Warn("Update Warn: inert rows=0, model={model}", model);
                 }
-            }
-            catch (Exception exception)
-            {
-                responseData.ErrorNumber = 1000;
-                responseData.ErrorMessage = Properties.Resources.Error_1000;
-                responseData.Exception = exception;
-                logger.Error(exception);
-            }
-            return responseData;
+            });
+            //ResponseData responseData = new ResponseData();
+            //try
+            //{
+            //    TEntity entity = mapper.Map<TEntity>(model);
+            //    entity.MerchantId = merchantService.MerchantId;
+            //    int rows = manager.Update(entity);
+            //    if (rows == 0)
+            //    {
+            //        responseData.ErrorNumber = 1002;
+            //        responseData.ErrorMessage = Properties.Resources.Error_1002;
+            //        logger.Warn("Update Warn: inert rows=0, model={model}", model);
+            //    }
+            //}
+            //catch (Exception exception)
+            //{
+            //    responseData.ErrorNumber = 1000;
+            //    responseData.ErrorMessage = Properties.Resources.Error_1000;
+            //    responseData.Exception = exception;
+            //    logger.Error(exception);
+            //}
+            //return responseData;
         }
 
         /// <summary>
@@ -669,8 +882,7 @@ namespace BaoMen.MultiMerchant.Web.Util
         //[System.Web.Http.Cors.DisableCors]
         public virtual ResponseData Delete([FromBody] TDelete model)
         {
-            ResponseData responseData = new ResponseData();
-            try
+            return Invoke((responseData) =>
             {
                 TEntity entity = mapper.Map<TEntity>(model);
                 entity.MerchantId = merchantService.MerchantId;
@@ -681,15 +893,28 @@ namespace BaoMen.MultiMerchant.Web.Util
                     responseData.ErrorMessage = Properties.Resources.Error_1003;
                     logger.Warn("Delete Warn: inert rows=0, model={model}", model);
                 }
-            }
-            catch (Exception exception)
-            {
-                responseData.ErrorNumber = 1000;
-                responseData.ErrorMessage = Properties.Resources.Error_1000;
-                responseData.Exception = exception;
-                logger.Error(exception);
-            }
-            return responseData;
+            });
+            //ResponseData responseData = new ResponseData();
+            //try
+            //{
+            //    TEntity entity = mapper.Map<TEntity>(model);
+            //    entity.MerchantId = merchantService.MerchantId;
+            //    int rows = manager.Delete(entity);
+            //    if (rows == 0)
+            //    {
+            //        responseData.ErrorNumber = 1003;
+            //        responseData.ErrorMessage = Properties.Resources.Error_1003;
+            //        logger.Warn("Delete Warn: inert rows=0, model={model}", model);
+            //    }
+            //}
+            //catch (Exception exception)
+            //{
+            //    responseData.ErrorNumber = 1000;
+            //    responseData.ErrorMessage = Properties.Resources.Error_1000;
+            //    responseData.Exception = exception;
+            //    logger.Error(exception);
+            //}
+            //return responseData;
         }
         #endregion
     }
@@ -732,21 +957,27 @@ namespace BaoMen.MultiMerchant.Web.Util
         [HttpGet]
         public virtual ResponseData<ICollection<TModel>> GetChildren([FromQuery] TKey id)
         {
-            ResponseData<ICollection<TModel>> responseData = new ResponseData<ICollection<TModel>>();
-            try
+            return Invoke<ICollection<TModel>>((responseData) =>
             {
                 string merchantId = merchantService.MerchantId;
                 ICollection<TEntity> entities = manager.GetChildren(id).Where(p => p.MerchantId == merchantId).ToList();
                 responseData.Data = mapper.Map<ICollection<TModel>>(entities);
-            }
-            catch (Exception exception)
-            {
-                responseData.ErrorNumber = 1000;
-                responseData.ErrorMessage = Properties.Resources.Error_1000;
-                responseData.Exception = exception;
-                logger.Error(exception);
-            }
-            return responseData;
+            });
+            //ResponseData<ICollection<TModel>> responseData = new ResponseData<ICollection<TModel>>();
+            //try
+            //{
+            //    string merchantId = merchantService.MerchantId;
+            //    ICollection<TEntity> entities = manager.GetChildren(id).Where(p => p.MerchantId == merchantId).ToList();
+            //    responseData.Data = mapper.Map<ICollection<TModel>>(entities);
+            //}
+            //catch (Exception exception)
+            //{
+            //    responseData.ErrorNumber = 1000;
+            //    responseData.ErrorMessage = Properties.Resources.Error_1000;
+            //    responseData.Exception = exception;
+            //    logger.Error(exception);
+            //}
+            //return responseData;
         }
 
         /// <summary>
@@ -757,21 +988,27 @@ namespace BaoMen.MultiMerchant.Web.Util
         [HttpGet]
         public virtual ResponseData<ICollection<TModel>> GetAllChildren([FromQuery] TKey id)
         {
-            ResponseData<ICollection<TModel>> responseData = new ResponseData<ICollection<TModel>>();
-            try
+            return Invoke<ICollection<TModel>>((responseData) =>
             {
                 string merchantId = merchantService.MerchantId;
                 ICollection<TEntity> entities = manager.GetAllChildren(id).Where(p => p.MerchantId == merchantId).ToList();
                 responseData.Data = mapper.Map<ICollection<TModel>>(entities);
-            }
-            catch (Exception exception)
-            {
-                responseData.ErrorNumber = 1000;
-                responseData.ErrorMessage = Properties.Resources.Error_1000;
-                responseData.Exception = exception;
-                logger.Error(exception);
-            }
-            return responseData;
+            });
+            //ResponseData<ICollection<TModel>> responseData = new ResponseData<ICollection<TModel>>();
+            //try
+            //{
+            //    string merchantId = merchantService.MerchantId;
+            //    ICollection<TEntity> entities = manager.GetAllChildren(id).Where(p => p.MerchantId == merchantId).ToList();
+            //    responseData.Data = mapper.Map<ICollection<TModel>>(entities);
+            //}
+            //catch (Exception exception)
+            //{
+            //    responseData.ErrorNumber = 1000;
+            //    responseData.ErrorMessage = Properties.Resources.Error_1000;
+            //    responseData.Exception = exception;
+            //    logger.Error(exception);
+            //}
+            //return responseData;
         }
     }
 }
