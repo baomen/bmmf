@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="aliyun-net-sdk-core" Version="1.5.8" />
+    <PackageReference Include="aliyun-net-sdk-core" Version="1.5.10" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
