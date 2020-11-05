@@ -174,6 +174,9 @@
   <data name="Error_1010" xml:space="preserve">
     <value>手机验证码不正确</value>
   </data>
+  <data name="Error_1011" xml:space="preserve">
+    <value>Map数据失败</value>
+  </data>
   <data name="Error_400" xml:space="preserve">
     <value>请求无效（数据验证未通过）</value>
   </data>

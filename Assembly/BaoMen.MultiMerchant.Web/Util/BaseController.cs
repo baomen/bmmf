@@ -83,8 +83,8 @@ namespace BaoMen.MultiMerchant.Web.Util
             }
             catch (AutoMapperMappingException autoMapperMappingException)
             {
-                responseData.ErrorNumber = 1009;
-                responseData.ErrorMessage = Properties.Resources.Error_1009;
+                responseData.ErrorNumber = 1011;
+                responseData.ErrorMessage = Properties.Resources.Error_1011;
                 //responseData.Exception = autoMapperMappingException;
                 logger.Error(autoMapperMappingException);
             }
