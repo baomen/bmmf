@@ -333,7 +333,6 @@ namespace BaoMen.MultiMerchant.Merchant.Entity
     }
     #endregion
 
-
     public partial class User : Util.IMerchantData, IMerchantUser
     {
         /// <summary>
@@ -346,5 +345,13 @@ namespace BaoMen.MultiMerchant.Merchant.Entity
         /// </summary>
         public ICollection<Department> Departments { get; set; }
 
+    }
+
+    public partial class UserFilter
+    {
+        /// <summary>
+        /// 部门ID
+        /// </summary>
+        public FilterProperty<string> DepartmentId { get; set; }
     }
 }

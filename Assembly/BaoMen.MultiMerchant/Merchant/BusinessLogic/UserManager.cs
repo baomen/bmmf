@@ -443,6 +443,23 @@ namespace BaoMen.MultiMerchant.Merchant.BusinessLogic
             });
         }
 
+        /// <inheritdoc/>
+        protected override IEnumerable<User> ExecuteCustomFilter(IEnumerable<User> items, UserFilter filter)
+        {
+            if (filter.DepartmentId != null)
+            {
+                if (filter.DepartmentId.CompareOperator == DbCompareOperator.Equal)
+                {
+                    return items.Where(p => p.Departments.Any(q => q.Id == filter.DepartmentId.Value));
+                }
+                if (filter.DepartmentId.CompareOperator == DbCompareOperator.NotEqual)
+                {
+                    return items.Where(p => !p.Departments.Any(q => q.Id == filter.DepartmentId.Value));
+                }
+                throw new NotImplementedException("不支持的部门ID比较");
+            }
+            return items;
+        }
     }
     #endregion
 }

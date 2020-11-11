@@ -142,10 +142,8 @@ namespace BaoMen.MultiMerchant.System.BusinessLogic
         public override void RemoveCache()
         {
             Type[] types =
-{
-                typeof(Merchant.BusinessLogic.RoleModuleManager),
+            {
                 typeof(Merchant.BusinessLogic.RoleManager),
-                typeof(Merchant.BusinessLogic.UserRoleManager),
                 typeof(Merchant.BusinessLogic.UserManager)
             };
             IRoleManager roleManager = serviceProvider.GetRequiredService<IRoleManager>();
