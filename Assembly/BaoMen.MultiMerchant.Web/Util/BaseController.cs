@@ -74,7 +74,7 @@ namespace BaoMen.MultiMerchant.Web.Util
         /// <typeparam name="T">返回的类型</typeparam>
         /// <returns></returns>
         private T Invoke<T>(Action<T> action = null)
-            where T : ResponseData, new()
+            where T : IResponseData, new()
         {
             T responseData = new T();
             try
@@ -105,7 +105,7 @@ namespace BaoMen.MultiMerchant.Web.Util
         /// <param name="action">委托</param>
         /// <typeparam name="T">返回的类型</typeparam>
         private void Invoke<T>(T responseData, Action action = null)
-            where T : ResponseData, new()
+            where T : IResponseData, new()
         {
             try
             {
