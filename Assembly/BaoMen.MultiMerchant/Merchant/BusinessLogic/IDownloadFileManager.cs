@@ -27,6 +27,22 @@ namespace BaoMen.MultiMerchant.Merchant.BusinessLogic
         /// <param name="merchantId">商户ID</param>
         /// <returns></returns>
         string GetRelativePath(string merchantId);
+
+        /// <summary>
+        /// 创建下载文件实例
+        /// </summary>
+        /// <param name="relatedId">关联ID</param>
+        /// <param name="type">类型</param>
+        /// <param name="originalFileName">原始文件名</param>
+        /// <returns></returns>
+        DownloadFile CreateDownloadFile(string relatedId, int type, string originalFileName);
+
+        /// <summary>
+        /// 根据相对路径获取绝对路径
+        /// </summary>
+        /// <param name="relativePath"></param>
+        /// <returns></returns>
+        string GetPhysicalPath(string relativePath);
     }
     #endregion
 }

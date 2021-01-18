@@ -42,6 +42,18 @@ namespace BaoMen.MultiMerchant.Merchant.BusinessLogic
         }
 
         /// <summary>
+        /// 根据相对路径获取绝对路径
+        /// </summary>
+        /// <param name="relativePath"></param>
+        /// <returns></returns>
+        public string GetPhysicalPath(string relativePath)
+        {
+            string downloadPath = GetDownloadPath();
+            string temp = relativePath.Replace(GetRelativePath(), downloadPath);
+            return Path.Combine(temp);
+        }
+
+        /// <summary>
         /// 获取上传文件相对路径
         /// </summary>
         /// <param name="merchantId">商户ID</param>
@@ -63,7 +75,7 @@ namespace BaoMen.MultiMerchant.Merchant.BusinessLogic
             }
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                return parameterManager.Get("0102020201").Value;
+                return parameterManager.Get("0102020202").Value;
             }
             else
             {
@@ -78,6 +90,30 @@ namespace BaoMen.MultiMerchant.Merchant.BusinessLogic
         private string GetRelativePath()
         {
             return parameterManager.Get("0102020203").Value;
+        }
+
+        /// <summary>
+        /// 创建下载文件实例
+        /// </summary>
+        /// <param name="relatedId">关联ID</param>
+        /// <param name="type">类型</param>
+        /// <param name="originalFileName">原始文件名</param>
+        /// <returns></returns>
+        public DownloadFile CreateDownloadFile(string relatedId, int type, string originalFileName)
+        {
+            DateTime now = DateTime.Now;
+            string date = now.ToString("yyyyMMdd");
+            string extentionName = Path.GetExtension(originalFileName) ?? string.Empty;
+            string fileName = Guid.NewGuid().ToString("N");
+            return new DownloadFile
+            {
+                ExtentionName = extentionName,
+                FileName = fileName,
+                OriginalFileName = originalFileName,
+                RelatedId = relatedId,
+                Type = type,
+                RelativePath = $"{GetRelativePath()}/{type}/{date}/{fileName}{extentionName}"
+            };
         }
     }
     #endregion
