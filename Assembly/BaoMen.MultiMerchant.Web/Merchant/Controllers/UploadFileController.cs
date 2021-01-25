@@ -11,6 +11,7 @@ namespace BaoMen.MultiMerchant.Web.Merchant.Controllers
     /// <summary>
     /// 上传文件
     /// </summary>
+    [ApiExplorerSettings(GroupName = "merchant")]
     public abstract class UploadFileController : Util.MerchantBaseController<int, Entity.UploadFile, Entity.UploadFileFilter, Models.UploadFile, IUploadFileManager>
     {
         /// <summary>

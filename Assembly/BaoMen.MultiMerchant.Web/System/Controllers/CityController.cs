@@ -11,6 +11,7 @@ namespace BaoMen.MultiMerchant.Web.System.Controllers
     /// <summary>
     /// 系统地市
     /// </summary>
+    [ApiExplorerSettings(GroupName = "system")]
     public abstract class CityController : BaseController<string, Entity.City, Entity.CityFilter, Models.City, Models.CreateCity, Models.UpdateCity, Models.DeleteCity, ICityManager>
     {
         /// <summary>

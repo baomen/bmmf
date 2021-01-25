@@ -14,6 +14,7 @@ namespace BaoMen.MultiMerchant.Web.System.Controllers
     /// <summary>
     /// 系统模块
     /// </summary>
+    [ApiExplorerSettings(GroupName = "system")]
     public abstract class ModuleController : BaseHierarchicalController<string, Entity.Module, Entity.ModuleFilter, Model.Module, Model.CreateModule, Model.UpdateModule, Model.DeleteModule, IModuleManager>
     {
         /// <summary>

@@ -13,6 +13,7 @@ namespace BaoMen.MultiMerchant.Web.System.Controllers
     /// <summary>
     /// 操作记录
     /// </summary>
+    [ApiExplorerSettings(GroupName = "system")]
     public abstract class OperateHistoryController : BaseController<int, Entity.OperateHistory, Entity.OperateHistoryFilter, Model.OperateHistory, IOperateHistoryManager>
     {
         /// <summary>

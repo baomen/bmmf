@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BaoMen.MultiMerchant.Merchant.BusinessLogic;
+using Microsoft.AspNetCore.Mvc;
 using Entity = BaoMen.MultiMerchant.Merchant.Entity;
 using Model = BaoMen.MultiMerchant.Web.Merchant.Models;
 
@@ -8,6 +9,7 @@ namespace BaoMen.MultiMerchant.Web.Merchant.Controllers
     /// <summary>
     /// 商户操作日志
     /// </summary>
+    [ApiExplorerSettings(GroupName = "merchant")]
     public abstract class OperateHistoryController : Util.MerchantBaseController<int, Entity.OperateHistory, Entity.OperateHistoryFilter, Model.OperateHistory, IOperateHistoryManager>
     {
         /// <summary>

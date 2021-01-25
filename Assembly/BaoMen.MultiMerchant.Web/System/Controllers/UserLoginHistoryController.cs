@@ -13,6 +13,7 @@ namespace BaoMen.MultiMerchant.Web.System.Controllers
     /// <summary>
     /// 系统用户登录历史
     /// </summary>
+    [ApiExplorerSettings(GroupName = "system")]
     public abstract class UserLoginHistoryController : BaseController<int, Entity.UserLoginHistory, Entity.UserLoginHistoryFilter, Model.UserLoginHistory, IUserLoginHistoryManager>
     {
         /// <summary>

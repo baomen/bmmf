@@ -15,6 +15,7 @@ namespace BaoMen.MultiMerchant.Web.System.Controllers
     /// <summary>
     /// 缓存控制器
     /// </summary>
+    [ApiExplorerSettings(GroupName = "system")]
     public abstract class CacheController : BaseController
     {
         /// <summary>

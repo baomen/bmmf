@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BaoMen.MultiMerchant.Merchant.BusinessLogic;
 using BaoMen.MultiMerchant.Web.Util;
+using Microsoft.AspNetCore.Mvc;
 using Entity = BaoMen.MultiMerchant.Merchant.Entity;
 
 namespace BaoMen.MultiMerchant.Web.Merchant.Controllers
@@ -8,6 +9,7 @@ namespace BaoMen.MultiMerchant.Web.Merchant.Controllers
     /// <summary>
     /// 商户部门
     /// </summary>
+    [ApiExplorerSettings(GroupName = "merchant")]
     public abstract class DepartmentController : MerchantBaseHierarchicalController<string, Entity.Department, Entity.DepartmentFilter, Models.Department, Models.CreateDepartment, Models.UpdateDepartment, Models.DeleteDepartment, IDepartmentManager>
     {
         /// <summary>

@@ -14,6 +14,7 @@ namespace BaoMen.MultiMerchant.Web.Merchant.Controllers
     /// <summary>
     /// 商户用户
     /// </summary>
+    [ApiExplorerSettings(GroupName = "merchant")]
     public abstract class UserController : MerchantBaseController<string, Entity.User, Entity.UserFilter, Model.User, Model.CreateUser, Model.UpdateUser, Model.DeleteUser, IUserManager>
     {
         /// <summary>

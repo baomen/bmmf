@@ -14,6 +14,7 @@ namespace BaoMen.MultiMerchant.Web.System.Controllers
     /// <summary>
     /// 系统参数
     /// </summary>
+    [ApiExplorerSettings(GroupName = "system")]
     public abstract class ParameterController : BaseHierarchicalController<string, Entity.Parameter, Entity.ParameterFilter, Model.Parameter, Model.CreateParameter, Model.UpdateParameter, Model.DeleteParameter, IParameterManager>
     {
         /// <summary>

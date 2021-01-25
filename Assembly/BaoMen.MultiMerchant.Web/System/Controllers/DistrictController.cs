@@ -13,6 +13,7 @@ namespace BaoMen.MultiMerchant.Web.System.Controllers
     /// <summary>
     /// 系统地区
     /// </summary>
+    [ApiExplorerSettings(GroupName = "system")]
     public abstract class DistrictController : BaseController<string, Entity.District, Entity.DistrictFilter, Model.District, Model.CreateDistrict, Model.UpdateDistrict, Model.DeleteDistrict, IDistrictManager>
     {
         /// <summary>

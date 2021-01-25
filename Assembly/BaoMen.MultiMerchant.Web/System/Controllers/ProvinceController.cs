@@ -13,6 +13,7 @@ namespace BaoMen.MultiMerchant.Web.System.Controllers
     /// <summary>
     /// 系统省份
     /// </summary>
+    [ApiExplorerSettings(GroupName = "system")]
     public abstract class ProvinceController : BaseController<string, Entity.Province, Entity.ProvinceFilter, Model.Province, Model.CreateProvince, Model.UpdateProvince, Model.DeleteProvince, IProvinceManager>
     {
         /// <summary>

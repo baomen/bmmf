@@ -11,6 +11,7 @@ namespace BaoMen.MultiMerchant.Web.Merchant.Controllers
     /// <summary>
     /// 商户
     /// </summary>
+    [ApiExplorerSettings(GroupName = "merchant")]
     public abstract class MerchantController : BaseController<string, Entity.Merchant, Entity.MerchantFilter, Models.Merchant, Models.CreateMerchant, Models.UpdateMerchant, Models.DeleteMerchant, IMerchantManager>
     {
         /// <summary>

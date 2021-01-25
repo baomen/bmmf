@@ -12,6 +12,7 @@ namespace BaoMen.MultiMerchant.Web.System.Controllers
     /// <summary>
     /// 系统版本
     /// </summary>
+    [ApiExplorerSettings(GroupName = "system")]
     public abstract class VersionController : BaseController<string, Entity.Version, Entity.VersionFilter, Model.Version, Model.CreateVersion, Model.UpdateVersion, Model.DeleteVersion, IVersionManager>
     {
         /// <summary>

@@ -13,6 +13,7 @@ namespace BaoMen.MultiMerchant.Web.System.Controllers
     /// <summary>
     /// 系统角色
     /// </summary>
+    [ApiExplorerSettings(GroupName = "system")]
     public abstract class RoleController : BaseController<string, Entity.Role, Entity.RoleFilter, Model.Role, Model.CreateRole, Model.UpdateRole, Model.DeleteRole, IRoleManager>
     {
         /// <summary>

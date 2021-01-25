@@ -9,6 +9,7 @@ namespace BaoMen.MultiMerchant.Web.Merchant.Controllers
     /// <summary>
     /// 下载文件
     /// </summary>
+    [ApiExplorerSettings(GroupName = "merchant")]
     public abstract class DownloadFileController : MerchantBaseController<int, Entity.DownloadFile, Entity.DownloadFileFilter, Model.DownloadFile, IDownloadFileManager>
     {
         /// <summary>
