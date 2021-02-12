@@ -42,5 +42,10 @@ namespace BaoMen.MultiMerchant.Util
         /// 商户ID
         /// </summary>
         public string MerchantId { get; set; }
+
+        /// <summary>
+        /// 商户当前用户ID
+        /// </summary>
+        public string MerchantUserId { get; set; }
     }
 }
