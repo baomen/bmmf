@@ -323,5 +323,12 @@ namespace BaoMen.MultiMerchant.Web.Merchant.Models
         /// </summary>
         [StringLength(100)]
         public string Email { get; set; }
+
+        /// <summary>
+        /// 手机号码
+        /// </summary>
+        [Required]
+        [StringLength(50)]
+        public string Mobile { get; set; }
     }
 }

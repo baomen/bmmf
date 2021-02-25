@@ -207,7 +207,7 @@ namespace BaoMen.MultiMerchant.Merchant.DataAccess
         {
             return ProcessUpdate(() =>
             {
-                string sql = $"update {TableName} set Name=@Name,Email=@Email,Description=@Description where Id=@Id and MerchantId=@MerchantId";
+                string sql = $"update {TableName} set Name=@Name,Email=@Email,Mobile=@Mobile,Description=@Description where Id=@Id and MerchantId=@MerchantId";
                 DapperCommand command = new DapperCommand
                 {
                     CommandText = sql,
