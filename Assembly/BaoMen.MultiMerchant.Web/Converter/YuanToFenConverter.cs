@@ -6,7 +6,7 @@ namespace BaoMen.MultiMerchant.Web.Converter
     /// <summary>
     /// 元 --> 分
     /// </summary>
-    public class YuanToFenConverter : IValueConverter<decimal, int>
+    public class YuanToFenConverter : IValueConverter<decimal, int>, IValueConverter<decimal, long>
     {
         /// <summary>
         /// 转换
@@ -17,6 +17,17 @@ namespace BaoMen.MultiMerchant.Web.Converter
         public int Convert(decimal sourceMember, ResolutionContext context)
         {
             return (int)(sourceMember * 100);
+        }
+
+        /// <summary>
+        /// 转换
+        /// </summary>
+        /// <param name="sourceMember">源</param>
+        /// <param name="context">上下文</param>
+        /// <returns></returns>
+        long IValueConverter<decimal, long>.Convert(decimal sourceMember, ResolutionContext context)
+        {
+            return (long)(sourceMember * 100);
         }
     }
 }
