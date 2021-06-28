@@ -155,7 +155,7 @@ namespace BaoMen.MultiMerchant.AliYun.Dysms
             catch (Exception e)
             {
                 logger.Error(e);
-                throw e;
+                throw;
             }
         }
     }

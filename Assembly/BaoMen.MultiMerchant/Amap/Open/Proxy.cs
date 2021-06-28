@@ -46,7 +46,7 @@ namespace BaoMen.MultiMerchant.Amap.Open
             catch (Exception e)
             {
                 logger.Error(e);
-                throw e;
+                throw;
             }
         }
     }
