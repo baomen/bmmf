@@ -81,6 +81,13 @@ namespace BaoMen.MultiMerchant.Web.Util
             {
                 action?.Invoke(responseData);
             }
+            catch(UserInterfaceException userInterfaceException)
+            {
+                responseData.ErrorNumber = 2000;
+                responseData.ErrorMessage = userInterfaceException.Message;
+                responseData.Exception = userInterfaceException;
+                logger.Error(userInterfaceException);
+            }
             catch (AutoMapperMappingException autoMapperMappingException)
             {
                 responseData.ErrorNumber = 1011;
@@ -110,6 +117,13 @@ namespace BaoMen.MultiMerchant.Web.Util
             try
             {
                 action?.Invoke();
+            }
+            catch (UserInterfaceException userInterfaceException)
+            {
+                responseData.ErrorNumber = 2000;
+                responseData.ErrorMessage = userInterfaceException.Message;
+                responseData.Exception = userInterfaceException;
+                logger.Error(userInterfaceException);
             }
             catch (AutoMapperMappingException autoMapperMappingException)
             {
