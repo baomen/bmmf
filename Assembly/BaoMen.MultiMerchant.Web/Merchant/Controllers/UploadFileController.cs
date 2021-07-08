@@ -36,7 +36,8 @@ namespace BaoMen.MultiMerchant.Web.Merchant.Controllers
             {
                 Entity.UploadFile uploadFile = manager.CreateUploadFile(
                     merchantService.MerchantId,
-                    createUploadFile.CreateUserId, 
+                    //createUploadFile.CreateUserId, 
+                    merchantService.MerchantUserId,
                     createUploadFile.RelatedId, 
                     createUploadFile.Type, 
                     createUploadFile.File.FileName);

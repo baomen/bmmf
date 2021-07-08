@@ -82,6 +82,22 @@ namespace BaoMen.MultiMerchant.Util
         }
 
         /// <summary>
+        /// 获取商户ID
+        /// </summary>
+        /// <returns></returns>
+        protected virtual string GetMerchantUserId()
+        {
+            IMerchantService merchantService = GetMerchantService();
+            // string merchantId = merchantService.GetMerchantId();
+            string merchantUserId = merchantService.MerchantUserId;
+            if (string.IsNullOrEmpty(merchantUserId) || merchantUserId.Length != 32)
+            {
+                throw new ArgumentException("invalid merchant user id");
+            }
+            return merchantUserId;
+
+        }
+        /// <summary>
         /// 准备过滤器
         /// </summary>
         /// <param name="filter"></param>

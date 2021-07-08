@@ -86,12 +86,12 @@ namespace BaoMen.MultiMerchant.Web.Merchant.Models
         [Required]
         public int Type { get; set; }
 
-        /// <summary>
-        /// 创建人
-        /// </summary>
-        [Required]
-        [StringLength(32, MinimumLength = 32)]
-        public string CreateUserId { get; set; }
+        ///// <summary>
+        ///// 创建人
+        ///// </summary>
+        //[Required]
+        //[StringLength(32, MinimumLength = 32)]
+        //public string CreateUserId { get; set; }
 
         /// <summary>
         /// 关联ID
