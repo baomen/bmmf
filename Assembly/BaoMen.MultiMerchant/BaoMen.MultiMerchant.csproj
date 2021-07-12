@@ -58,6 +58,6 @@
     <Exec Command="xcopy $(TargetPath) C:\Users\drawe\Documents\Project\BaoMen\BMCC\bmcc\src\Reference\ /Y&#xD;&#xA;xcopy $(TargetPath) C:\Users\drawe\Documents\Project\BaoMen\Erp\erp\reference\ /Y" />
   </Target>
 
-  <Import Project="..\..\..\..\bmf\src\BaoMen.Common\BaoMen.Common.projitems" Label="Shared" />
+  <Import Project="..\..\..\..\bmf\bmf\src\BaoMen.Common\BaoMen.Common.projitems" Label="Shared" />
 
 </Project>
