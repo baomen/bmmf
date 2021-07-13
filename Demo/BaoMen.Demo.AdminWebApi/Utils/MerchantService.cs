@@ -45,6 +45,9 @@ namespace BaoMen.Demo.AdminWebApi.Utils
             set => throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// 商户用户ID
+        /// </summary>
         public string MerchantUserId { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     }
 }
