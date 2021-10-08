@@ -132,7 +132,7 @@ namespace BaoMen.MultiMerchant.Merchant.DataAccess
         /// <returns></returns>
         protected override DapperCommand CreateUpdateCommand(Entity.User item)
         {
-            string sql = $"UPDATE {TableName} SET UserName=@UserName,Name=@Name,Mobile=@Mobile,Email=@Email,Avatar=@Avatar,Status=@Status,WechatOpenId=@WechatOpenId,WechatMpOpenId=@WechatMpOpenId,WechatUnionId=@WechatUnionId,DingTalkId=@DingTalkId,AlipayId=@AlipayId,Description=@Description WHERE Id=@Id And MerchantId=@MerchantId";
+            string sql = $"UPDATE {TableName} SET UserName=@UserName,Name=@Name,Mobile=@Mobile,Email=@Email,Avatar=@Avatar,Status=@Status,Description=@Description WHERE Id=@Id And MerchantId=@MerchantId";
             return new DapperCommand()
             {
                 CommandText = sql,
@@ -218,6 +218,26 @@ namespace BaoMen.MultiMerchant.Merchant.DataAccess
             }, (log) =>
             {
                 log.Properties["item"] = item;
+            });
+        }
+
+        /// <summary>
+        /// 绑定微信小程序OpenId和UnionId
+        /// </summary>
+        /// <param name="item">用户实体</param>
+        internal int BindWechatMpOpenId(Entity.User item)
+        {
+            return ProcessUpdate((log) =>
+            {
+                log.Properties[nameof(item)] = item;
+                string sql = $"update {TableName} set WechatUnionId=@WechatUnionId,WechatMpOpenId=@WechatMpOpenId where Id=@Id and MerchantId=@MerchantId";
+                DapperCommand command = new DapperCommand
+                {
+                    CommandText = sql,
+                    Parameters = item
+                };
+                IDbConnection connection = CreateConnection();
+                return connection.Execute(command);
             });
         }
     }

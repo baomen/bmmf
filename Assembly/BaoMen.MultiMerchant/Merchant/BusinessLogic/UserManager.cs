@@ -365,6 +365,27 @@ namespace BaoMen.MultiMerchant.Merchant.BusinessLogic
         }
 
         /// <summary>
+        /// 根据微信小程序OpenId查询用户，直接查询数据库，不走缓存
+        /// </summary>
+        /// <param name="openId"></param>
+        /// <returns></returns>
+        public User GetByWechatMpOpenId(string openId)
+        {
+            return ProcessSelect(() =>
+            {
+                if (string.IsNullOrEmpty(openId))
+                {
+                    throw new ArgumentNullException("openId");
+                }
+                UserFilter userFilter = new UserFilter { WechatMpOpenId = openId };
+                return dal.GetList(userFilter).FirstOrDefault();
+            }, (log) =>
+            {
+                log.Properties[nameof(openId)] = openId;
+            });
+        }
+
+        /// <summary>
         ///  根据ID取得名称
         /// </summary>
         /// <param name="key"></param>
@@ -459,6 +480,25 @@ namespace BaoMen.MultiMerchant.Merchant.BusinessLogic
                 throw new NotImplementedException("不支持的部门ID比较");
             }
             return items;
+        }
+
+        /// <summary>
+        /// 绑定微信小程序OpenId和UnionId
+        /// </summary>
+        /// <param name="item">用户实体</param>
+        public int BindWechatMpOpenId(User item)
+        {
+            return ProcessUpdate((log) =>
+            {
+                log.Properties[nameof(item)] = item;
+                item.WechatUnionId ??= string.Empty;
+                int rows = dal.BindWechatMpOpenId(item);
+                if (rows > 0)
+                {
+                    RemoveCache();
+                }
+                return rows;
+            });
         }
     }
     #endregion

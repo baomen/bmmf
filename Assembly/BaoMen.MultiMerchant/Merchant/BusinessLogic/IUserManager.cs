@@ -74,6 +74,12 @@ namespace BaoMen.MultiMerchant.Merchant.BusinessLogic
         /// <returns></returns>
         User GetByMobile(string mobile);
 
+        /// <summary>
+        /// 根据微信小程序OpenId查询用户，直接查询数据库，不走缓存
+        /// </summary>
+        /// <param name="openId"></param>
+        /// <returns></returns>
+        User GetByWechatMpOpenId(string openId);
 
         /// <summary>
         /// 修改头像
@@ -89,6 +95,12 @@ namespace BaoMen.MultiMerchant.Merchant.BusinessLogic
         /// <param name="item"></param>
         /// <returns></returns>
         int ModifyPersonalSetting(User item);
+
+        /// <summary>
+        /// 绑定微信小程序OpenId和UnionId
+        /// </summary>
+        /// <param name="item">用户实体</param>
+        int BindWechatMpOpenId(User item);
     }
     #endregion
 }
