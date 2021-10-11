@@ -118,7 +118,13 @@ namespace BaoMen.MultiMerchant.Merchant.BusinessLogic
             item.AlipayId ??= string.Empty;
         }
 
-        private int InsertExtention(User item, IDbTransaction transaction)
+        /// <summary>
+        /// 插入扩展信息
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="transaction"></param>
+        /// <returns></returns>
+        protected virtual int InsertExtention(User item, IDbTransaction transaction)
         {
             int rows = 0;
             if (item.Roles?.Count > 0)
@@ -141,7 +147,13 @@ namespace BaoMen.MultiMerchant.Merchant.BusinessLogic
             return rows;
         }
 
-        private int DeleteExtention(User item, IDbTransaction transaction)
+        /// <summary>
+        /// 删除扩展信息
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="transaction"></param>
+        /// <returns></returns>
+        protected virtual int DeleteExtention(User item, IDbTransaction transaction)
         {
             int rows = userRoleManager.Dal.Delete(item.Id, transaction);
             rows += userDepartmentManager.Dal.Delete(item.Id, transaction);
