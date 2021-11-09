@@ -16,7 +16,7 @@ namespace BaoMen.MultiMerchant.Web.Converter
         /// <returns></returns>
         public decimal Convert(long sourceMember, ResolutionContext context)
         {
-            return Math.Round(((decimal)sourceMember) / 10000, 4);
+            return MultiMerchant.Util.Helper.HaoToYuan(sourceMember);
         }
 
         /// <summary>

@@ -43,6 +43,24 @@ namespace BaoMen.MultiMerchant.Util
         }
 
         /// <summary>
+        /// 毫 -> 元
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static decimal HaoToYuan(long value)
+        {
+            return Math.Round(((decimal)value) / 10000, 4);
+        }
+
+        /// <summary>
+        /// 元 --> 豪
+        /// </summary>
+        public static long YuanToHao(decimal value)
+        {
+            return (long)(value * 10000);
+        }
+
+        /// <summary>
         /// 四舍六入五成双算法计算费用
         /// </summary>
         /// <param name="value"></param>
