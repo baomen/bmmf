@@ -79,8 +79,21 @@ namespace BaoMen.MultiMerchant.Util
         public static int GetFeeWithoutTax(int fee, decimal taxRate)
         {
             if (taxRate == 0) return fee;
-            decimal tax = Util.Helper.FromPercent(taxRate);
+            decimal tax = FromPercent(taxRate);
             return GetFee(fee / (1 + tax));
+        }
+
+        /// <summary>
+        /// 计算不含税费用
+        /// </summary>
+        /// <param name="fee"></param>
+        /// <param name="taxRate"></param>
+        /// <returns></returns>
+        public static long GetFeeWithoutTax(long fee, decimal taxRate)
+        {
+            if (taxRate == 0) return fee;
+            decimal tax = FromPercent(taxRate);
+            return (long)Math.Round(fee / (1 + tax), 0);
         }
 
         /// <summary>

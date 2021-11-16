@@ -11,7 +11,7 @@ using System.Linq;
 namespace BaoMen.MultiMerchant.Util
 {
     /// <summary>
-    /// 可缓存的商户数据业务逻辑积累
+    /// 商户数据业务逻辑积累
     /// </summary>
     /// <typeparam name="TKey">键的类型</typeparam>
     /// <typeparam name="TEntity">实体类型</typeparam>
@@ -95,8 +95,8 @@ namespace BaoMen.MultiMerchant.Util
                 throw new ArgumentException("invalid merchant user id");
             }
             return merchantUserId;
-
         }
+
         /// <summary>
         /// 准备过滤器
         /// </summary>
