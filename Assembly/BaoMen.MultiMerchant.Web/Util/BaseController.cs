@@ -400,7 +400,7 @@ namespace BaoMen.MultiMerchant.Web.Util
                 {
                     responseData.ErrorNumber = 1001;
                     responseData.ErrorMessage = Properties.Resources.Error_1001;
-                    logger.Warn("Create Warn: inert rows=0, model={model}", model);
+                    logger.Warn("Create Warn: insert rows=0, model={model}", model);
                 }
             });
             //ResponseData<TModel> responseData = new ResponseData<TModel>();
