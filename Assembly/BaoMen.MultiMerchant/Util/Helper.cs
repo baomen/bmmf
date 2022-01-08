@@ -73,27 +73,29 @@ namespace BaoMen.MultiMerchant.Util
         /// <summary>
         /// 计算不含税费用
         /// </summary>
-        /// <param name="fee"></param>
-        /// <param name="taxRate"></param>
+        /// <param name="fee">费用</param>
+        /// <param name="taxRate">税率</param>
+        /// <param name="isPercent">是否是百分比的税率</param>
         /// <returns></returns>
-        public static int GetFeeWithoutTax(int fee, decimal taxRate)
+        public static long GetFeeWithoutTax(long fee, decimal taxRate, bool isPercent = true)
         {
             if (taxRate == 0) return fee;
-            decimal tax = FromPercent(taxRate);
-            return GetFee(fee / (1 + tax));
+            decimal tax = isPercent ? FromPercent(taxRate) : taxRate;
+            return (long)Math.Round(fee / (1 + tax), 0);
         }
 
         /// <summary>
-        /// 计算不含税费用
+        /// 计算含税费用
         /// </summary>
-        /// <param name="fee"></param>
-        /// <param name="taxRate"></param>
+        /// <param name="fee">费用</param>
+        /// <param name="taxRate">税率</param>
+        /// <param name="isPercent">是否是百分比的税率</param>
         /// <returns></returns>
-        public static long GetFeeWithoutTax(long fee, decimal taxRate)
+        public static long GetFeeWithTax(long fee, decimal taxRate, bool isPercent = true)
         {
             if (taxRate == 0) return fee;
-            decimal tax = FromPercent(taxRate);
-            return (long)Math.Round(fee / (1 + tax), 0);
+            decimal tax = isPercent ? FromPercent(taxRate) : taxRate;
+            return GetFee(fee * (1 + tax));
         }
 
         /// <summary>
