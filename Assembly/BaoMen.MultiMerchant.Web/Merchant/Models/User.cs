@@ -226,11 +226,6 @@ namespace BaoMen.MultiMerchant.Web.Merchant.Models
     public class UserDetail : User
     {
         /// <summary>
-        /// 模块ID列表
-        /// </summary>
-        public ICollection<string> ModuleIds { get; set; }
-
-        /// <summary>
         /// 角色ID列表
         /// </summary>
         public ICollection<string> RoleIds { get; set; }
@@ -243,6 +238,11 @@ namespace BaoMen.MultiMerchant.Web.Merchant.Models
 
     public partial class User
     {
+        /// <summary>
+        /// 模块ID列表
+        /// </summary>
+        public ICollection<string> ModuleIds { get; set; }
+
         /// <summary>
         /// 商户名称
         /// </summary>

@@ -17,7 +17,7 @@ namespace BaoMen.MultiMerchant.WeChat.MiniProgram.Proxy
         /// <summary>
         /// 配置构建器
         /// </summary>
-        protected readonly ConfigBuilder configBuilder;
+        protected readonly IConfigBuilder configBuilder;
 
         /// <summary>
         /// 日志记录
@@ -32,7 +32,7 @@ namespace BaoMen.MultiMerchant.WeChat.MiniProgram.Proxy
         public BaseProxy(IServiceProvider serviceProvider, ILogger logger)
         {
             this.serviceProvider = serviceProvider;
-            configBuilder = serviceProvider.GetRequiredService<ConfigBuilder>();
+            configBuilder = serviceProvider.GetRequiredService<IConfigBuilder>();
         }
     }
 }

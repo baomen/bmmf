@@ -51,7 +51,7 @@ namespace BaoMen.MultiMerchant.Util
             services.AddSingleton<Merchant.BusinessLogic.IDownloadFileManager, Merchant.BusinessLogic.DownloadFileManager>();
 
             #region wechat
-            services.AddSingleton<WeChat.ConfigBuilder>();
+            services.AddSingleton<WeChat.IConfigBuilder, WeChat.ConfigBuilder>();
             services.AddSingleton<BaoMen.WeChat.Pub.Provider.BasicProvider>();
             services.AddSingleton<BaoMen.WeChat.Pub.Provider.UserProvider>();
             services.AddSingleton<BaoMen.WeChat.Pay.V2.Provider.GeneralProvider>();

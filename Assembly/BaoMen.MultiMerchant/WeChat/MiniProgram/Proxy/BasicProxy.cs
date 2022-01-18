@@ -1,13 +1,9 @@
 ﻿using BaoMen.MultiMerchant.WeChat.MiniProgram.BusinessLogic;
-using BaoMen.WeChat.MiniProgram.Client;
 using BaoMen.WeChat.MiniProgram.Client.Basic;
 using BaoMen.WeChat.MiniProgram.Provider;
 using Microsoft.Extensions.DependencyInjection;
 using NLog;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using Client = BaoMen.WeChat.MiniProgram.Client;
 
 namespace BaoMen.MultiMerchant.WeChat.MiniProgram.Proxy
 {

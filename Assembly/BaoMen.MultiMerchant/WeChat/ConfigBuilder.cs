@@ -10,7 +10,7 @@ namespace BaoMen.MultiMerchant.WeChat
     /// <summary>
     /// 配置构建器
     /// </summary>
-    public class ConfigBuilder
+    public class ConfigBuilder : IConfigBuilder
     {
         private readonly System.BusinessLogic.IParameterManager parameterManager;
         private readonly Merchant.BusinessLogic.IParameterManager merchantParameterManager;

@@ -43,7 +43,7 @@ namespace BaoMen.MultiMerchant.Web.WeChat.Pub.Controllers
             {
                 IMerchantService merchantService = HttpContext.RequestServices.GetRequiredService<IMerchantService>();
                 merchantService.MerchantId = merchantId;
-                ConfigBuilder configBuilder = HttpContext.RequestServices.GetRequiredService<ConfigBuilder>();
+                IConfigBuilder configBuilder = HttpContext.RequestServices.GetRequiredService<IConfigBuilder>();
                 Config config = configBuilder.BuildPubConifg(merchantId);
                 responseData.Data = config.AppId;
             }

@@ -144,6 +144,9 @@
   <data name="Error_10007" xml:space="preserve">
     <value>用户已禁用</value>
   </data>
+  <data name="Error_10008" xml:space="preserve">
+    <value>未绑定微信小程序</value>
+  </data>
   <data name="Error_1001" xml:space="preserve">
     <value>创建数据失败</value>
   </data>
