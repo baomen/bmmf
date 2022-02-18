@@ -33,6 +33,24 @@ namespace BaoMen.MultiMerchant.Util
         }
 
         /// <summary>
+        /// 格式化价格
+        /// </summary>
+        /// <param name="value">价格</param>
+        public static decimal FormatPrice(decimal value)
+        {
+            return decimal.Parse(value.ToString("0.##########"));
+        }
+
+        /// <summary>
+        /// 格式化金额
+        /// </summary>
+        /// <param name="value">价格</param>
+        public static decimal FormatFee(decimal value)
+        {
+            return decimal.Parse(value.ToString("0.##"));
+        }
+
+        /// <summary>
         /// 从百分比的值转换为decimal
         /// </summary>
         /// <param name="value"></param>

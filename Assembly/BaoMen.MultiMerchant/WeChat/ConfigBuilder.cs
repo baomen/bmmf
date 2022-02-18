@@ -12,10 +12,17 @@ namespace BaoMen.MultiMerchant.WeChat
     /// </summary>
     public class ConfigBuilder : IConfigBuilder
     {
-        private readonly System.BusinessLogic.IParameterManager parameterManager;
-        private readonly Merchant.BusinessLogic.IParameterManager merchantParameterManager;
+        /// <summary>
+        /// 系统参数业务逻辑
+        /// </summary>
+        protected readonly System.BusinessLogic.IParameterManager parameterManager;
 
-        private static readonly NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+        /// <summary>
+        /// 商户参数业务逻辑
+        /// </summary>
+        protected readonly Merchant.BusinessLogic.IParameterManager merchantParameterManager;
+
+        protected static readonly NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// 构造函数
@@ -33,7 +40,7 @@ namespace BaoMen.MultiMerchant.WeChat
         /// <param name="mchId">商户号</param>
         /// <param name="fileName">文件名</param>
         /// <returns></returns>
-        public string GetSslFilePath(string mchId, string fileName)
+        protected string GetSslFilePath(string mchId, string fileName)
         {
             string path;
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
@@ -56,7 +63,7 @@ namespace BaoMen.MultiMerchant.WeChat
         /// 创建默认的公众号配置
         /// </summary>
         /// <returns></returns>
-        private Pub.Config CreateDefaultPubConfig()
+        protected virtual Pub.Config CreateDefaultPubConfig()
         {
             return new Pub.Config
             {
@@ -71,7 +78,7 @@ namespace BaoMen.MultiMerchant.WeChat
         /// </summary>
         /// <param name="merchantId"></param>
         /// <returns></returns>
-        private Pub.Config CreateMerchantPubConfig(string merchantId)
+        protected virtual Pub.Config CreateMerchantPubConfig(string merchantId)
         {
             Pub.Config config = new Pub.Config
             {
@@ -90,7 +97,7 @@ namespace BaoMen.MultiMerchant.WeChat
         /// 检查微信公众号配置
         /// </summary>
         /// <param name="config">微信公众号配置</param>
-        private void CheckPubConfig(Pub.Config config)
+        protected virtual void CheckPubConfig(Pub.Config config)
         {
             if (string.IsNullOrEmpty(config.AppId))
             {
@@ -110,7 +117,7 @@ namespace BaoMen.MultiMerchant.WeChat
         /// 构建微信公众号的配置
         /// </summary>
         /// <returns></returns>
-        public Pub.Config BuildPubConifg(string merchantId = null)
+        public virtual Pub.Config BuildPubConifg(string merchantId = null)
         {
             Pub.Config config;
             if (string.IsNullOrEmpty(merchantId))
@@ -144,7 +151,7 @@ namespace BaoMen.MultiMerchant.WeChat
         /// 创建默认的支付配置
         /// </summary>
         /// <returns></returns>
-        private BaoMen.WeChat.Pay.V2.GeneralConfig CreateDefaultGeneralPayConfig()
+        protected virtual BaoMen.WeChat.Pay.V2.GeneralConfig CreateDefaultGeneralPayConfig()
         {
             return new BaoMen.WeChat.Pay.V2.GeneralConfig
             {
@@ -161,7 +168,7 @@ namespace BaoMen.MultiMerchant.WeChat
         /// 构建微信支付的配置
         /// </summary>
         /// <returns></returns>
-        public BaoMen.WeChat.Pay.V2.GeneralConfig BuildGeneralPayConfig(string merchantId = null)
+        public virtual BaoMen.WeChat.Pay.V2.GeneralConfig BuildGeneralPayConfig(string merchantId = null)
         {
             return CreateDefaultGeneralPayConfig();
             //Pay.Config config;
@@ -178,7 +185,7 @@ namespace BaoMen.MultiMerchant.WeChat
         /// 构建微信小程序的配置
         /// </summary>
         /// <returns></returns>
-        public MiniProgram.Config BuildMiniPorgramConifg(string merchantId = null)
+        public virtual MiniProgram.Config BuildMiniPorgramConifg(string merchantId = null)
         {
             MiniProgram.Config config;
             if (string.IsNullOrEmpty(merchantId))
@@ -203,7 +210,7 @@ namespace BaoMen.MultiMerchant.WeChat
         /// 创建默认的小程序配置
         /// </summary>
         /// <returns></returns>
-        private MiniProgram.Config CreateDefaultMiniProgramConfig()
+        protected virtual MiniProgram.Config CreateDefaultMiniProgramConfig()
         {
             return new MiniProgram.Config
             {
@@ -213,7 +220,12 @@ namespace BaoMen.MultiMerchant.WeChat
             };
         }
 
-        private MiniProgram.Config CreateMerchantMiniProgramConfig(string merchantId)
+        /// <summary>
+        /// 创建商户的小程序配置
+        /// </summary>
+        /// <param name="merchantId"></param>
+        /// <returns></returns>
+        protected virtual MiniProgram.Config CreateMerchantMiniProgramConfig(string merchantId)
         {
             return new MiniProgram.Config
             {
@@ -227,7 +239,7 @@ namespace BaoMen.MultiMerchant.WeChat
         /// 检查微信小程序配置
         /// </summary>
         /// <param name="config">微信小程序配置</param>
-        private void CheckMiniProgramConfig(MiniProgram.Config config)
+        protected virtual void CheckMiniProgramConfig(MiniProgram.Config config)
         {
             if (string.IsNullOrEmpty(config.AppId))
             {
