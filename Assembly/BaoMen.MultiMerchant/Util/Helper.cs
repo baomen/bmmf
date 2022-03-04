@@ -83,9 +83,9 @@ namespace BaoMen.MultiMerchant.Util
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static int GetFee(decimal value)
+        public static long GetFee(decimal value)
         {
-            return (int)Math.Round(value, 0);
+            return (long)Math.Round(value, 0);
         }
 
         /// <summary>
