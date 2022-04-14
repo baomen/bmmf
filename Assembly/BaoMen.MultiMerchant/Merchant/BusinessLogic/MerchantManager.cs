@@ -3,14 +3,14 @@ Author: WangXinBin
 CreateTime: 2019/9/27 14:49:26
 */
 
-using Microsoft.Extensions.Configuration;
-using System.Collections.Generic;
-using System.Linq;
-using BaoMen.MultiMerchant.Merchant.Entity;
-using BaoMen.Common.Data;
 using BaoMen.Common.Constant;
-using System;
+using BaoMen.Common.Data;
+using BaoMen.Common.Extension;
+using BaoMen.MultiMerchant.Merchant.Entity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Collections.Generic;
 
 namespace BaoMen.MultiMerchant.Merchant.BusinessLogic
 {
@@ -43,9 +43,17 @@ namespace BaoMen.MultiMerchant.Merchant.BusinessLogic
         /// <returns></returns>
         protected override int DoInsert(Entity.Merchant item)
         {
+            if (item.DefaultUserPassword != null)
+            {
+                item.DefaultUserPassword = item.DefaultUserPassword.To32MD5();
+            }
             int rows = base.DoInsert(item);
             if (rows == 1)
-                operateHistoryManager.Insert(item.Id, item, DataOperationType.Insert);
+            {
+                Util.ICurrentUserService currentUserService = serviceProvider.GetRequiredService<Util.ICurrentUserService>();
+                Util.IUser user = currentUserService.GetCurrentUser() ?? new Entity.User { Id = "merchant_regist" };
+                operateHistoryManager.Insert(item.Id, item, DataOperationType.Insert, user);
+            }
             return rows;
         }
 
@@ -95,7 +103,7 @@ namespace BaoMen.MultiMerchant.Merchant.BusinessLogic
             ICollection<Entity.Merchant> merchants = GetList(new MerchantFilter { Status = 1 });
             foreach (Entity.Merchant merchant in merchants)
             {
-                foreach(Type type in types)
+                foreach (Type type in types)
                 {
                     cache.Remove($"{type.FullName}.CacheKey.{merchant.Id}");
                 }

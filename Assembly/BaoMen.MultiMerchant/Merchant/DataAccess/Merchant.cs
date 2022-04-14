@@ -140,9 +140,11 @@ namespace BaoMen.MultiMerchant.Merchant.DataAccess
             dynamicParameters.Add("in_id", item.Id, DbType.String, ParameterDirection.Input);
             dynamicParameters.Add("in_code", item.Code, DbType.String, ParameterDirection.Input);
             dynamicParameters.Add("in_name", item.Name, DbType.String, ParameterDirection.Input);
-            dynamicParameters.Add("in_versionId", item.VersionId, DbType.String, ParameterDirection.Input);
+            //dynamicParameters.Add("in_versionId", item.VersionId, DbType.String, ParameterDirection.Input);
             dynamicParameters.Add("in_status", item.Status, DbType.Int32, ParameterDirection.Input);
             dynamicParameters.Add("in_description", item.Description, DbType.String, ParameterDirection.Input);
+            dynamicParameters.Add("in_default_user_mobile", item.DefaultUserMobile, DbType.String, ParameterDirection.Input);
+            dynamicParameters.Add("in_default_user_password", item.DefaultUserPassword, DbType.StringFixedLength, ParameterDirection.Input);
             dynamicParameters.Add("out_errorNumber", 0, DbType.Int32, ParameterDirection.Output);
             dynamicParameters.Add("out_errorMessage", 0, DbType.String, ParameterDirection.Output);
 

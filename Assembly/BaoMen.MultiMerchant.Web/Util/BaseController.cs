@@ -454,7 +454,7 @@ namespace BaoMen.MultiMerchant.Web.Util
                 {
                     responseData.ErrorNumber = 1002;
                     responseData.ErrorMessage = Properties.Resources.Error_1002;
-                    logger.Warn("Update Warn: inert rows=0, model={model}", model);
+                    logger.Warn("Update Warn: update rows=0, model={model}", model);
                 }
             });
             //ResponseData responseData = new ResponseData();

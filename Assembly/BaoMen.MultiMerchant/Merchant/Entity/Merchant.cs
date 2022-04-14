@@ -146,5 +146,15 @@ namespace BaoMen.MultiMerchant.Merchant.Entity
         /// 版本
         /// </summary>
         public System.Entity.Version Version { get; set; }
+
+        /// <summary>
+        /// 默认用户手机号
+        /// </summary>
+        public string DefaultUserMobile { get; set; }
+
+        /// <summary>
+        /// 默认用户密码
+        /// </summary>
+        public string DefaultUserPassword { get; set; }
     }
 }
