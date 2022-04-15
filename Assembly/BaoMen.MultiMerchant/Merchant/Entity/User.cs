@@ -345,6 +345,11 @@ namespace BaoMen.MultiMerchant.Merchant.Entity
         /// </summary>
         public ICollection<Department> Departments { get; set; }
 
+        /// <summary>
+        /// 商户列表
+        /// </summary>
+        public ICollection<Merchant> Merchants { get; set; }
+
     }
 
     public partial class UserFilter

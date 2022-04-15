@@ -41,6 +41,7 @@ namespace BaoMen.MultiMerchant.Util
             services.AddSingleton<Merchant.BusinessLogic.UserRoleManager>();
             services.AddSingleton<Merchant.BusinessLogic.UserDepartmentManager>();
             services.AddSingleton<Merchant.BusinessLogic.UserTokenManager>();
+            services.AddSingleton<Merchant.BusinessLogic.UserMerchantManager>();
             services.AddSingleton<Merchant.BusinessLogic.IRoleManager, Merchant.BusinessLogic.RoleManager>();
             services.AddSingleton<Merchant.BusinessLogic.RoleModuleManager>();
             services.AddSingleton<Merchant.BusinessLogic.IDepartmentManager, Merchant.BusinessLogic.DepartmentManager>();

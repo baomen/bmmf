@@ -162,5 +162,10 @@ namespace BaoMen.MultiMerchant.Web.Merchant.Models
         /// 版本名称
         /// </summary>
         public string VersionName { get; set; }
+
+        /// <summary>
+        /// 状态名称
+        /// </summary>
+        public string StatusName { get; set; }
     }
 }

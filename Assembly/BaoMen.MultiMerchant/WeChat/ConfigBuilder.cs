@@ -22,6 +22,9 @@ namespace BaoMen.MultiMerchant.WeChat
         /// </summary>
         protected readonly Merchant.BusinessLogic.IParameterManager merchantParameterManager;
 
+        /// <summary>
+        /// 日志实例
+        /// </summary>
         protected static readonly NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
         /// <summary>

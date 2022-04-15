@@ -30,6 +30,14 @@ namespace BaoMen.MultiMerchant.Merchant.BusinessLogic
         private readonly UserRoleManager userRoleManager;
         private readonly UserDepartmentManager userDepartmentManager;
         private readonly UserTokenManager userTokenManager;
+
+        private readonly IMerchantManager merchantManager;
+
+        /// <summary>
+        /// 商户用户对应关系表业务逻辑
+        /// </summary>
+        private readonly UserMerchantManager userMerchantManager;
+
         private IOperateHistoryManager operateHistoryManager;
         private readonly IParameterManager parameterManager;
         private static readonly char[] passwordConstant = {
@@ -51,6 +59,9 @@ namespace BaoMen.MultiMerchant.Merchant.BusinessLogic
             userRoleManager = serviceProvider.GetRequiredService<UserRoleManager>();
             userDepartmentManager = serviceProvider.GetRequiredService<UserDepartmentManager>();
             userTokenManager = serviceProvider.GetRequiredService<UserTokenManager>();
+            userMerchantManager = serviceProvider.GetRequiredService<UserMerchantManager>();
+
+            merchantManager = serviceProvider.GetRequiredService<IMerchantManager>();
 
         }
 
@@ -143,6 +154,19 @@ namespace BaoMen.MultiMerchant.Merchant.BusinessLogic
                     rows += userDepartmentManager.Dal.Insert(userDepartment, transaction);
                 }
             }
+            List<UserMerchant> userMerchants;
+            if (item.Merchants?.Count > 0)
+            {
+                userMerchants = item.Merchants.Select(p => new UserMerchant { UserId = item.Id, MerchantId = p.Id }).ToList();
+            }
+            else
+            {
+                userMerchants = new List<UserMerchant> { new UserMerchant { UserId = item.Id, MerchantId = item.MerchantId } };
+            }
+            foreach (UserMerchant userMerchant in userMerchants)
+            {
+                rows += userMerchantManager.Dal.Insert(userMerchant, transaction);
+            }
             rows += userTokenManager.Dal.Insert(new UserToken { UserId = item.Id, MerchantId = item.MerchantId, Expires = item.CreateTime, Token = Guid.NewGuid().ToString("N") }, transaction);
             return rows;
         }
@@ -158,6 +182,7 @@ namespace BaoMen.MultiMerchant.Merchant.BusinessLogic
             int rows = userRoleManager.Dal.Delete(item.Id, transaction);
             rows += userDepartmentManager.Dal.Delete(item.Id, transaction);
             rows += userTokenManager.Dal.Delete(new UserToken { UserId = item.Id }, transaction);
+            rows += userMerchantManager.Dal.DeleteByUser(item.Id, transaction);
             return rows;
         }
 
@@ -323,6 +348,8 @@ namespace BaoMen.MultiMerchant.Merchant.BusinessLogic
             IDepartmentManager departmentManager = serviceProvider.GetRequiredService<IDepartmentManager>();
             ICollection<UserDepartment> userDepartments = userDepartmentManager.GetList(new UserDepartmentFilter { UserId = item.Id });
             item.Departments = userDepartments.Select(p => departmentManager.Get(p.DepartmentId)).ToList();
+            ICollection<Entity.Merchant> merchants = merchantManager.GetList();
+            item.Merchants = userMerchantManager.GetList(new UserMerchantFilter { UserId = item.Id }).Select(p => merchants.FirstOrDefault(q => p.MerchantId == q.Id)).ToList();
         }
 
         /// <summary>
@@ -332,6 +359,7 @@ namespace BaoMen.MultiMerchant.Merchant.BusinessLogic
         {
             userRoleManager.RemoveCache();
             userDepartmentManager.RemoveCache();
+            userMerchantManager.RemoveCache();
             base.RemoveCache();
         }
 

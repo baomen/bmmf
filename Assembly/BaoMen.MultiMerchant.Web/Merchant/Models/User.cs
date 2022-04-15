@@ -234,6 +234,11 @@ namespace BaoMen.MultiMerchant.Web.Merchant.Models
         /// 部门ID列表
         /// </summary>
         public ICollection<string> DepartmentIds { get; set; }
+
+        /// <summary>
+        /// 商户列表
+        /// </summary>
+        public ICollection<Merchant> Merchants { get; set; }
     }
 
     public partial class User

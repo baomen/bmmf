@@ -17,16 +17,17 @@ namespace BaoMen.MultiMerchant.Web.Merchant.Mapper
         /// </summary>
         public AutoMapperProfile()
         {
-            CreateMap<Entity.Merchant, Models.Merchant>();
-            CreateMap<Entity.Merchant, TextValue<string>>().ForMember(dest => dest.Text, opt => opt.MapFrom(src => src.Name)).ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.Id));
-            CreateMap<Models.CreateMerchant, Entity.Merchant>();
-            CreateMap<Models.UpdateMerchant, Entity.Merchant>();
-            CreateMap<Models.DeleteMerchant, Entity.Merchant>();
-
             CreateMap<Entity.Parameter, Models.Parameter>();
             CreateMap<Models.CreateParameter, Entity.Parameter>();
             CreateMap<Models.UpdateParameter, Entity.Parameter>();
             CreateMap<Models.DeleteParameter, Entity.Parameter>();
+
+            CreateMap<Entity.Merchant, Models.Merchant>()
+                .ForMember(dest => dest.StatusName, opt => opt.ConvertUsing<System.Mapper.ParameterValueToNameConverter, ParameterSourceMember>(src => new ParameterSourceMember("010101", src.Status)));
+            CreateMap<Entity.Merchant, TextValue<string>>().ForMember(dest => dest.Text, opt => opt.MapFrom(src => src.Name)).ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.Id));
+            CreateMap<Models.CreateMerchant, Entity.Merchant>();
+            CreateMap<Models.UpdateMerchant, Entity.Merchant>();
+            CreateMap<Models.DeleteMerchant, Entity.Merchant>();
 
             CreateMap<Entity.User, Models.User>()
                 .ForMember(dest => dest.MerchantName, opt => opt.ConvertUsing<KeyToNameConverter<string, IMerchantManager>, string>(src => src.MerchantId))
