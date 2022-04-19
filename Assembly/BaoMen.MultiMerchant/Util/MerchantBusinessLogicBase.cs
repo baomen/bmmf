@@ -166,8 +166,18 @@ namespace BaoMen.MultiMerchant.Util
         /// <returns></returns>
         protected override string GetCacheKey()
         {
-            string cacheKey = this.cacheKey;
             string merchantId = GetMerchantId();
+            return GetCacheKey(merchantId);
+        }
+
+        /// <summary>
+        /// 获取缓存的键
+        /// </summary>
+        /// <param name="merchantId">商户ID</param>
+        /// <returns></returns>
+        protected virtual string GetCacheKey(string merchantId)
+        {
+            string cacheKey = this.cacheKey;
             cacheKey = $"{cacheKey}.{merchantId}";
             return cacheKey;
         }
@@ -194,16 +204,59 @@ namespace BaoMen.MultiMerchant.Util
         }
 
         /// <summary>
+        /// 清除缓存。
+        /// </summary>
+        /// <remarks>
+        /// 重写时一定要先调用此方法
+        /// </remarks>
+        public override void RemoveCache()
+        {
+            string merchantId = GetMerchantId(); ;
+            RemoveCache(merchantId);
+        }
+
+        /// <summary>
+        /// 清除缓存。
+        /// </summary>
+        /// <remarks>
+        /// 重写时一定要先调用此方法
+        /// </remarks>
+        public virtual void RemoveCache(string merchantId)
+        {
+            string cacheKey = GetCacheKey(merchantId);
+            CacheRemovingEventArgs e = new CacheRemovingEventArgs() { CacheKey = cacheKey };
+            CacheRemoving(this, e);
+            if (!e.Cancel)
+            {
+                cache.Remove(cacheKey);
+            }
+            CacheRemoved(this, new CacheRemovedEventArgs() { CacheKey = cacheKey });
+        }
+
+        /// <summary>
         /// 取得缓存的数据
         /// </summary>
         /// <returns></returns>
         protected override IDictionary<TKey, TEntity> DoGetCacheData()
         {
-            string cacheKey = GetCacheKey();
+            string merchantId = GetMerchantId();
+            return GetCacheData(merchantId);
+        }
+
+        /// <summary>
+        /// 取得缓存的数据
+        /// </summary>
+        /// <remarks>
+        /// 用于获取指定商户ID的缓存数据
+        /// </remarks>
+        /// <returns></returns>
+        internal IDictionary<TKey, TEntity> GetCacheData(string merchantId)
+        {
+            string cacheKey = GetCacheKey(merchantId);
             IDictionary<TKey, TEntity> cacheData = (IDictionary<TKey, TEntity>)cache.Get(cacheKey);
             if (cacheData == null)
             {
-                ICollection<TEntity> items = dal.GetList(new TFilter { MerchantId = GetMerchantId() });
+                ICollection<TEntity> items = dal.GetList(new TFilter { MerchantId = merchantId });
                 foreach (TEntity item in items)
                 {
                     if (item != null)
@@ -256,8 +309,18 @@ namespace BaoMen.MultiMerchant.Util
         /// <returns></returns>
         protected override string GetCacheKey()
         {
-            string cacheKey = this.cacheKey;
             string merchantId = GetMerchantId();
+            return GetCacheKey(merchantId);
+        }
+
+        /// <summary>
+        /// 获取缓存的键
+        /// </summary>
+        /// <param name="merchantId">商户ID</param>
+        /// <returns></returns>
+        protected virtual string GetCacheKey(string merchantId)
+        {
+            string cacheKey = this.cacheKey;
             cacheKey = $"{cacheKey}.{merchantId}";
             return cacheKey;
         }
@@ -282,16 +345,59 @@ namespace BaoMen.MultiMerchant.Util
         }
 
         /// <summary>
+        /// 清除缓存。
+        /// </summary>
+        /// <remarks>
+        /// 重写时一定要先调用此方法
+        /// </remarks>
+        public override void RemoveCache()
+        {
+            string merchantId = GetMerchantId(); ;
+            RemoveCache(merchantId);
+        }
+
+        /// <summary>
+        /// 清除缓存。
+        /// </summary>
+        /// <remarks>
+        /// 重写时一定要先调用此方法
+        /// </remarks>
+        public virtual void RemoveCache(string merchantId)
+        {
+            string cacheKey = GetCacheKey(merchantId);
+            CacheRemovingEventArgs e = new CacheRemovingEventArgs() { CacheKey = cacheKey };
+            CacheRemoving(this, e);
+            if (!e.Cancel)
+            {
+                cache.Remove(cacheKey);
+            }
+            CacheRemoved(this, new CacheRemovedEventArgs() { CacheKey = cacheKey });
+        }
+
+        /// <summary>
         /// 取得缓存的数据
         /// </summary>
         /// <returns></returns>
         protected override IDictionary<TKey, TEntity> DoGetCacheData()
         {
-            string cacheKey = GetCacheKey();
+            string merchantId = GetMerchantId();
+            return GetCacheData(merchantId);
+        }
+
+        /// <summary>
+        /// 取得缓存的数据
+        /// </summary>
+        /// <remarks>
+        /// 用于获取指定商户ID的缓存数据
+        /// </remarks>
+        /// <returns></returns>
+        internal IDictionary<TKey, TEntity> GetCacheData(string merchantId)
+        {
+            string cacheKey = GetCacheKey(merchantId);
             IDictionary<TKey, TEntity> cacheData = (IDictionary<TKey, TEntity>)cache.Get(cacheKey);
             if (cacheData == null)
             {
-                ICollection<TEntity> items = dal.GetList(new TFilter { MerchantId = GetMerchantId() });
+                ICollection<TEntity> items = dal.GetList(new TFilter { MerchantId = merchantId });
                 foreach (TEntity item in items)
                 {
                     if (item != null)

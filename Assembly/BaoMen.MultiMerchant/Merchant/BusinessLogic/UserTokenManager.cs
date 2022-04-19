@@ -3,12 +3,9 @@ Author: WangXinBin
 CreateTime: 2019/10/23 11:52:57
 */
 
-using Microsoft.Extensions.Configuration;
 using BaoMen.MultiMerchant.Merchant.Entity;
-using BaoMen.Common.Data;
+using Microsoft.Extensions.Configuration;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace BaoMen.MultiMerchant.Merchant.BusinessLogic
 {
@@ -37,31 +34,6 @@ namespace BaoMen.MultiMerchant.Merchant.BusinessLogic
         protected override string IdentityPropertyName
         {
             get { return "UserId"; }
-        }
-
-        /// <summary>
-        /// 取得缓存的数据
-        /// </summary>
-        /// <remarks>
-        /// 用于获取指定商户ID的缓存数据
-        /// </remarks>
-        /// <returns></returns>
-        internal IDictionary<string, Entity.UserToken> GetCacheData(string merchantId)
-        {
-            string cacheKey = $"{this.cacheKey}.{merchantId}";
-            IDictionary<string, Entity.UserToken> cacheData = (IDictionary<string, Entity.UserToken>)cache.Get(cacheKey);
-            if (cacheData == null)
-            {
-                ICollection<Entity.UserToken> items = dal.GetList(new Entity.UserTokenFilter { MerchantId = merchantId });
-                foreach (Entity.UserToken item in items)
-                {
-                    if (item != null)
-                        AppendExtention(item);
-                }
-                cacheData = items.ToDictionary(CreateKeyExpression().Compile());
-                cache.Set(cacheKey, cacheData);
-            }
-            return cacheData;
         }
 
         /// <summary>

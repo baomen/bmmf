@@ -14,7 +14,7 @@ namespace BaoMen.MultiMerchant.Merchant.BusinessLogic
     /// <summary>
     /// 商户用户业务逻辑接口
     /// </summary>
-    public interface IUserManager : ICacheableBusinessLogic<string,User,UserFilter>, Util.IGetNameManager<string>
+    public interface IUserManager : ICacheableBusinessLogic<string, User, UserFilter>, Util.IGetNameManager<string>
     {
         /// <summary>
         /// 获取用户令牌
@@ -68,18 +68,34 @@ namespace BaoMen.MultiMerchant.Merchant.BusinessLogic
         User GetById(string id);
 
         /// <summary>
+        /// 根据手机号码查询用户
+        /// </summary>
+        /// <param name="merchantId">商户ID</param>
+        /// <param name="mobile">手机号码</param>
+        /// <returns></returns>
+        User GetByMobile(string merchantId, string mobile);
+
+        /// <summary>
         /// 根据手机号码查询用户，直接查询数据库，不走缓存
         /// </summary>
-        /// <param name="mobile"></param>
+        /// <param name="mobile">手机号码</param>
         /// <returns></returns>
-        User GetByMobile(string mobile);
+        ICollection<User> GetListByMobile(string mobile);
+
+        /// <summary>
+        /// 根据微信小程序OpenId查询用户
+        /// </summary>
+        /// <param name="merchantId">商户ID</param>
+        /// <param name="openId">微信小程序OpenID</param>
+        /// <returns></returns>
+        User GetByWechatMpOpenId(string merchantId, string openId);
 
         /// <summary>
         /// 根据微信小程序OpenId查询用户，直接查询数据库，不走缓存
         /// </summary>
-        /// <param name="openId"></param>
+        /// <param name="openId">微信小程序OpenId</param>
         /// <returns></returns>
-        User GetByWechatMpOpenId(string openId);
+        ICollection<User> GetListByWechatMpOpenId(string openId);
 
         /// <summary>
         /// 修改头像

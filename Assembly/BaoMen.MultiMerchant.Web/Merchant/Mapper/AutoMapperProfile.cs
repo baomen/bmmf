@@ -30,13 +30,13 @@ namespace BaoMen.MultiMerchant.Web.Merchant.Mapper
             CreateMap<Models.DeleteMerchant, Entity.Merchant>();
 
             CreateMap<Entity.User, Models.User>()
-                .ForMember(dest => dest.MerchantName, opt => opt.ConvertUsing<KeyToNameConverter<string, IMerchantManager>, string>(src => src.MerchantId))
-                .ForMember(dest => dest.ModuleIds, opt => opt.MapFrom(src => src.Roles.SelectMany(role => role.Modules, (p, q) => q.Id).Distinct().ToList()));
+                .ForMember(dest => dest.MerchantName, opt => opt.ConvertUsing<KeyToNameConverter<string, IMerchantManager>, string>(src => src.MerchantId));
             CreateMap<Entity.User, Models.UserDetail>()
                 .IncludeBase<Entity.User, Models.User>()
                 //.ForMember(dest => dest.RoleIds, opt => opt.MapFrom(src => src.Roles.Select(p => p.Id)));
                 .ForMember(dest => dest.RoleIds, opt => opt.MapFrom(src => src.Roles))
-                .ForMember(dest => dest.DepartmentIds, opt => opt.MapFrom(src => src.Departments.Select(p => p.Id).ToList()));
+                .ForMember(dest => dest.DepartmentIds, opt => opt.MapFrom(src => src.Departments.Select(p => p.Id).ToList()))
+                .ForMember(dest => dest.ModuleIds, opt => opt.MapFrom(src => src.Roles.SelectMany(role => role.Modules, (p, q) => q.Id).Distinct().ToList()));
             CreateMap<Models.CreateUser, Entity.User>()
                 .ForMember(dest => dest.Roles, opt => opt.MapFrom(src => src.RoleIds))
                 .ForMember(dest => dest.Departments, opt => opt.MapFrom(src => src.DepartmentIds.Select(p => new Entity.Department { Id = p })));

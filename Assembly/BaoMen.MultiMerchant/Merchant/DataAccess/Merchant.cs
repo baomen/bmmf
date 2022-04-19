@@ -196,5 +196,24 @@ namespace BaoMen.MultiMerchant.Merchant.DataAccess
             }
             return 1;
         }
+
+        /// <summary>
+        /// 根据商户用户手机号查询商户列表
+        /// </summary>
+        /// <param name="mobile">商户用户手机号</param>
+        internal ICollection<Entity.Merchant> GetListByMobile(string mobile)
+        {
+            return ProcessSelect(log =>
+            {
+                log.Properties[nameof(mobile)] = mobile;
+                DapperCommand command = new DapperCommand
+                {
+                    CommandText = $"select * from {TableName} where exists(select 1 from mch_user where Mobile=@Mobile and mch_user.MerchantId={TableName}.Id)",
+                    Parameters = new { Mobile = mobile }
+                };
+                IDbConnection connection = CreateConnection();
+                return connection.Query<Entity.Merchant>(command).AsList();
+            });
+        }
     }
 }

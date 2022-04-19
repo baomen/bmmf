@@ -119,6 +119,19 @@ namespace BaoMen.MultiMerchant.Merchant.BusinessLogic
         {
             return Get(key)?.Name;
         }
+
+        /// <summary>
+        /// 根据商户用户手机号查询商户列表
+        /// </summary>
+        /// <param name="mobile">商户用户手机号</param>
+        public ICollection<Entity.Merchant> GetListByMobile(string mobile)
+        {
+            return ProcessSelect(log =>
+            {
+                log.Properties[nameof(mobile)] = mobile;
+                return dal.GetListByMobile(mobile);
+            });
+        }
     }
     #endregion
 }

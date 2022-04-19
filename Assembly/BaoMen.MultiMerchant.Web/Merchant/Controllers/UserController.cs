@@ -79,7 +79,7 @@ namespace BaoMen.MultiMerchant.Web.Merchant.Controllers
         /// <param name="filter">过滤器</param>
         /// <returns></returns>
         [HttpGet]
-        public virtual ResponseData<int> GetListCount([FromQuery]Entity.UserFilter filter)
+        public virtual ResponseData<int> GetListCount([FromQuery] Entity.UserFilter filter)
         {
             return DoGetListCount(filter);
         }
@@ -90,7 +90,7 @@ namespace BaoMen.MultiMerchant.Web.Merchant.Controllers
         /// <param name="filter"></param>
         /// <returns></returns>
         [HttpGet]
-        public ResponseData<ICollection<TextValue<string>>> GetOptions([FromQuery]Entity.UserFilter filter)
+        public ResponseData<ICollection<TextValue<string>>> GetOptions([FromQuery] Entity.UserFilter filter)
         {
             filter.Status = 1;
             return DoGetList<TextValue<string>>(filter);
@@ -114,7 +114,7 @@ namespace BaoMen.MultiMerchant.Web.Merchant.Controllers
                 }
                 else
                 {
-                    Entity.User user = manager.GetByMobile(mobile);
+                    Entity.User user = manager.GetByMobile(merchantService.MerchantId, mobile);
                     responseData.Data = user == null;
                 }
             }

@@ -22,6 +22,12 @@ namespace BaoMen.MultiMerchant.Merchant.BusinessLogic
         /// </summary>
         /// <param name="types">业务逻辑的类型</param>
         void RemoveAllCache(params Type[] types);
+
+        /// <summary>
+        /// 根据商户用户手机号查询商户列表
+        /// </summary>
+        /// <param name="mobile">商户用户手机号</param>
+        ICollection<Entity.Merchant> GetListByMobile(string mobile);
     }
     #endregion
 }

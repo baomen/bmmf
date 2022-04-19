@@ -3,20 +3,18 @@ Author: WangXinBin
 CreateTime: 2019/10/23 11:51:58
 */
 
-using Microsoft.Extensions.Configuration;
-using BaoMen.MultiMerchant.Merchant.Entity;
-using BaoMen.Common.Data;
-using System;
-using Microsoft.Extensions.DependencyInjection;
-using System.Linq;
-using BaoMen.Common.Extension;
 using BaoMen.Common.Constant;
-using BaoMen.Common.Model;
-using System.Data;
-using System.Collections.Generic;
-using System.Text;
+using BaoMen.Common.Data;
+using BaoMen.Common.Extension;
+using BaoMen.MultiMerchant.Merchant.Entity;
 using Microsoft.AspNetCore.Http;
-using System.IO;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Text;
 
 namespace BaoMen.MultiMerchant.Merchant.BusinessLogic
 {
@@ -26,18 +24,11 @@ namespace BaoMen.MultiMerchant.Merchant.BusinessLogic
     /// </summary>
     public partial class UserManager : Util.MerchantCacheableBusinessLogicBase<string, User, UserFilter, DataAccess.User>, IUserManager
     {
+        private readonly IMerchantManager merchantManager;
         private readonly IRoleManager roleManager;
         private readonly UserRoleManager userRoleManager;
         private readonly UserDepartmentManager userDepartmentManager;
         private readonly UserTokenManager userTokenManager;
-
-        private readonly IMerchantManager merchantManager;
-
-        /// <summary>
-        /// 商户用户对应关系表业务逻辑
-        /// </summary>
-        private readonly UserMerchantManager userMerchantManager;
-
         private IOperateHistoryManager operateHistoryManager;
         private readonly IParameterManager parameterManager;
         private static readonly char[] passwordConstant = {
@@ -53,15 +44,13 @@ namespace BaoMen.MultiMerchant.Merchant.BusinessLogic
         /// <param name="serviceProvider">服务提供程序</param>
         public UserManager(IConfiguration configuration, IServiceProvider serviceProvider) : base(configuration, serviceProvider)
         {
+            merchantManager = serviceProvider.GetRequiredService<IMerchantManager>();
             roleManager = serviceProvider.GetRequiredService<IRoleManager>();
             parameterManager = serviceProvider.GetRequiredService<IParameterManager>();
             operateHistoryManager = serviceProvider.GetRequiredService<IOperateHistoryManager>();
             userRoleManager = serviceProvider.GetRequiredService<UserRoleManager>();
             userDepartmentManager = serviceProvider.GetRequiredService<UserDepartmentManager>();
             userTokenManager = serviceProvider.GetRequiredService<UserTokenManager>();
-            userMerchantManager = serviceProvider.GetRequiredService<UserMerchantManager>();
-
-            merchantManager = serviceProvider.GetRequiredService<IMerchantManager>();
 
         }
 
@@ -154,19 +143,6 @@ namespace BaoMen.MultiMerchant.Merchant.BusinessLogic
                     rows += userDepartmentManager.Dal.Insert(userDepartment, transaction);
                 }
             }
-            List<UserMerchant> userMerchants;
-            if (item.Merchants?.Count > 0)
-            {
-                userMerchants = item.Merchants.Select(p => new UserMerchant { UserId = item.Id, MerchantId = p.Id }).ToList();
-            }
-            else
-            {
-                userMerchants = new List<UserMerchant> { new UserMerchant { UserId = item.Id, MerchantId = item.MerchantId } };
-            }
-            foreach (UserMerchant userMerchant in userMerchants)
-            {
-                rows += userMerchantManager.Dal.Insert(userMerchant, transaction);
-            }
             rows += userTokenManager.Dal.Insert(new UserToken { UserId = item.Id, MerchantId = item.MerchantId, Expires = item.CreateTime, Token = Guid.NewGuid().ToString("N") }, transaction);
             return rows;
         }
@@ -182,7 +158,6 @@ namespace BaoMen.MultiMerchant.Merchant.BusinessLogic
             int rows = userRoleManager.Dal.Delete(item.Id, transaction);
             rows += userDepartmentManager.Dal.Delete(item.Id, transaction);
             rows += userTokenManager.Dal.Delete(new UserToken { UserId = item.Id }, transaction);
-            rows += userMerchantManager.Dal.DeleteByUser(item.Id, transaction);
             return rows;
         }
 
@@ -344,12 +319,19 @@ namespace BaoMen.MultiMerchant.Merchant.BusinessLogic
         /// <param name="item"></param>
         protected override void AppendExtention(User item)
         {
-            item.Roles = userRoleManager.GetList(new UserRoleFilter { UserId = item.Id }).Select(p => roleManager.Get(p.RoleId)).Where(p => p != null).ToList();
-            IDepartmentManager departmentManager = serviceProvider.GetRequiredService<IDepartmentManager>();
-            ICollection<UserDepartment> userDepartments = userDepartmentManager.GetList(new UserDepartmentFilter { UserId = item.Id });
-            item.Departments = userDepartments.Select(p => departmentManager.Get(p.DepartmentId)).ToList();
-            ICollection<Entity.Merchant> merchants = merchantManager.GetList();
-            item.Merchants = userMerchantManager.GetList(new UserMerchantFilter { UserId = item.Id }).Select(p => merchants.FirstOrDefault(q => p.MerchantId == q.Id)).ToList();
+            //item.Roles = userRoleManager.GetList(new UserRoleFilter { UserId = item.Id }).Select(p => roleManager.Get(p.RoleId)).Where(p => p != null).ToList();
+            //IDepartmentManager departmentManager = serviceProvider.GetRequiredService<IDepartmentManager>();
+            //ICollection<UserDepartment> userDepartments = userDepartmentManager.GetList(new UserDepartmentFilter { UserId = item.Id });
+            //item.Departments = userDepartments.Select(p => departmentManager.Get(p.DepartmentId)).ToList();
+
+            RoleManager roleManager = this.roleManager as RoleManager;
+            DepartmentManager departmentManager = serviceProvider.GetRequiredService<IDepartmentManager>() as DepartmentManager;
+            item.Roles = userRoleManager.GetCacheData(item.MerchantId).Values.Where(p => p.UserId == item.Id)
+                .Select(p => roleManager.GetCacheData(item.MerchantId).Values.FirstOrDefault(q => q.Id == p.RoleId))
+                .Where(p => p != null).ToList();
+            item.Departments = userDepartmentManager.GetCacheData(item.MerchantId).Values.Where(p => p.UserId == item.Id)
+                .Select(p => departmentManager.GetCacheData(item.MerchantId).Values.FirstOrDefault(q => q.Id == p.DepartmentId))
+                .Where(p => p != null).ToList();
         }
 
         /// <summary>
@@ -359,7 +341,6 @@ namespace BaoMen.MultiMerchant.Merchant.BusinessLogic
         {
             userRoleManager.RemoveCache();
             userDepartmentManager.RemoveCache();
-            userMerchantManager.RemoveCache();
             base.RemoveCache();
         }
 
@@ -386,9 +367,24 @@ namespace BaoMen.MultiMerchant.Merchant.BusinessLogic
         /// <summary>
         /// 根据手机号码查询用户，直接查询数据库，不走缓存
         /// </summary>
+        /// <param name="mobile">手机号码</param>
+        /// <returns></returns>
+        public ICollection<User> GetListByMobile(string mobile)
+        {
+            return ProcessSelect(log =>
+            {
+                log.Properties[nameof(mobile)] = mobile;
+                return dal.GetList(new UserFilter { Mobile = mobile }).Select(p => GetByMobile(p.MerchantId, p.Mobile)).ToList();
+            });
+        }
+
+        /// <summary>
+        /// 根据手机号码查询用户，直接查询数据库，不走缓存
+        /// </summary>
+        /// <param name="merchantId">商户ID</param>
         /// <param name="mobile"></param>
         /// <returns></returns>
-        public User GetByMobile(string mobile)
+        public User GetByMobile(string merchantId, string mobile)
         {
             return ProcessSelect(() =>
             {
@@ -396,8 +392,7 @@ namespace BaoMen.MultiMerchant.Merchant.BusinessLogic
                 {
                     throw new ArgumentException("invalid mobile");
                 }
-                UserFilter userFilter = new UserFilter { Mobile = mobile };
-                return dal.GetList(userFilter).FirstOrDefault();
+                return GetCacheData(merchantId).Values.FirstOrDefault(p => p.Mobile == mobile);
             }, (log) =>
             {
                 log.Properties[nameof(mobile)] = mobile;
@@ -405,11 +400,12 @@ namespace BaoMen.MultiMerchant.Merchant.BusinessLogic
         }
 
         /// <summary>
-        /// 根据微信小程序OpenId查询用户，直接查询数据库，不走缓存
+        /// 根据微信小程序OpenId查询用户
         /// </summary>
-        /// <param name="openId"></param>
+        /// <param name="merchantId">商户ID</param>
+        /// <param name="openId">微信小程序OpenId</param>
         /// <returns></returns>
-        public User GetByWechatMpOpenId(string openId)
+        public User GetByWechatMpOpenId(string merchantId, string openId)
         {
             return ProcessSelect(() =>
             {
@@ -417,11 +413,24 @@ namespace BaoMen.MultiMerchant.Merchant.BusinessLogic
                 {
                     throw new ArgumentNullException("openId");
                 }
-                UserFilter userFilter = new UserFilter { WechatMpOpenId = openId };
-                return dal.GetList(userFilter).FirstOrDefault();
+                return GetCacheData(merchantId).Values.FirstOrDefault(p => p.WechatMpOpenId == openId);
             }, (log) =>
             {
                 log.Properties[nameof(openId)] = openId;
+            });
+        }
+
+        /// <summary>
+        /// 根据微信小程序OpenId查询用户，直接查询数据库，不走缓存
+        /// </summary>
+        /// <param name="openId">微信小程序OpenId</param>
+        /// <returns></returns>
+        public ICollection<User> GetListByWechatMpOpenId(string openId)
+        {
+            return ProcessSelect(log =>
+            {
+                log.Properties[nameof(openId)] = openId;
+                return dal.GetList(new UserFilter { WechatMpOpenId = openId }).Select(p => GetByWechatMpOpenId(p.MerchantId, p.WechatMpOpenId)).ToList();
             });
         }
 
@@ -476,9 +485,9 @@ namespace BaoMen.MultiMerchant.Merchant.BusinessLogic
                 }
                 return affectRows;
             }, (log) =>
-             {
-                 log.Properties[nameof(item)] = item;
-             });
+            {
+                log.Properties[nameof(item)] = item;
+            });
         }
 
         /// <summary>

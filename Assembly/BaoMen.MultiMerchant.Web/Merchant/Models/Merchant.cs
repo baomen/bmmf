@@ -168,4 +168,24 @@ namespace BaoMen.MultiMerchant.Web.Merchant.Models
         /// </summary>
         public string StatusName { get; set; }
     }
+
+    /// <summary>
+    /// 获取用户商户请求参数
+    /// </summary>
+    public class UserMerchantRequest
+    {
+        /// <summary>
+        /// 手机号码
+        /// </summary>
+        [Required]
+        [StringLength(11, MinimumLength = 11)]
+        public string Mobile { get; set; }
+
+        /// <summary>
+        /// 密码
+        /// </summary>
+        [Required]
+        [StringLength(20, MinimumLength = 6)]
+        public string Password { get; set; }
+    }
 }

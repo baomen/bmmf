@@ -135,7 +135,9 @@ namespace BaoMen.MultiMerchant.Merchant.BusinessLogic
         protected override void AppendExtention(Role item)
         {
             item.Merchant = merchantManager.Get(item.MerchantId);
-            item.Modules = roleModuleManager.GetList(new RoleModuleFilter { RoleId = item.Id }).Select(p => moduleManager.Get(p.ModuleId)).ToList();
+            //item.Modules = roleModuleManager.GetList(new RoleModuleFilter { RoleId = item.Id }).Select(p => moduleManager.Get(p.ModuleId)).ToList();
+            item.Modules = roleModuleManager.GetCacheData(item.MerchantId).Values.Where(p => p.RoleId == item.Id)
+                .Select(p => moduleManager.Get(p.ModuleId)).Where(p => p != null).ToList();
         }
 
         /// <summary>
