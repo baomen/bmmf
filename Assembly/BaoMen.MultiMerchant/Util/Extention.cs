@@ -64,6 +64,8 @@ namespace BaoMen.MultiMerchant.Util
 
             services.AddSingleton<BaoMen.WeChat.MiniProgram.Provider.BasicProvider>();
             services.AddSingleton<WeChat.MiniProgram.Proxy.BasicProxy>();
+            services.AddSingleton<BaoMen.WeChat.MiniProgram.Provider.SubscribeMessageProvider>();
+            services.AddSingleton<WeChat.MiniProgram.Proxy.SubscribeMessageProxy>();
             services.AddSingleton<WeChat.MiniProgram.BusinessLogic.IAppAccessTokenManager, WeChat.MiniProgram.BusinessLogic.AppAccessTokenManager>();
             #endregion
 

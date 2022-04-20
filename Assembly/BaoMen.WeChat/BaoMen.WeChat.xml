@@ -281,6 +281,154 @@
             out_trade_no string 否   微信支付商户订单号，和商户号配合使用
             </summary>
         </member>
+        <member name="T:BaoMen.WeChat.MiniProgram.Client.Message.UniformMessageSendRequest">
+            <summary>
+            发送统一服务消息请求数据
+            </summary>
+            <remarks>
+            属性 类型  默认值 必填  说明
+            access_token / cloudbase_access_token string 是   接口调用凭证
+            touser string 是   用户openid，可以是小程序的openid，也可以是mp_template_msg.appid对应的公众号的openid
+            weapp_template_msg Object 否   小程序模板消息相关的信息，可以参考小程序模板消息接口; 有此节点则优先发送小程序模板消息；（小程序模板消息已下线，不用传此节点）
+            mp_template_msg Object      是 公众号模板消息相关的信息，可以参考公众号模板消息接口；有此节点并且没有weapp_template_msg节点时，发送公众号模板消息
+            </remarks>
+        </member>
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.Message.UniformMessageSendRequest.ToUser">
+            <summary>
+            必填。用户openid，可以是小程序的openid，也可以是mp_template_msg.appid对应的公众号的openid
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.Message.UniformMessageSendRequest.MpTemplateMessage">
+            <summary>
+            必填。公众号模板消息相关的信息，可以参考公众号模板消息接口；有此节点并且没有weapp_template_msg节点时，发送公众号模板消息
+            </summary>
+        </member>
+        <member name="T:BaoMen.WeChat.MiniProgram.Client.Message.WeappTemplateMessage">
+            <summary>
+            小程序模板消息相关的信息
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.Message.WeappTemplateMessage.TemplateId">
+            <summary>
+            必填。小程序模板ID
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.Message.WeappTemplateMessage.Page">
+            <summary>
+            必填。小程序页面路径
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.Message.WeappTemplateMessage.FormId">
+            <summary>
+            必填。小程序模板消息formid
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.Message.WeappTemplateMessage.Date">
+            <summary>
+            必填。小程序模板数据
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.Message.WeappTemplateMessage.EmphasisKeyword">
+            <summary>
+            必填。小程序模板放大关键词
+            </summary>
+        </member>
+        <member name="T:BaoMen.WeChat.MiniProgram.Client.Message.MpTemplateMessage">
+            <summary>
+            公众号模板消息相关的信息
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.Message.MpTemplateMessage.AppId">
+            <summary>
+            必填。公众号appid，要求与小程序有绑定且同主体
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.Message.MpTemplateMessage.TemplateId">
+            <summary>
+            必填。公众号模板id
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.Message.MpTemplateMessage.Url">
+            <summary>
+            必填。公众号模板消息所要跳转的url
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.Message.MpTemplateMessage.MiniProgram">
+            <summary>
+            必填。公众号模板消息所要跳转的小程序，小程序的必须与公众号具有绑定关系
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.Message.MpTemplateMessage.Data">
+            <summary>
+            必填。公众号模板消息的数
+            </summary>
+        </member>
+        <member name="T:BaoMen.WeChat.MiniProgram.Client.Message.UniformMessageSendResponse">
+            <summary>
+            发送统一服务消息响应数据
+            </summary>
+        </member>
+        <member name="T:BaoMen.WeChat.MiniProgram.Client.SubscribeMessage.SendRequest">
+            <summary>
+            发送订阅消息请求数据
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.SubscribeMessage.SendRequest.ToUser">
+            <summary>
+            必填。接收者（用户）的 openid
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.SubscribeMessage.SendRequest.TemplateId">
+            <summary>
+            必填。所需下发的订阅模板id
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.SubscribeMessage.SendRequest.Page">
+            <summary>
+            不必填。点击模板卡片后的跳转页面，仅限本小程序内的页面。支持带参数,（示例index? foo = bar）。该字段不填则模板无跳转。
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.SubscribeMessage.SendRequest.Data">
+            <summary>
+            模板内容，格式形如 { "key1": { "value": any}, "key2": { "value": any} }
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.SubscribeMessage.SendRequest.MiniProgramState">
+            <summary>
+            不必填。跳转小程序类型：developer为开发版；trial为体验版；formal为正式版；默认为正式版
+            </summary>
+        </member>
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.SubscribeMessage.SendRequest.Lang">
+            <summary>
+            不必填。进入小程序查看”的语言类型，支持zh_CN(简体中文)、en_US(英文)、zh_HK(繁体中文)、zh_TW(繁体中文)，默认为zh_CN
+            </summary>
+        </member>
+        <member name="T:BaoMen.WeChat.MiniProgram.Client.SubscribeMessage.SendRequest.ValueProperty">
+            <summary>
+            数据的值
+            </summary>
+        </member>
+        <member name="M:BaoMen.WeChat.MiniProgram.Client.SubscribeMessage.SendRequest.ValueProperty.#ctor">
+            <summary>
+            默认构造函数
+            </summary>
+        </member>
+        <member name="M:BaoMen.WeChat.MiniProgram.Client.SubscribeMessage.SendRequest.ValueProperty.#ctor(System.Object)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="value">值</param>
+        </member>
+        <member name="P:BaoMen.WeChat.MiniProgram.Client.SubscribeMessage.SendRequest.ValueProperty.Value">
+            <summary>
+            值
+            </summary>
+        </member>
+        <member name="T:BaoMen.WeChat.MiniProgram.Client.SubscribeMessage.SendResponse">
+            <summary>
+            发送订阅消息响应数据
+            </summary>
+        </member>
         <member name="T:BaoMen.WeChat.MiniProgram.Provider.BaseProvider">
             <summary>
             处理程序基类
@@ -378,6 +526,22 @@
             </summary>
             <param name="request">请求数据</param>
             <typeparam name="T">解密后的数据类型</typeparam>
+            <returns></returns>
+        </member>
+        <member name="T:BaoMen.WeChat.MiniProgram.Provider.SubscribeMessageProvider">
+            <summary>
+            订阅消息处理程序
+            </summary>
+        </member>
+        <member name="M:BaoMen.WeChat.MiniProgram.Provider.SubscribeMessageProvider.#ctor">
+            <summary>
+            构造函数
+            </summary>
+        </member>
+        <member name="M:BaoMen.WeChat.MiniProgram.Provider.SubscribeMessageProvider.Send(BaoMen.WeChat.MiniProgram.Client.SubscribeMessage.SendRequest)">
+            <summary>
+            获取小程序全局唯一后台接口调用凭据（access_token）。
+            </summary>
             <returns></returns>
         </member>
         <member name="T:BaoMen.WeChat.Open.Client.Request.BaseRequest">

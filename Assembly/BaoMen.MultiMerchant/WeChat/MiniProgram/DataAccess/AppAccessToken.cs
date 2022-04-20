@@ -135,7 +135,7 @@ namespace BaoMen.MultiMerchant.WeChat.MiniProgram.DataAccess
             return ProcessUpdate(() =>
             {
                 string sql = $"INSERT INTO {TableName} (AppId,MerchantId,AccessToken,ExpiresIn,CreateTime,ExpiresTime) VALUES (@AppId,@MerchantId,@AccessToken,@ExpiresIn,@CreateTime,@ExpiresTime)";
-                sql += $" ON DUPLICATE KEY UPDATE AccessToken=@AccessToken,@CreateTime=CreateTime,ExpiresIn=@ExpiresIn,ExpiresTime=@ExpiresTime";
+                sql += $" ON DUPLICATE KEY UPDATE AccessToken=@AccessToken,ExpiresIn=@ExpiresIn,CreateTime=@CreateTime,ExpiresTime=@ExpiresTime";
                 DapperCommand command = new DapperCommand
                 {
                     CommandText = sql,
