@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30204.135
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32414.318
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assembly", "Assembly", "{3904C3FC-96AA-41DF-BE9B-A8A4A673E6C9}"
 EndProject
@@ -19,12 +19,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaoMen.Amap", "Assembly\Bao
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaoMen.AliYun", "Assembly\BaoMen.AliYun\BaoMen.AliYun.csproj", "{60B8BDA6-FC8F-44C1-AB43-57A6460E3947}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "BaoMen.Common", "..\..\bmf\bmf\src\Assembly\BaoMen.Common\BaoMen.Common.shproj", "{7A3A71CD-EC79-4319-AD22-89A5AD2F3D5D}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "BaoMen.Common", "..\..\bmf\bmf\src\Assembly\BaoMen.Common\BaoMen.Common.shproj", "{AE6292C5-FBFE-48CE-9E9B-2B683EB6A119}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		..\..\bmf\bmf\src\Assembly\BaoMen.Common\BaoMen.Common.projitems*{7a3a71cd-ec79-4319-ad22-89a5ad2f3d5d}*SharedItemsImports = 13
 		..\..\bmf\bmf\src\Assembly\BaoMen.Common\BaoMen.Common.projitems*{9f7e2bcd-7949-476d-aa0d-413eb6867f62}*SharedItemsImports = 5
+		..\..\bmf\bmf\src\Assembly\BaoMen.Common\BaoMen.Common.projitems*{ae6292c5-fbfe-48ce-9e9b-2b683eb6a119}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -66,7 +66,7 @@ Global
 		{4B824597-9E5A-4E3C-A54F-D4C2F84EFFB0} = {46D912CE-6AB0-4EC6-A937-6E989571AA76}
 		{42145329-382B-4A59-9EA1-E8E9786B0192} = {3904C3FC-96AA-41DF-BE9B-A8A4A673E6C9}
 		{60B8BDA6-FC8F-44C1-AB43-57A6460E3947} = {3904C3FC-96AA-41DF-BE9B-A8A4A673E6C9}
-		{7A3A71CD-EC79-4319-AD22-89A5AD2F3D5D} = {3904C3FC-96AA-41DF-BE9B-A8A4A673E6C9}
+		{AE6292C5-FBFE-48CE-9E9B-2B683EB6A119} = {3904C3FC-96AA-41DF-BE9B-A8A4A673E6C9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FFEDABD8-5D02-4D3C-A397-8870D922EE3D}
